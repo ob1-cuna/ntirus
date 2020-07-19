@@ -1,3 +1,2 @@
-# Ntirus
-
-<p> Projecto desenvolvido por [Anacleto Cuna](https://twitter.com/vnvcleto "Página do Twitter de Anacleto Cuna"), para publicação e pesquisa de Trabalhos Autónomos.
+## Ntirus
+Aplicação Web desenvolvida por **[Anacleto Cuna](http://www.twitter.com/vnvcleto/ "@vnvcleto")** para **Publicação e Pesquisa de Trabalhos Autónomos**, como requisito parcial para obtenção de grau de licenciatura em **Eng. Informática** pela **Universidade Zambeze**.
