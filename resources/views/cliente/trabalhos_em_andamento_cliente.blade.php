@@ -1,0 +1,145 @@
+@extends('cliente.layouts.app')
+@section('title', 'Trabalhos Abertos' )
+@section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
+@section('content')
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-9">
+            @foreach($trabalhos as $trabalho)
+            <div class="main-card card">
+                <div class="card-body"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}"><h5 class="card-title">{{ $trabalho->nome_trabalho }}</h5></a>
+                    <h6 class="card-subtitle">
+                        Freelancer: <a href="/f/{{$trabalho->freelancer['id']}}">{{ $trabalho->freelancer['name']}}</a>
+                    </h6>
+                    <div class="row">
+                        <div class="col-sm-6 col-xl-3">
+                            <p>Prazo: <b>{{ Carbon::parse($trabalho->data_aceite)->format('d/M/Y') }}</b></p>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <p>Preço: <b>{{ number_format($trabalho->preco_final, 2 ) }} MTs</b> </p>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <p>Tipo: <b>{{ $trabalho->tipo }}</b></p>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <p>Estado:
+                                @switch($trabalho->status)
+                                    @case('Em Andamento')
+                                        <b>Em Execucao</b>
+                                    @break
+
+                                    @case('AguardandoAC')
+                                        <b>Aguardar Aprovacao</b>
+                                    @break
+
+                                    @case('Aprovado')
+                                        <b>Pagamento Pendente</b>
+                                    @break
+
+                                    @case('Recusado')
+                                        <b>Recusado</b>
+                                    @break
+
+                                    @default
+                                    Ups falhaste em algum lugar...
+                                @endswitch
+                            </p>
+                        </div>
+                    </div>
+                    <a href="#" class="btn btn-warning">
+                        Ver Proposta
+                    </a>
+                </div>
+                <div class="d-block text-right card-footer">
+                    @switch($trabalho->status)
+                        @case('Em Andamento')
+                            <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalApagarTrabalho{{ $trabalho->id }}">
+                                Cancelar
+                            </button>
+                        @break
+
+                        @case('AguardandoAC')
+
+                            <a href="{{ route('cliente.trabalho.em_andamento.aprovar', ['trabalho' => $trabalho->id]) }}" onclick="event.preventDefault();
+                                document.getElementById('aceitar-trabalho-form').submit();" class="btn btn-outline-success">
+                            <span>Aprovar</span>
+                            </a>
+
+                            <form method="POST" id="aceitar-trabalho-form" action="{{ route('cliente.trabalho.em_andamento.aprovar', ['trabalho' => $trabalho->id]) }}" style="display: none;">
+                                @csrf
+                            </form>
+
+                            <a href="{{ route('cliente.trabalho.em_andamento.rejeitar', ['trabalho' => $trabalho->id]) }}" onclick="event.preventDefault();
+                                document.getElementById('rejeitar-trabalho-form').submit();" class="btn btn-outline-danger">
+                            <span>Rejeitar</span>
+                            </a>
+
+                            <form method="POST" id="rejeitar-trabalho-form" action="{{ route('cliente.trabalho.em_andamento.rejeitar', ['trabalho' => $trabalho->id]) }}" style="display: none;">
+                                @csrf
+                            </form>
+
+                        @break
+                        @case('Aprovado')
+                            <a href="#" class="btn btn-outline-secondary">Efectuar Pagamento</a>
+                        @break
+
+                        @case('Recusado')
+                        <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalApagarTrabalho{{ $trabalho->id }}">
+                            Cancelar
+                        </button>
+                        @break
+
+                        @default
+                        Ups falhaste em algum lugar...
+                    @endswitch
+                </div>
+            </div>
+                <br>
+            @endforeach
+        </div>
+
+
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+            <div class="main-card card">
+                <div class="card-body"><h5 class="card-title">NOVA</h5>
+                    <h6 class="card-subtitle">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit
+                    </h6>
+                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis eni</p>
+                </div>
+            </div>
+            <br>
+        </div>
+    </div>
+
+@endsection
+
+@section('meus_modals')
+    @foreach($trabalhos as $trabalho)
+    <div class="modal fade" id="modalApagarTrabalho{{ $trabalho->id }}" tabindex="-1" role="dialog" aria-labelledby="modalApagarTrabalho{{ $trabalho->id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalApagarTrabalho{{ $trabalho->id }}Label">Cancelar Trabalho</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0">
+                        Tem certeza que deseja cancelar o <b>{{ $trabalho->nome_trabalho }}</b>?
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+                    <form method="post" action="{{ route('cliente.trabalho.em_andamento.cancelar', ['trabalho' => $trabalho->id]) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">SIM, TENHO</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @endforeach
+@endsection

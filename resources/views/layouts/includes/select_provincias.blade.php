@@ -1,0 +1,10 @@
+<option value="Maputo">Maputo</option>
+<option value="Gaza">Gaza</option>
+<option value="Inhambane">Inhambane</option>
+<option value="Sofala">Sofala</option>
+<option value="Manica">Manica</option>
+<option value="Tete">Tete</option>
+<option value="Zambezia">Zambezia</option>
+<option value="Nampula">Nampula</option>
+<option value="Lichinga">Lichinga</option>
+<option value="Cabo Delgado">Cabo Delgado</option>
