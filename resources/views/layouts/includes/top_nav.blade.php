@@ -138,7 +138,7 @@
 
                                         </li>
                                         <li class="nav-item">
-                                            <a href="javascript:void(0);" class="nav-link">Definições da Conta</a>
+                                            <a href="#" class="nav-link">Definições da Conta</a>
                                         </li>
                                     </ul>
                                 </div>

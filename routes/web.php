@@ -12,6 +12,10 @@ Route::get('/home', function () {
     return view('home');
 });
 
+Route::get('/nav', function () {
+    return view('paginas_de_testes.nav-teste');
+});
+
 
 //PAGINAS VISIVEIS COM OU SEM LOGIN
 Route::get('/freelancers/','UserController@ListarUsuariosCategoria')->name('freelancers');

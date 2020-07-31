@@ -23,7 +23,7 @@ class TrabalhoController extends Controller
     {
        $trabalhos = Trabalho::where('status', 'Aberto')->get();    // status=0 (pode-se concorrer)
                                                             // =1 (activo) =2 (terminado) =3 (cancelado)
-       return view('trabalhos.todos_trabalhos_list', compact('trabalhos'));
+       return view('trabalhos.todos_trabalhos_list_v2', compact('trabalhos'));
     }
 
 

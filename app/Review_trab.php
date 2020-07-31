@@ -11,4 +11,9 @@ class Review_trab extends Model
     {
         return $this->belongsTo(Trabalho::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'avaliado_id', 'id');
+    }
 }

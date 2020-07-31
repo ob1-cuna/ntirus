@@ -71,6 +71,7 @@ class UserController extends Controller
                 function ($query){
                 $query->where('slug', request()->slug);})->get();
                 $habilidades = Habilidade::with('users')->get();
+
         }
 
         else
@@ -78,11 +79,10 @@ class UserController extends Controller
             $users = User::with('habilidades')->where([
                 ['is_permission', '=', '0'],
                 ['status', '=', '1'],])->get();
-
             $habilidades = Habilidade::with('users')->get();
         }
 
-        return view('paginas_de_testes.listar_usuarios', compact(['users','habilidades']));
+        return view('paginas_de_testes.freelancers_v2', compact(['users','habilidades']));
 
     }
 

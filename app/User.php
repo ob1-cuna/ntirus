@@ -45,6 +45,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->morphMany(Imagem::class, 'imagemable');
     }
 
+    public function review_trabs ()
+    {
+        return $this->hasMany(Review_trab::class, 'avaliado_id', 'id');
+    }
+
 
     protected $fillable = [
         'name', 'email', 'password', 'd_nascimento', 'is_permission',
