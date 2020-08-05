@@ -27,11 +27,12 @@
                                                 <span></span>
                                             </h4>
                                         </div>
-                                        <form method="POST" action="{{ route('login') }}" class="">
+                                        <form method="POST" action="{{ route('login') }}" class="" id="formulario-de-login">
                                             @csrf
                                             <div class="form-row">
                                                 <div class="col-md-12">
                                                     <div class="position-relative form-group">
+                                                        <label for="email" style="display: none">Email</label>
 														<input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Email">
 															@error('email')
 																<span class="invalid-feedback" role="alert">
@@ -42,6 +43,7 @@
                                                 </div>
                                                 <div class="col-md-12">
                                                     <div class="position-relative form-group">
+                                                        <label for="password" style="display: none;">Password</label>
 														<input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="Password">
 															@error('password')
 																<span class="invalid-feedback" role="alert">
@@ -57,15 +59,19 @@
 														{{ __('Manter-me logado') }}
 													</label>
 											</div>
-                                        
+                                        </form>
                                         <div class="divider"></div>
                                         <h6 class="mb-0">Não tem uma conta? <a href="#" class="text-primary">Cadastre-se</a></h6>
                                     </div>
                                     <div class="modal-footer clearfix">
                                         <div class="float-left"><a href="#" class="btn-lg btn btn-link">Recuperar senha</a></div>
                                         <div class="float-right">
-                                            <button class="btn btn-primary btn-lg">{{ __('Entrar') }}</button>
-											</form>
+
+                                            <a href="{{ route('login') }}" onclick="event.preventDefault();
+                                                document.getElementById('formulario-de-login').submit();" class="btn btn-primary btn-lg">
+                                                <span>{{ __('Entrar') }}</span>
+                                            </a>
+
                                         </div>
                                     </div>
                                 </div>

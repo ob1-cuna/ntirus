@@ -1,4 +1,4 @@
-@extends('layouts.appv3')
+@extends('layouts.app_paginas_gerais')
 @section('title', "$trabalho->nome_trabalho")
 @section('content')
     <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">

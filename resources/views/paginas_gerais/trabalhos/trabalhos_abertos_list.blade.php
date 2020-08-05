@@ -1,4 +1,4 @@
-@extends('layouts.appv3')
+@extends('layouts.app_paginas_gerais')
 @section('title', 'Trabalhos')
 @section('content')
     <div class="clearfix"></div>
@@ -130,7 +130,7 @@
                     <div class="card">
                         <div class="row no-gutters">
                             <div class="col px-4 py-2">
-                                <div class="card-block py-3 px-3">
+                                <div class="card-block py-3">
                                     <ul class="list-inline">
                                         <li class="list-inline-item align-middle">
                                             <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs" alt="">
@@ -139,45 +139,44 @@
                                     </ul>
                                     <h5 class="bold-medio"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}">{{ $trabalho->nome_trabalho }}</a></h5>
                                     <p>
-                                        {{ Illuminate\Support\Str::limit(strip_tags($trabalho->descricao), 260) }}
+                                        {{ Illuminate\Support\Str::limit(strip_tags($trabalho->descricao), 300) }}
                                     </p>
                                     <ul class="list-inline">
-                                        @foreach($trabalho->habilidades as $habilidade)
+                                        @foreach($trabalho->habilidades->slice(0,4) as $habilidade)
                                             <li class="list-inline-item">
                                                 <a href="" class="btn btn-primary">
                                                     {{ $habilidade->nome }}
                                                 </a>
                                             </li>
                                         @endforeach
-                                        <li class="list-inline-item"><a href="#" class="btn btn-primary disabled">+2</a></li>
+                                        @if (count($trabalho->habilidades) >= 5)
+                                            <li class="list-inline-item"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}" class="btn btn-primary">+{{ count($trabalho->habilidades)-5 }}</a></li>
+                                        @endif
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-auto" style="padding-right: 30px; padding-top: 60px; padding-left: 50px;">
-                                <ul style="list-style: none" class="text-left">
-                                    <li class="list-inline-item py-1">
+                            <div class="col-auto" style="padding-top: 60px; padding-right: 20px;">
+                                    <div class="list-inline-item py-1">
                                         <object type="image/svg+xml" data="{{ asset('images/flag/mz-flag.svg') }}" style="width: 18px; height: 13px" class="mr-3">
                                         </object><b class="bold-medio">Provincia</b>: {{ $trabalho->provincia }}
-                                    </li>
-                                    <li>
+                                    </div>
+                                    <div>
                                         <i class="fa fa-lg fa-folder mr-2 mb-2"></i>
                                         <b class="bold-medio">Tipo: </b>{{ $trabalho->tipo }}
-                                    </li>
-                                    <li>
+                                    </div>
+                                    <div>
                                         <i class="fa fa-lg fa-clock mr-2 mb-2"></i>
                                         <b class="bold-medio">Nivel: </b>{{ $trabalho->nivel }}
-                                    </li>
-                                    <li>
+                                    </div>
+                                    <div>
                                         <i class="fa fa-lg fa-calendar mr-2 mb-4"></i>
                                         <b class="bold-medio">Entrega: </b>{{ Carbon::parse($trabalho->data_prev)->format('d M') }}
-                                    </li>
-                                    <li>
+                                    </div>
+                                    <div>
                                         <a class="mr-2 btn btn-primary btn-lg btn-block" href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}">
                                             Ver Trabalho
                                         </a>
-                                    </li>
-                                </ul>
-
+                                    </div>
                             </div>
                         </div>
                     </div>

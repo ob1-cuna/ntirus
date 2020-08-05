@@ -46,7 +46,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <strong class="wt-logo"><a href="index.html" class="logo-src"><img src="{{ asset('images/logo.png') }}" alt="company logo here"></a></strong>
+                    <strong class="wt-logo"><a href="{{ route('home') }}" class="logo-src"><img src="{{ asset('images/logo.png') }}" alt="company logo here"></a></strong>
                     <div class="wt-rightarea">
                         <nav id="wt-nav" class="wt-nav navbar-expand-lg" style="">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,13 +55,10 @@
                             <div class="collapse navbar-collapse wt-navigation" id="navbarNav">
                                 <ul class="navbar-nav">
                                     <li class="nav-item">
-                                        <a href="">Home</a>
+                                        <a href="{{route('freelancers')}}">Freelancers</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#">Freelancers</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#">Trabalhos</a>
+                                        <a href="{{ route('trabalhos.list') }}">Trabalhos</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#">Como Funciona</a>
@@ -71,8 +68,8 @@
                             </div>
                         </nav>
                         <div class="wt-loginarea">
-                            <a href="#" id="wt-loginbtn" class="btn btn-outline-primary">Entrar</a>
-                            <a href="register.html" class="btn btn-primary">Cadastre-se</a>
+                            <a href="{{ route('login') }}" id="wt-loginbtn" class="btn btn-outline-primary">Entrar</a>
+                            <a href="{{ route('register') }}" class="btn btn-primary">Cadastre-se</a>
                         </div>
                     </div>
                 </div>

@@ -16,7 +16,7 @@ class FreelancerPropostaController extends Controller
      */
     public function fazerProposta (Trabalho $trabalho)
     {
-        return view('trabalhos.concorrer_trabalho', compact('trabalho'));
+        return view('paginas_gerais.trabalhos.concorrer_trabalho', compact('trabalho'));
     }
 
 
@@ -99,7 +99,7 @@ class FreelancerPropostaController extends Controller
     {
         $propostas = Proposta::where('user_id', Auth::user()->id)->get();
 
-        return view ('freelancer/trabalhos_propostos_freelancer', compact([
+        return view ('freelancer.trabalhos_propostos_freelancer', compact([
             'propostas',
         ]));
     }

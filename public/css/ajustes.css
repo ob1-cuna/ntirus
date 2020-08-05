@@ -5,6 +5,43 @@
 .conteudo   {
     padding: 0 10px;
     z-index: 10;
+    position: relative;
+}
+
+.limite-esquerda {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(38, 151, 128, 0.21);
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.limite-direita {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(38, 151, 128, 0.21);
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+}
+
+.limite-abaixo {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(38, 151, 128, 0.21);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+}
+
+.limite-acima {
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(38, 151, 128, 0.21);
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
 }
 
 .wt-header {
@@ -503,3 +540,4 @@ body.wt-login .wt-loginarea {
   .bold-medio {
     font-weight: 500
   }
+

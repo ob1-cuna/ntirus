@@ -1,4 +1,4 @@
-@extends('layouts.appv3')
+@extends('layouts.app_paginas_gerais')
 
 @section('content')
 			<div class="wt-haslayout wt-innerbannerholder">

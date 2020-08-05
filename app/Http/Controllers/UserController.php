@@ -35,7 +35,7 @@ class UserController extends Controller
         $trabalhos_cancelados = Trabalho::where([['freelancer_id', $user->id],['status', 4]])->count();
         $trabalhos_em_execucao = Trabalho::where([['freelancer_id', $user->id],['status', 1]])->count();
 
-        return view('paginas_de_testes.unico_usuario',
+        return view('paginas_gerais.usuarios.freelancer_show',
             compact([
                         'educas',
                         'exper_profs',
@@ -82,7 +82,8 @@ class UserController extends Controller
             $habilidades = Habilidade::with('users')->get();
         }
 
-        return view('paginas_de_testes.freelancers_v2', compact(['users','habilidades']));
+        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades']));
+
 
     }
 

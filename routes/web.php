@@ -13,7 +13,7 @@ Route::get('/home', function () {
 });
 
 Route::get('/nav', function () {
-    return view('paginas_de_testes.nav-teste');
+    return view('paginas_gerais/usuarios/v2_freelancer_show');
 });
 
 

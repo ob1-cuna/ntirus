@@ -21,9 +21,9 @@ class TrabalhoController extends Controller
     */
     public function listarTrabalhos()
     {
-       $trabalhos = Trabalho::where('status', 'Aberto')->get();    // status=0 (pode-se concorrer)
-                                                            // =1 (activo) =2 (terminado) =3 (cancelado)
-       return view('trabalhos.todos_trabalhos_list_v2', compact('trabalhos'));
+       $trabalhos = Trabalho::where('status', 'Aberto')->get();     // status=0 (pode-se concorrer)
+                                                                    // =1 (activo) =2 (terminado) =3 (cancelado)
+       return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact('trabalhos'));
     }
 
 
@@ -42,7 +42,7 @@ class TrabalhoController extends Controller
 
         if($numeroDePropostas==0)
         {
-            return view('trabalhos.exibir_trabalho', compact
+            return view('paginas_gerais.trabalhos.exibir_trabalho', compact
             ([
                 'trabalho',
                 'numeroDePropostas',
@@ -55,7 +55,7 @@ class TrabalhoController extends Controller
         else
         {
             $ultimaProposta = Proposta::where('trabalho_id', $trabalho->id)->latest()->firstOrFail();
-            return view('trabalhos.exibir_trabalho', compact
+            return view('paginas_gerais.trabalhos.exibir_trabalho', compact
         ([
             'trabalho',
             'numeroDePropostas',
