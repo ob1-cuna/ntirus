@@ -7,7 +7,12 @@
     z-index: 10;
     position: relative;
 }
-
+.divisor {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  height: 1px;
+  overflow: hidden;
+}
 .limite-esquerda {
   border-style: solid;
   border-width: 1px;
@@ -541,3 +546,40 @@ body.wt-login .wt-loginarea {
     font-weight: 500
   }
 
+.btnarea
+{
+  width: auto;
+  padding: 20px 80px;
+}
+.separador_top
+{
+  padding-top: 1px;
+}
+
+.enviar-sm
+{
+  width: auto;
+  padding: 10px;
+}
+
+@media (min-width: 576px) {
+  .separador_top
+  {
+    padding-top: 30px;
+  }
+
+  .enviar-sm
+  {
+    display: none;
+  }
+}
+
+@media (max-width: 1199px)
+{
+  .btnarea
+  {
+    float: left;
+    padding: 0;
+    margin-top: 30px;
+  }
+}

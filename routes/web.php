@@ -12,14 +12,15 @@ Route::get('/home', function () {
     return view('home');
 });
 
-Route::get('/nav', function () {
-    return view('paginas_gerais/usuarios/v2_freelancer_show');
+Route::get('/home-2', function () {
+    return view('paginas_gerais/home_page');
 });
 
 
 //PAGINAS VISIVEIS COM OU SEM LOGIN
 Route::get('/freelancers/','UserController@ListarUsuariosCategoria')->name('freelancers');
-Route::get('/f/{user}', 'UserController@show')->name('freelancers.show');;
+Route::get('/f/{user}', 'UserController@showFreelancer')->name('freelancers.show');
+Route::get('/c/{user}', 'UserController@showCliente')->name('cliente.show');
 
 Route::get('/trabalhos', 'TrabalhoController@listarTrabalhos')->name('trabalhos.list');
 Route::get('/t/{trabalho}', 'TrabalhoController@exibirTrabalho')->name('trabalho.show');
@@ -122,7 +123,6 @@ Route::group(['middleware'=>'auth'], function () {
 
 
 
-
 	//DASHBOARD ADMINISTRADOR
 	Route::get('/admin/dashboard',['middleware'=>'check-permission:admin','uses'=>'HomeController@admin'])->name('admin.dashboard');
     Route::post('/admin/aprovar/user/{user}', 'UserController@aprovarPerfil')->name('admin.usuario.aprovar_perfil');
@@ -135,8 +135,6 @@ Route::group(['middleware'=>'auth'], function () {
     Route::get('/teste', 'UpdateController@paginaDeTestes')->name('teste');
     Route::get('/teste-review', 'UpdateController@notaTeste')->name('teste-review');
     Route::get('/teste-notificacao', 'UpdateController@VerUsuariosDaProvincia')->name('teste_de_notificacao');
-
     Route::post('/teste', 'UpdateController@storeTrabalho')->name('teste.store');
-
 	Route::get('/upload', 'ImagemController@index');
 	Route::post('/upload', 'ImagemController@store')->name('upload.store');

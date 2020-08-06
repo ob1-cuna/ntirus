@@ -146,7 +146,7 @@
                                         </ul>
                                     </dd>
                                 </dl>
-                                <p>{{ Illuminate\Support\Str::limit(strip_tags($user->->perfildescricao), 260) }}</p>
+                                <p>{{ Illuminate\Support\Str::limit(strip_tags($user->perfil->descricao), 260) }}</p>
                                 <ul class="list-inline">
                                     @foreach($user->habilidades as $habilidade)
                                         <li class="list-inline-item">

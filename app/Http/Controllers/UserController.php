@@ -16,7 +16,7 @@ class UserController extends Controller
 {
 
 
-    public function show(User $user)
+    public function showFreelancer(User $user)
     {
         $exper_profs = ExperEduca::where([['user_id', $user->id],
             ['tipo', 'exper_prof']])->get();
@@ -25,15 +25,21 @@ class UserController extends Controller
             ['tipo', 'educacao']])->get();
 
         $nota = Review_trab::where([['avaliado_id', $user->id]])->avg('nota');
+        $total_avaliacoes = Review_trab::where([['avaliado_id', $user->id]])->count();
 
             $round_num = round($nota * 2) /2;
             $nota = round($round_num, 2);
 
-        $trabalhos = Trabalho::where('freelancer_id', $user->id)->get();
+        $trabalhos = Trabalho::where([['freelancer_id', $user->id], ['status', 'Finalizado']])->get();
+        /*
+         * Status do Trabalho colocados do ENUM da do Banco de Dados:
+         *
+         * 'Aberto','Em Andamento','AguardandoAC','Aprovado','Recusado','Cancelado-C','Cancelado-F','Pagamento Pendente','Finalizado'
+         */
 
-        $trabalhos_feitos = Trabalho::where([['freelancer_id', $user->id],['status', 3]])->count();
-        $trabalhos_cancelados = Trabalho::where([['freelancer_id', $user->id],['status', 4]])->count();
-        $trabalhos_em_execucao = Trabalho::where([['freelancer_id', $user->id],['status', 1]])->count();
+        $trabalhos_feitos = Trabalho::where([['freelancer_id', $user->id],['status', 'Finalizado']])->count();
+        $trabalhos_cancelados = Trabalho::where([['freelancer_id', $user->id],['status', 'Cancelado-F']])->count();
+        $trabalhos_em_execucao = Trabalho::where([['freelancer_id', $user->id],['status', 'Em Andamento']])->count();
 
         return view('paginas_gerais.usuarios.freelancer_show',
             compact([
@@ -44,28 +50,43 @@ class UserController extends Controller
                         'trabalhos',
                         'trabalhos_feitos',
                         'trabalhos_cancelados',
-                        'trabalhos_em_execucao'
+                        'trabalhos_em_execucao',
+                        'total_avaliacoes'
                     ]));
     }
 
-    /*public function ListarUsuarios ()
+    public function showCliente(User $user)
     {
-        $users = User::with('habilidades')->where
-        ([
-            ['is_permission', '=', '0'],
-            ['status', '=', '1'],
-        ])->get();
+        /*
+         * Status do Trabalho colocados do ENUM da do Banco de Dados:
+         *
+         * 'Aberto','Em Andamento','AguardandoAC','Aprovado','Recusado','Cancelado-C','Cancelado-F','Pagamento Pendente','Finalizado'
+         */
+        $trabalhos = Trabalho::where([['user_id', $user->id], ['status', 'Finalizado']])->get();
+        $trabalhos_publicados = Trabalho::where('user_id', $user->id)->count();
+        $trabalhos_pagos = Trabalho::where([['user_id', $user->id],['status', 'Finalizado']])->count();
+        $trabalhos_cancelados = Trabalho::where([['user_id', $user->id],['status', 'Cancelado-C']])->count();
+        $trabalhos_abertos = Trabalho::where([['user_id', $user->id],['status', 'Aberto']])->get();
+        $trabalhos_abertos_total = Trabalho::where([['user_id', $user->id],['status', 'Aberto']])->count();
 
-        $habilidades = Habilidade::with('users')->get();
-        return view('paginas_de_testes.listar_usuarios', compact(['users','habilidades']));
+        return view('paginas_gerais.usuarios.cliente_show',
+            compact([
+                'user',
+                'trabalhos',
+                'trabalhos_publicados',
+                'trabalhos_pagos',
+                'trabalhos_cancelados',
+                'trabalhos_abertos',
+                'trabalhos_abertos_total'
+            ]));
+    }
 
-    }*/
 
     public function ListarUsuariosCategoria ()
     {
         if (request()->slug)
         {
-            $users = User::with('habilidades')->where([
+                $users = User::with('habilidades')->where([
                     ['is_permission', '=', '0'],
                     ['status', '=', '1'],])->whereHas('habilidades',
                 function ($query){

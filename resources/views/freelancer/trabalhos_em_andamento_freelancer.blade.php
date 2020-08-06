@@ -41,13 +41,14 @@
 
                         <div class="row">
                         <div class="col-sm-6 col-xl-4">
-                            <span>Prazo: <b style="font-weight: 500">{{ Carbon::parse($trabalho->data_aceite)->format('d M Y') }}</b></span>
+                            <span>Prazo: <b class="bold-medio">{{ Carbon::parse($trabalho->data_aceite)->format('d M Y') }}</b></span>
                         </div>
                         <div class="col-sm-6 col-xl-4">
-                            <span>Preço: <b style="font-weight: 500" class="text-success">{{ number_format($trabalho->preco_final, 2 ) }} MTs</b></span>
+                            <span>Preço: <b class="text-success bold-medio">{{ number_format($trabalho->preco_final, 2 ) }} MTs</b></span>
                         </div>
                         <div class="col-sm-6 col-xl-4">
-                            <p>: <b style="font-weight: 500">{{ $trabalho->cidade }}, {{ $trabalho->provincia }}</b></p>
+                            <p><object type="image/svg+xml" data="{{ asset('images/flag/mz-flag.svg') }}" style="width: 18px; height: 13px"></object>
+                                <b class="bold-medio ml-2"> {{ $trabalho->distrito }}, {{ $trabalho->provincia }}</b></p>
                         </div>
                         </div>
                     </div>

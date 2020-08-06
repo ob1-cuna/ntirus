@@ -66,7 +66,7 @@
                                     <div class="col text-center mt-2">
                                         <h2>{{$minha_nota3 = $nota}}<small style="font-size: small">/5.0</small></h2>
                                         @include('layouts.includes.estrelas_view')
-                                        <p>(20 Avaliações)</p>
+                                        <p>({{ $total_avaliacoes }} Avaliações)</p>
                                     </div>
                                 </div>
                             </div>
@@ -87,33 +87,33 @@
                         <h6 class="bold-medio">{{ $trabalho->nome_trabalho }}</h6>
                     </div>
                     @foreach($trabalho->review_trabs as $review)
-                    <div class="row mb-2">
-                        <div class="mr-2">
-                            @if ($review->avaliado_id == $user->id)
-                            <span class="mr-3"><b>{{ $minha_nota3 = $review->nota }}/5.0</b></span>
-                            @include('layouts.includes.estrelas_view')
-                            @endif
-                        </div>
-                        <div class="limite-direita"></div>
-                        <div class="ml-3">
-                            <i class="fa fa-calendar-alt mr-2"></i>{{ Carbon::parse($trabalho->data_aceite)->format('d M Y') }} - {{ Carbon::parse($trabalho->data_entrega)->format('d M Y') }}
-                        </div>
-                    </div>
-                    <div class="row">
-                        @if ($review->avaliado_id == $user->id)
-                        <p class=""><i>"{{ $review->comentario }}"</i></p>
-                        @endif
-                    </div>
-                    @endforeach
-                    <div class="row">
-                        <div class="list-inline">
-                            <div class="list-inline-item align-middle">
-                                <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs" alt="">
+                         @if ($review->avaliado_id == $user->id)
+                            <div class="row mb-2">
+                                <div class="mr-2">
+                                    @if ($review->avaliado_id == $user->id)
+                                        <span class="mr-3"><b>{{ $minha_nota3 = $review->nota }}.0/5.0</b></span>
+                                            @include('layouts.includes.estrelas_view')
+                                    @endif
+                                </div>
+                                <div class="limite-direita"></div>
+                                <div class="ml-3">
+                                    <i class="fa fa-calendar-alt mr-2"></i>{{ Carbon::parse($trabalho->data_aceite)->format('d M Y') }} - {{ Carbon::parse($trabalho->data_entrega)->format('d M Y') }}
+                                </div>
                             </div>
-                            <div class="list-inline-item bold-medio" style="font-size: medium">{{$trabalho->user->name}}</div>
-                        </div>
+                            <div class="row">
+                                <p class=""><i>"{{ $review->comentario }}"</i></p>
+                            </div>
+                         @endif
+                    @endforeach
+                            <div class="row">
+                                <div class="list-inline">
+                                    <div class="list-inline-item align-middle">
+                                        <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs" alt="">
+                                    </div>
+                                <div class="list-inline-item bold-medio" style="font-size: medium">{{$trabalho->user->name}}</div>
+                            </div>
+                            </div>
                     </div>
-                </div>
                     @if($loop->last)
                         <div class="mb-3"></div>
                         @else
@@ -149,9 +149,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <p class="">
-                                <i>{{ $exper_prof->descricao }}</i>
-                            </p>
+                                <i> <?php echo $exper_prof->descricao; ?> </i>
                         </div>
                     </div>
                     @endforeach
@@ -178,7 +176,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <p class=""><i>"{{ $educa->descricao }}"</i></p>
+                            <i><?php echo $educa->descricao; ?></i>
                         </div>
                     </div>
                     @endforeach

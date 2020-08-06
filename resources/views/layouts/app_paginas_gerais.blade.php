@@ -32,14 +32,8 @@
     @yield('meu_css')
 
 </head>
-@guest
+
 <body style="background-color: #fbfbfb">
-@endguest
-
-@auth
-<body>
-@endauth
-
 
 <header class="wt-header">
     <div class="wt-navigationarea">
@@ -81,7 +75,7 @@
         @yield('content')
 
 	<script src="{{ asset('js/main.js') }}"></script>
+    @yield('meu_script')
 </body>
-
-
 </html>
+@yield('meus_modals')

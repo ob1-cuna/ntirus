@@ -1,137 +1,165 @@
 @extends('layouts.app_paginas_gerais')
 @section('title', "$trabalho->nome_trabalho")
-@section('content')
-    <main id="wt-main" class="wt-main wt-haslayout wt-innerbgcolor">
-        <div class="wt-haslayout wt-main-section">
-            <!-- User Listing Start-->
-            <div class="container">
-                <div class="row">
-                    <div id="wt-twocolumns" class="wt-twocolumns wt-haslayout">
-                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 float-left">
-                            <div class="wt-proposalholder">
-                                <div class="wt-proposalhead">
-                                    <h2>{{ $trabalho->nome_trabalho }}</h2>
-                                    <ul class="wt-userlisting-breadcrumb wt-userlisting-breadcrumbvtwo">
-                                        <li><span><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i><i class="fa fa-dollar-sign"></i> {{ $trabalho->nivel }}</span></li>
-                                        <li><span><img src="{{ asset('images/flag/img-02.png')}}" alt="img description">  {{ $trabalho->provincia }}</span></li>
-                                        <li><span><i class="far fa-folder"></i> Tipo: {{ $trabalho->tipo }}</span></li>
-                                        <li><span><i class="far fa-clock"></i> Entrega: {{ Carbon::parse($trabalho->data_prev)->format('d M') }}</span></li>
-                                    </ul>
-                                </div>
-                                <div class="wt-btnarea"><a href="{{ route ('trabalho.concorrer', ['trabalho' => $trabalho->slug ]) }}" class="wt-btn">Enviar Proposta</a></div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
-                            <div class="wt-projectdetail-holder">
-                                <div class="wt-projectdetail">
-                                    <div class="wt-title">
-                                        <h3>Detalhes</h3>
-                                    </div>
-                                    <div class="wt-description">
-                                     {{ $trabalho->descricao }}
+@section('meu_css')
+    <style>
 
-                                    </div>
+    </style>
+@endsection
+@section('content')
+    <div class="divisor"></div>
+    <div class="mb-4">
+        <div class="conteudo">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-4">
+                <div class="main-card card">
+                    <div class="card-body">
+                        <div class="row">
+                        <div class="col-xs-8 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                            <div><h4 class="bold-medio">{{ $trabalho->nome_trabalho }}</h4></div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                    <object type="image/svg+xml" data="{{ asset('images/flag/mz-flag.svg') }}" style="width: 18px; height: 13px">
+                                    </object><b class="bold-medio ml-2"> {{ $trabalho->distrito }}, {{ $trabalho->provincia }}</b>
                                 </div>
-                                <div class="wt-skillsrequired">
-                                    <div class="wt-title">
-                                        <h3>Habilidades</h3>
-                                    </div>
-                                    <div class="wt-tag wt-widgettag">
-                                        @foreach($trabalho->habilidades as $habilidade)
-                                            <a href="#"> {{ $habilidade->nome }} </a>
-                                        @endforeach
-                                    </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                    <i class="fa fa-folder fa-lg mr-2"></i> Tipo: <b class="bold-medio">{{ $trabalho->tipo }}</b>
                                 </div>
-                                <div class="wt-attachments">
-                                    <div class="wt-title">
-                                        <h3>Anexos</h3>
-                                    </div>
-                                    <ul class="wt-attachfile">
-                                        @foreach($imagems as $imagem)
-                                        <li>
-                                            <span>{{ $imagem->nome_imagem }}</span>
-                                            <em>File size: 512 kb<a href={{ $imagem->caminho }}><i class="lnr lnr-download"></i></a></em>
-                                        </li>
-                                        @endforeach
-                                    </ul>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                    <i class="fa fa-toolbox fa-lg mr-2"></i> Nivel: <b class="bold-medio">{{ $trabalho->nivel }}</b>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                                    <i class="fa fa-calendar-alt fa-lg mr-2"></i> Prazo: <b class="bold-medio">{{ Carbon::parse($trabalho->data_prev)->format('d M Y') }}</b>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
-                            <aside id="wt-sidebar" class="wt-sidebar">
-                                <div class="wt-proposalsr">
-                                    <div class="wt-proposalsrcontent">
-                                        <span class="wt-proposalsicon"><i class="fa fa-angle-double-down"></i><i class="fa fa-newspaper"></i></span>
-                                        <div class="wt-title">
-                                            <h3>{{ $numeroDePropostas }}</h3>
-                                            <span>
-                                                @if ($numeroDePropostas==0) Sem Propostas
-                                                    @else
-                                                 @if($numeroDePropostas >= 2)Recebidas até @else Recebida à@endif <em>{{ Carbon::parse($ultimaProposta->created_at)->format('d M') }}
-                                                 @endif</em>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="wt-clicksavearea">
-                                        <span>Codigo: {{ $trabalho->slug }}</span>
-                                        <a href="javascrip:void(0);" class="wt-clicksavebtn"><i class="far fa-heart"></i>Salvar</a>
-                                    </div>
+                        <div class="col-xs-4 col-sm-12 col-md-4 col-lg-4 col-xl-4 float-right">
+                            <div class="btnarea">
+                                <a href="{{ route ('trabalho.concorrer', ['trabalho' => $trabalho->slug ]) }}" class="btn btn-success btn-block btn-wide btn-lg">Enviar Proposta</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left mb-4">
+                <div class="mb-4">
+                    <h5>Detalhes</h5>
+                <div class="main-card card px-2 py-2">
+                    <div class="col-12 mb-3">
+                        <h6 class="mt-4 bold-medio">Descrição do Trabalho</h6>
+                        <div style="padding-left: 20px">
+                            <?php echo $trabalho->descricao;?>
+                        </div>
+                    </div>
+                    <div class="col-12 mb-4">
+                        <h6 class="bold-medio mb-2">Habilidades</h6>
+                        <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                            <div class="btn-group">
+                                <div class="row" style="padding-left: 20px">
+                                    @foreach($trabalho->habilidades as $habilidade)
+                                    <a href="#" class="btn btn-pill btn-transition btn btn-outline-primary btn-shadow-primary mb-2 mr-2">{{ $habilidade->nome }}</a>
+                                    @endforeach
                                 </div>
-                                <div class="wt-widget wt-companysinfo-jobsingle">
-                                    <div class="wt-companysdetails">
-                                        <figure class="wt-companysimg">
-                                            <img src="{{ asset('images/company/img-01.jpg')}}" alt="img description">
-                                        </figure>
-                                        <div class="wt-companysinfo">
-                                            <figure><img src="{{ asset('images/company/img-01.png')}}" alt="img description"></figure>
-                                            <div class="wt-title">
-                                                <a href="#"><h2>{{ $trabalho->user->name }}</h2></a>
-                                            </div>
-                                            <ul class="wt-postarticlemeta">
-                                                <li>
-                                                    <a href="javascript:void(0);">
-                                                        <span>Ver Perfil</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="wt-widget wt-reportjob">
-                                    <div class="wt-widgettitle">
-                                        <h2>Reportar</h2>
-                                    </div>
-                                    <div class="wt-widgetcontent">
-                                        <form class="wt-formtheme wt-formreport">
-                                            <fieldset>
-                                                <div class="form-group">
-															<span class="wt-select">
-																<select>
-																	<option value="Reason">Escolha o Motivo</option>
-																	<option value="Reason1">1</option>
-																	<option value="Reason2">2</option>
-																</select>
-															</span>
-                                                </div>
-                                                <div class="form-group">
-                                                    <textarea class="form-control" placeholder="Description"></textarea>
-                                                </div>
-                                                <div class="form-group wt-btnarea">
-                                                    <a href="#" class="wt-btn">Submit</a>
-                                                </div>
-                                            </fieldset>
-                                        </form>
-                                    </div>
-                                </div>
-                            </aside>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+                <div class="mb-4">
+                    <h5>Anexos</h5>
+                    <div class="main-card card px-3 py-3">
+                        <div class="">
+                            <table class="col-12">
+                                <tbody class="justify-content-center col-12">
+                                @foreach($imagems as $imagem)
+                                <tr class="@if($loop->last) @else limite-abaixo @endif">
+                                    <td><i class="fa fa-file-pdf mr-2"></i> {{ $imagem->nome_imagem }}</td>
+                                    <td class=""></td>
+                                    <td class="text-right"><a href={{ $imagem->caminho }}><i class="fa fa-download ml-2"></i></a></td>
+                                </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- User Listing End-->
+            <div class="col-xs-10 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left mb-4">
+                <div class="mb-4">
+                    <h5>Propostas</h5>
+                    <div class="main-card card py-2 px-2">
+                        <div class="widget-content p-0">
+                            <div class="widget-content-wrapper">
+                                <div class="widget-content-left mr-3 ml-2 mt-2">
+                                    <h1>{{ $numeroDePropostas }}</h1>
+                                </div>
+                                <div class="widget-content-left">
+                                    @if ($numeroDePropostas==0)
+                                        <div class="widget-heading">Sem Propostas
+                                        </div>
+                                    @else
+                                    <div class="widget-heading">
+                                        @if($numeroDePropostas >= 2)
+                                            Propostas recebidas
+                                        @else
+                                            Proposta recebida
+                                        @endif
+                                    </div>
+                                    <div class="widget-subheading">Ultima: {{ Carbon::parse($ultimaProposta->created_at)->format('d M') }}
+                                    </div>
+                                    @endif
+                                </div>
+                                <div class="widget-content-right mr-3">
+                                    <i class="fa fa-3x fa-paper-plane mt-2 mb-2"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <h5>Cliente</h5>
+                    <div class="main-card card py-2 px-2">
+                        <div class="text-center">
+                            <div class="col mb-2"><img src="{{ asset('images/profile/user.jpg') }}" class="rounded-circle usuario-avatar mb-2" alt="" style="max-width: 120px; max-height: 120px"></div>
+                            <div class="col mb-2">{{ $trabalho->user->name }}</div>
+                            <div class="col mb-3">
+                                <div class="row">
+                                <div class="col-3"></div>
+                                <div class="col-6">
+                                    <a href="{{ route ('cliente.show', ['user' => $trabalho->user->id]) }}" class="btn btn-wide btn-primary btn-block">Ver Perfil</a>
+                                </div>
+                                <div class="col-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-4">
+                        <h5>Reportar Trabalho</h5>
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <form class="">
+                                    <div class="position-relative form-group"><label for="exampleSelectMulti" class="">
+                                            Motivo
+                                        </label><select name="selectMulti" id="exampleSelectMulti" class="form-control">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                        </select></div>
+                                    <div class="position-relative form-group"><label for="exampleText" class="">Text
+                                            Area</label><textarea name="text" id="exampleText" class="form-control"></textarea>
+                                    </div>
+                                    <div class="position-relative form-group"><label for="exampleFile" class="">File</label><input name="file" id="exampleFile" type="file" class="form-control-file">
+                                        <small class="form-text text-muted">Podes anexar um ficheiro com possiveis provas de violacao dos termos de uso.
+                                        </small>
+                                    </div>
+                                    <button class="mt-1 btn btn-primary">Submit</button>
+                                </form>
+                            </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
-
+    </div>
 @endsection
-
-
