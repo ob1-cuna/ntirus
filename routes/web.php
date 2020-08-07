@@ -16,8 +16,6 @@ Route::get('/home-2', function () {
     return view('paginas_gerais/home_page');
 });
 
-//Route::get('/nav', 'PerfilController@cadastroConcluido')->name('registo.concluido');
-
 //PAGINAS VISIVEIS COM OU SEM LOGIN
 Route::get('/freelancers/','UserController@ListarUsuariosCategoria')->name('freelancers');
 Route::get('/f/{user}', 'UserController@showFreelancer')->name('freelancers.show');
