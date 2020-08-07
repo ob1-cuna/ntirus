@@ -10,7 +10,7 @@ use App\User;
 use App\Perfil;
 use App\HabilidadeUser;
 use App\ExperEduca;
-use App\habilidade;
+use App\Habilidade;
 use Auth;
 
 
@@ -19,66 +19,60 @@ class PerfilController extends Controller
     public function cadastro ()
     {
         $habilidades = Habilidade::all();
-        return view('paginas_extras.perfil_cadastro', compact('habilidades'));
+        return view('auth.perfil_cadastro', compact('habilidades'));
 
     }
 
+    public function cadastroConcluido ()
+    {
+        return view('auth.cadastro_ultimo_passo');
+    }
+    public function cadastroFix ()
+    {
+        $habilidades = Habilidade::all();
+        return view('auth.perfil_bug_fix', compact('habilidades'));
+    }
     public function CadastrarPerfil (Request $request)
     {
 
-        $user = $request->input('user_id');
+        $user = Auth::user()->id;
         $provincia = $request->input('provincia');
-        $preco_habitual = $request->input('preco_habitual');
-        $slogan = $request->input('slogan');
+        $cidade = $request->input('cidade');
         $descricao = $request->input('descricao');
-        $fb_link = $request->input('fb_link');
-        $twt_link = $request->input('twt_link');
+        $username = $request->input('username');
 
         DB::table('perfils')
             ->where('user_id', $user)
             ->update([
-                'cidade' => 15,
+                'cidade' => $cidade,
                 'provincia' => $provincia,
-                'preco_habitual' => $preco_habitual,
-                'slogan' => $slogan,
                 'descricao' => $descricao,
-                'fb_link' => $fb_link,
-                'twt_link' => $twt_link,
+                'status' => 2,
                 'updated_at' => now(\DateTimeZone::AMERICA),
             ]);
 
-
-        $habilidadeuser = HabilidadeUser::create($this->validarHabilidades());
         DB::table('users')
             ->where('id', $user)
             ->update([
-                'status' => 1,
+                'username' => $username,
                 'updated_at' => now(\DateTimeZone::AMERICA),
             ]);
-        return redirect('/');
+
+        if ($request->has('habilidade_id'))
+        {
+            Auth::user()->habilidades()->sync($request->get('habilidade_id'));
+        }
+
+        return redirect('/registo/terminado');
     }
-
-    /*protected function validarDados()
-    {
-        return $data = request()->validate( [
-
-            'preco_habitual' => ['required', 'string', 'max:255'],
-            'slogan' => ['required', 'string', 'max:150'],
-            'descricao' => ['required', 'string', 'max:150'],
-            'provincia' => ['required'],
-            'cidade' => ['required', 'string'],
-            'fb_link' => ['string'],
-            'twt_link' => ['string'],
-            ]);
-    }*/
-
-    protected function validarHabilidades()
-    {
-        return $data = request()->validate( [
-            'user_id'  => ['required'],
-            'habilidade_id' => ['required'],
-            'classificacao' => ['required'],
-        ]);
-    }
-
 }
+
+/*if ($request->has('habilidade_id'))
+{
+    $habilidades_user = HabilidadeUser::create([
+        'user_id' => Auth::user()->id,
+        'habilidade_id' => $request->get('habilidade_id')
+    ]);
+}*/
+
+

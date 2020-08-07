@@ -58,4 +58,31 @@ class FreelancerPerfilController extends Controller
             ]);
         return redirect()->back();
     }
+    protected function actualizarPerfilCadastro(Request $request)
+    {
+
+        $user = Auth::user()->id;
+        $username = $request->input('name');
+        $provincia = $request->input('provincia');
+        $cidade = $request->input('cidade');
+        $descricao = $request->input('descricao');
+
+
+        DB::table('perfils')
+            ->where('user_id', $user)
+            ->update([
+                'provincia' => $provincia,
+                'cidade' => $cidade,
+                'descricao' => $descricao,
+                'updated_at' => now(\DateTimeZone::AMERICA),
+            ]);
+
+        DB::table('users')
+            ->where('id', $user)
+            ->update([
+                'username' => $username,
+                'updated_at' => now(\DateTimeZone::AMERICA),
+            ]);
+        return redirect()->back();
+    }
 }

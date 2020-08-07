@@ -16,6 +16,7 @@ Route::get('/home-2', function () {
     return view('paginas_gerais/home_page');
 });
 
+//Route::get('/nav', 'PerfilController@cadastroConcluido')->name('registo.concluido');
 
 //PAGINAS VISIVEIS COM OU SEM LOGIN
 Route::get('/freelancers/','UserController@ListarUsuariosCategoria')->name('freelancers');
@@ -35,7 +36,9 @@ Route::group(['middleware'=>'auth'], function () {
 
 	    //CADASTRO DO PERFIL E HABILIDADE PRINCIPAL DO USUÁRIO
         Route::get('registro/perfil','PerfilController@cadastro')->name('registro/perfil');
-        Route::post('registro/perfil/post','PerfilController@CadastrarPerfil')->name('registro/perfil/post');
+        Route::post('registro/perfil/post','PerfilController@CadastrarPerfil')->name('registro.perfil.post');
+        Route::get('/registo/terminado', 'PerfilController@cadastroConcluido')->name('registo.concluido');
+        Route::get('/registro/fix', 'PerfilController@cadastroFix')->name('registo.fix');
 
             Route::group(['middleware'=>'check-permission:freelancer'], function () {
 

@@ -8,34 +8,18 @@
                 <div class="main-card card">
                     <div class="card-header float-left"><h6>Habilidades</h6></div>
                     <div class="card-body">
-                        <div class="scroll-area-sm">
+                        <div class="scroll-area-sm" style="max-height: 150px;">
                             <div class="scrollbar-container ps--active-y ps">
                                 <div class="position-relative form-group">
                                     <div>
+                                        <form>
+                                        @foreach($todas_habilidades as $habilidade)
                                         <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox"></label>
+                                            <input type="checkbox" id="{{ $habilidade->slug }}" name="{{ $habilidade->slug }}" class="custom-control-input">
+                                            <label class="custom-control-label" for="{{ $habilidade->slug }}">{{ $habilidade->nome }}</label>
                                         </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox2"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox2"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox2"></label>
-                                        </div>
+                                        @endforeach
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -54,7 +38,7 @@
                 <div class="main-card card">
                     <div class="card-header float-left"><h6>Provincia</h6></div>
                     <div class="card-body">
-                        <div class="scroll-area-sm">
+                        <div class="scroll-area-sm" style="max-height: 170px;">
                             <div class="scrollbar-container ps--active-y ps">
                                 <div class="position-relative form-group">
                                     <div>
@@ -148,12 +132,14 @@
                                 </dl>
                                 <p>{{ Illuminate\Support\Str::limit(strip_tags($user->perfil->descricao), 260) }}</p>
                                 <ul class="list-inline">
-                                    @foreach($user->habilidades as $habilidade)
+                                    @foreach($user->habilidades->slice(0,4) as $habilidade)
                                         <li class="list-inline-item">
-                                            <a href="{{ route('freelancers', ['slug' => $habilidade->slug]) }}" class="btn btn-primary">{{ $habilidade->nome }}</a>
+                                            <a href="{{ route('freelancers', ['slug' => $habilidade->slug]) }}" class="btn btn-primary mb-2">{{ $habilidade->nome }}</a>
                                         </li>
                                     @endforeach
-                                    <li class="list-inline-item"><a href="#" class="btn btn-primary disabled">+2</a></li>
+                                    @if (count($user->habilidades) >= 5)
+                                        <li class="list-inline-item"><a href="{{ route ('freelancers.show', ['user' => $user->username ?? $user->id]) }}" class="btn btn-primary mb-2">+{{ count($user->habilidades)-5 }}</a></li>
+                                    @endif
                                 </ul>
                             </div>
                         </div>

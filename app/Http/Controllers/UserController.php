@@ -92,6 +92,7 @@ class UserController extends Controller
                 function ($query){
                 $query->where('slug', request()->slug);})->get();
                 $habilidades = Habilidade::with('users')->get();
+                $todas_habilidades = Habilidade::all();
 
         }
 
@@ -101,9 +102,10 @@ class UserController extends Controller
                 ['is_permission', '=', '0'],
                 ['status', '=', '1'],])->get();
             $habilidades = Habilidade::with('users')->get();
+            $todas_habilidades = Habilidade::all();
         }
 
-        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades']));
+        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades', 'todas_habilidades']));
 
 
     }

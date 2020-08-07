@@ -16,10 +16,10 @@
 								{{ session('error') }}
 							</div>
 							@endif
-							
-							
-						
-							
+
+
+
+
 						@auth
 							@if(checkPermission(['freelancer']))
 								<div class="wt-title"><h2>Freelancer</h2></div>
@@ -38,10 +38,17 @@
 							<div class="wt-title"><h2>Usuario Sem Cadastro</h2></div>
 						@endguest
 							
-							<a href="{{ route('admin.dashboard') }}" class="wt-btn">Admin</a>
-							<a href="{{ route('dashboard') }}" class="wt-btn">Freelancer</a>
-							<a href="{{ route('cliente.dashboard') }}" class="wt-btn">Cliente</a>
-							
+							<a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Admin</a>
+							<a href="{{ route('dashboard') }}" class="btn btn-primary">Freelancer</a>
+							<a href="{{ route('cliente.dashboard') }}" class="btn btn-primary">Cliente</a>
+								<a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                   document.getElementById('logout-form').submit();" class="btn btn-primary">
+
+									Logout
+								</a>
+								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+									@csrf
+								</form>
 						</div>
 						</div>
 					</div>

@@ -1,146 +1,151 @@
 @extends('layouts.app_paginas_gerais')
-
+@section('meu_css')
+	<style>
+		.ck-editor__editable {
+			min-height: 100px;
+		}
+	</style>
+@endsection
 @section('content')
-<div class="container">
-		<div class="row justify-content-md-center">
-			<div class="col-xs-12 col-sm-12 col-md-10 push-md-1 col-lg-8 push-lg-2">
-				<div class="wt-registerformhold">
-					<div class="wt-registerformmain">
-						<div class="wt-registerhead">
-							<div class="wt-title">
-								<h3>Use-me</h3>
-							</div>
-							<div class="wt-description">
-								<p>Cadstre-se</p>
-							</div>
-						</div>
-						<div class="wt-joinforms">
-							<ul class="wt-joinsteps">
-								<li class="wt-done-next"><a href="javascrip:void(0);">01</a></li>
-								<li :after class="wt-active"><a href="javascrip:void(0);">02</a></li>
-								<li><a href="javascrip:void(0);">03</a></li>
-								<li><a href="javascrip:void(0);">04</a></li>
-							</ul>
-							
-							<form method="POST" action="/registro/perfil/post" class="wt-formtheme wt-formregister">
+	<div class="conteudo">
+		<div class="col-xl-4 col-lg-4 col-sm-5 col-md-5 centro-horizontal mb-2">
+			<div class="titulo_pagina">Localização & Habilidades</div>
+			<ul class="forms-wizard nav nav-tabs">
+				<li class="nav-item done">
+					<a href="#" class="nav-link">
+						<em>1</em>
+					</a>
+				</li>
+				<li class="nav-item done">
+					<a href="#" class="nav-link">
+						<em>2</em>
+					</a>
+				</li>
+				<li class="nav- active">
+					<a href="#" class="nav-link">
+						<em>3</em>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="nav-link">
+						<em>4</em>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<div class="col-xl-8 col-lg-8 col-sm-12 col-md-10 centro-horizontal mb-2">
 
-								@csrf
-								<fieldset class="wt-registerformgroup">
-									<div class="form-group form-group-half">
-											<input id="preco_habitual" type="number" step="any" class="form-control @error('preco_habitual') is-invalid @enderror" name="preco_habitual" value="{{ old('preco_habitual') }}" required autocomplete="preco_habitual" placeholder="Preço Habitual">
+			<form method="POST" action="{{ route('registro.perfil.post') }}">
+				@csrf
+				<div class="mt-3"></div>
+				<div class="form-row mb-2">
+					<div class="col-md-6">
+						<div class="position-relative form-group">
+							<label for="provincia" class="">Província <span class="text-danger">*</span></label>
+							<select name="provincia" id="provincia" class="form-control @error('provincia') is-invalid @enderror" value="{{ old('provincia') ?? Auth::user()->perfil->provincia }}" required autocomplete="provincia">
+								@switch(Auth::user()->perfil->status)
+									@case (0)
+										<option disabled selected hidden value="">Selecione a Provincia</option>
+									@break
 
-											@error('preco_habitual')
-												<span class="invalid-feedback" role="alert">
-													<strong>{{ $message }}</strong>
-												</span>
-											@enderror
-									</div>
-									<div class="form-group form-group-half">
-											<input id="slogan" type="text" class="form-control @error('slogan') is-invalid @enderror" name="slogan" value="{{ old('slogan') }}" required autocomplete="slogan" placeholder="Slogan">
+									@case (2)
+										<option disabled selected hidden value="{{ Auth::user()->perfil->provincia }}">{{ Auth::user()->perfil->provincia }}</option>
+									@break
 
-											@error('slogan')
-												<span class="invalid-feedback" role="alert">
-													<strong>{{ $message }}</strong>
-												</span>
-											@enderror
-									</div>
-									<div class="form-group">
-                                        <input id="descricao" type="text" step="any" class="form-control @error('descricao') is-invalid @enderror" name="descricao" value="{{ old('descricao') }}" required autocomplete="descricao" placeholder="Desc">
-											@error('descricao')
-												<span class="invalid-feedback" role="alert">
-													<strong>{{ $message }}</strong>
-												</span>
-                                            @enderror
-                                            
-
-									</div>
-                                    
-                                    <div class="form-group form-group-half">
-                                        <span class="wt-select">
-
-                                        <select name="provincia" id="provincia" class="wt-form-group-dropdown wt-select" class="form-control @error('provincia') is-invalid @enderror" value="{{ old('provincia') }}" required autocomplete="provincia">
-                                            <option disabled selected hidden value="">Selecione a Provincia</option>
-                                            @include('layouts.includes.select_provincias')
-                                        </select>
-                                    </span>
-                                        @error('provincia')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group form-group-half">
-                                        <input id="cidade" type="text" class="form-control @error('cidade') is-invalid @enderror" name="cidade" value="{{ old('cidade') }}" required autocomplete="cidade" placeholder="Cidade">
-
-                                        @error('cidade')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div class="form-group form-group-half">
-                                        <input id="fb_link" type="text" step="any" class="form-control @error('fb_link') is-invalid @enderror" name="fb_link" value="{{ old('fb_link') }}" required autocomplete="fb_link" placeholder="Perfil Facebook">
-
-                                        @error('fb_link')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group form-group-half">
-                                        <input id="twt_link" type="text" class="form-control @error('twt_link') is-invalid @enderror" name="twt_link" value="{{ old('twt_link') }}" required autocomplete="twt_link" placeholder="Twitter (ex: @vnvcleto)">
-
-                                        @error('twt_link')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-										<div class="form-group form-group-half-half">
-											<select class="wt-form-group-dropdown wt-select" id="habilidade_id" class="form-control @error('habilidade_id') is-invalid @enderror" name="habilidade_id" value="{{ old('habilidade_id') }}" required autocomplete="habilidade_id">
-												@foreach ($habilidades as $habilidade)
-													<option value="{{ $habilidade->id }}">{{ $habilidade->nome }}</option>
-												@endforeach
-											</select>
-											@error('habilidade_id')
-											<span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-											@enderror
-										</div>
-										<div class="form-group form-group-half-half">
-											<input id="classificacao" type="number" step="any" class="form-control @error('classificacao') is-invalid @enderror" name="classificacao" min="1" max="100" placeholder="(0 - 100)" value="{{ old('classificacao') }}" required autocomplete="classificacao" placeholder="Preço Habitual">
-											@error('classificacao')
-											<span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-											@enderror
-											<input id="user_id" type="hidden" step="any" class="form-control @error('classificacao') is-invalid @enderror" name="user_id" min="1" max="100" placeholder="(0 - 100)" value="{{Auth::user()->id}}" required autocomplete="user_id" placeholder="Preço Habitual">
-											@error('user_id')
-											<span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-											@enderror
-										</div>
-
-
-									<div class="form-group">
-											<button type="submit" class="wt-btn">
-													{{ __('Cadastrar') }}
-											</button>
-									</div>
-								</fieldset>
-							</form>
+									@default
+										<h2 class="centro-horizontal mt-5">MISTAKE</h2>
+								@endswitch
+								@include('layouts.includes.select_provincias')
+							</select>
+							@error('provincia')
+							<span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+							@enderror
 						</div>
 					</div>
-					<div class="wt-registerformfooter">
-						<span>Already Have an Account? <a href="javascript:void(0);">Login Now</a></span>
+					<div class="col-md-6">
+						<div class="position-relative form-group">
+							<label for="cidade" class="">Cidade / Distrito <span class="text-danger">*</span></label>
+							<input id="cidade" type="text" class="form-control @error('cidade') is-invalid @enderror" name="cidade" value="{{ old('cidade') ?? Auth::user()->perfil->cidade }}" required autocomplete="cidade" placeholder="Beira">
+							@error('cidade')
+							<span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+							@enderror
+						</div>
 					</div>
 				</div>
-			</div>
+				<div class="form-row mb-2">
+					<div class="col-md-6">
+						<div class="position-relative form-group">
+							<label for="select-habilidades" class="">Habilidades <span class="text-danger">*</span></label>
+							<select multiple="multiple" id="select-habilidades" name="habilidade_id[]"  class="multiselect-dropdown form-control @error('select-habilidades') is-invalid @enderror" required>
+								@foreach($habilidades as $habilidade)
+									<option value="{{ $habilidade->id }}">{{ $habilidade->nome }}</option>
+								@endforeach
+							</select>
+							@error('select-habilidades')
+							<span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+							@enderror
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="position-relative form-group">
+							<label for="username" class="">Username <span class="text-danger">*</span></label>
+							<div class="input-group">
+								<div class="input-group-prepend"><span class="input-group-text">@</span></div>
+								<input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') ?? Auth::user()->username }}" required placeholder="fulanotal">
+							</div>
+							@error('username')
+							<span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+							@enderror
+						</div>
+					</div>
+				</div>
+				<div class="position-relative form-group">
+					<label for="descricao" class="">Sobre mim <span class="text-danger">*</span></label>
+					<textarea name="descricao" id="descricao" class="form-control ck-editor__editable @error('descricao') is-invalid @enderror">{{ Auth::user()->perfil->descricao }}</textarea>
+					@error('descricao')
+					<span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+					@enderror
+				</div>
+				<div class="ml-auto float-right mt-4 mb-5">
+					<button class="btn-wide btn-pill btn-shadow btn-hover-shine btn btn-primary btn-lg" type="submit">Concluir Cadastro</button>
+				</div>
+			</form>
 		</div>
 	</div>
 @endsection
-		
+@section('meu_script')
+	<script src="{{ asset('js/ckeditor5/11.2.0/classic/ckeditor.js') }}"></script>
+	<script>
+		var editor = null;
+		ClassicEditor.create(document.querySelector("#descricao"), {
+			toolbar: [
+				"bold",
+				"italic",
+				"link",
+				"bulletedList",
+				"numberedList",
+				"blockQuote",
+				"undo",
+				"redo"
+			]
+		})
+				.then(editor => {
+					//debugger;
+					window.editor = editor;
+				})
+				.catch(error => {
+					console.error(error);
+				});
+
+	</script>
+@endsection

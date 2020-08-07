@@ -24,6 +24,6 @@ class CheckPerfil
         }
 
         $habilidades = Habilidade::all();
-        return response()->view('paginas_extras.perfil_cadastro', compact('habilidades'));
+        return response()->view('auth.perfil_bug_fix', compact('habilidades'));
     }
 }

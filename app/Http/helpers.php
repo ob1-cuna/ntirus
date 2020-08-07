@@ -28,7 +28,7 @@
   }
 
   function checkPerfil($permissions){
-    $userAccess = getMeuPerfil(auth()->user()->status);
+    $userAccess = getMeuPerfil(auth()->user()->perfil->status);
     foreach ($permissions as $key => $value) {
       if($value == $userAccess){
         return true;
@@ -41,13 +41,12 @@
   function getMeuPerfil($id)
   {
     switch ($id) {
-      case 1:
-        return 'p_completo';
-        break;
-
-      default:
-        return 'p_incompleto';
-        break;
+        case 1:
+            return 'p_completo';
+            break;
+        default:
+            return 'p_incompleto';
+            break;
     }
   }
 

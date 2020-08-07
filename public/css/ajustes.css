@@ -583,3 +583,22 @@ body.wt-login .wt-loginarea {
     margin-top: 30px;
   }
 }
+
+
+/* Pagina de Cadastro */
+
+.centro-horizontal
+{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.titulo_pagina {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  position: relative;
+  z-index: 5;
+  padding: 20px 0 0 0;
+}

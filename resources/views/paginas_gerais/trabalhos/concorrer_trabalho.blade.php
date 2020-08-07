@@ -84,11 +84,6 @@
                             <div class="position-relative form-group">
                                 <label for="descricao" class="">Detalhes</label>
                                 <textarea name="descricao" id="descricao" class="form-control ck-editor__editable @error('descricao') is-invalid @enderror"></textarea>
-                                @error('file')
-                                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
                                 @error('descricao')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -98,6 +93,11 @@
                             <div class="position-relative form-group">
                                 <label for="file" class="">Anexos</label>
                                 <input type="file" name="file" id="file" class="form-control-file @error('file') is-invalid @enderror">
+                                @error('file')
+                                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                                 <small class="form-text text-muted">
                                     Podes anexar um ficheiro com possiveis provas de violacao dos termos de uso.
                                 </small>

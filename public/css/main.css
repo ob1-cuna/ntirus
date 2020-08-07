@@ -21288,7 +21288,7 @@ legend {
     margin-top: -1rem;
     width: 50%;
     content: '';
-    background: #dee2e6;
+    /*background: #dee2e6;*/
     z-index: 5;
     transition: all .2s
 }
@@ -21339,7 +21339,7 @@ legend {
 }
 
 .forms-wizard li.active::after, .forms-wizard li.active::before {
-    background: #da624a
+    /*background: #da624a*/
 }
 
 .forms-wizard li.done em {
@@ -21358,7 +21358,7 @@ legend {
 }
 
 .forms-wizard li.done::after, .forms-wizard li.done::before {
-    background: #3ac47d
+    /*background: #3ac47d*/
 }
 
 .forms-wizard li.done:hover {

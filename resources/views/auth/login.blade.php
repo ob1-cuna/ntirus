@@ -64,7 +64,7 @@
                                         <h6 class="mb-0">Não tem uma conta? <a href="#" class="text-primary">Cadastre-se</a></h6>
                                     </div>
                                     <div class="modal-footer clearfix">
-                                        <div class="float-left"><a href="#" class="btn-lg btn btn-link">Recuperar senha</a></div>
+                                        <div class="float-left"><a href="{{ route('password.request') }}" class="btn-lg btn btn-link">Recuperar senha</a></div>
                                         <div class="float-right">
 
                                             <a href="{{ route('login') }}" onclick="event.preventDefault();
