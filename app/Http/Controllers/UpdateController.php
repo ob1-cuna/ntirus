@@ -69,7 +69,8 @@ class UpdateController extends Controller
         //$habilidades = Habilidade::all();
         //return view('user_talentos', compact('habilidades'));
         //return view('cliente.trabalho_em_execucao_unico');
-        return view ('freelancer.meu_perfil_freelancer');
+        return view ('layouts/includes/icones_ficheiros');
+
     }
 
     public function notaTeste()

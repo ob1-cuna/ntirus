@@ -37,7 +37,8 @@
 						@guest
 							<div class="wt-title"><h2>Usuario Sem Cadastro</h2></div>
 						@endguest
-							
+							{{ tamanhoParaHumanos (1569626690) }}
+
 							<a href="{{ route('admin.dashboard') }}" class="btn btn-primary">Admin</a>
 							<a href="{{ route('dashboard') }}" class="btn btn-primary">Freelancer</a>
 							<a href="{{ route('cliente.dashboard') }}" class="btn btn-primary">Cliente</a>

@@ -72,9 +72,9 @@
                                 <tbody class="justify-content-center col-12">
                                 @foreach($imagems as $imagem)
                                 <tr class="@if($loop->last) @else limite-abaixo @endif">
-                                    <td><i class="fa fa-file-pdf mr-2"></i> {{ $imagem->nome_imagem }}</td>
+                                    <td><i class="fa @include('layouts.includes.icones_ficheiros') mr-2"></i> {{ $imagem->nome_imagem }}</td>
                                     <td class=""></td>
-                                    <td class="text-right"><a href={{ $imagem->caminho }}><i class="fa fa-download ml-2"></i></a></td>
+                                    <td class="text-right">{{ tamanhoParaHumanos(filesize(public_path($imagem->caminho))) }} <a href={{ $imagem->caminho }}><i class="fa fa-download ml-2"></i></a></td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -104,7 +104,7 @@
                                             Proposta recebida
                                         @endif
                                     </div>
-                                    <div class="widget-subheading">Ultima: {{ Carbon::parse($ultimaProposta->created_at)->format('d M') }}
+                                    <div class="widget-subheading">Ultima: {{ Carbon::parse($ultimaProposta->created_at)->diffForHumans() }}
                                     </div>
                                     @endif
                                 </div>
