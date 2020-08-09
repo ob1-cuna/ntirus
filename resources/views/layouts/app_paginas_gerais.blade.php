@@ -16,11 +16,11 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Estilos -->
-    <link href="{{ asset('apple-touch-icon.png')}}" rel="apple-touch-icon">
-    <link href="{{ asset('images/favicon.png')}}" rel="icon" type="image/x-icon">
-
     <!-- Imagens -->
+    <link href="{{ asset('apple-touch-icon.png')}}" rel="apple-touch-icon">
+    <link href="{{ asset('images/brand_ntitus/favicon-circular.png')}}" rel="icon" type="image/x-icon">
+
+    <!-- Estilos -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-grid.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome/fontawesome-all.css') }}" rel="stylesheet">
@@ -40,7 +40,11 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <strong class="wt-logo"><a href="{{ route('home') }}" class="logo-src"><img src="{{ asset('images/logo.png') }}" alt="company logo here"></a></strong>
+                    <strong class="wt-logo">
+                        <a href="{{ route('home') }}" class="logo-src">
+                            <img src="{{ asset('images/brand_ntitus/logotype-sm.png') }}" alt="logotipo-aqui">
+                        </a>
+                    </strong>
                     <div class="wt-rightarea">
                         <nav id="wt-nav" class="wt-nav navbar-expand-lg" style="">
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

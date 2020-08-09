@@ -102,7 +102,7 @@
                         diam nonumy eirmod tempor.</p>
                 </div>
                 <div class="col-lg-3 col-xl-3 col-md-3 col-sm-6 col-xs-6 text-center">
-                    <object type="image/svg+xml" data="{{ asset('images/passos/passo_1.svg') }}" style="max-height: 150px"></object>
+                    <object type="image/svg+xml" data="{{ asset('images/brand_ntitus/logotype.svg') }}" style="max-height: 150px"></object>
                     <h6><strong>Selecione o Freelancer</strong></h6>
                     <p>Lorem ipsum dolor sit amet,
                         consetetur sadipscing elitr, sed

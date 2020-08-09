@@ -43,7 +43,9 @@
                             <span>Preço: <b style="font-weight: 500" class="text-success">{{ number_format($proposta->preco_proposta, 2 ) }} MTs</b></span>
                         </div>
                         <div class="col-sm-6 col-xl-4">
-                            <p>: <b style="font-weight: 500">{{ $proposta->trabalho->distrito }}, {{ $proposta->trabalho->provincia }}</b></p>
+
+                            <p> <object type="image/svg+xml" data="{{ asset('images/flag/mz-flag.svg') }}" style="width: 18px; height: 14px; padding-top: 2px" class="mr-2">
+                                </object><b style="font-weight: 500">{{ $proposta->trabalho->distrito }}, {{ $proposta->trabalho->provincia }}</b></p>
                         </div>
                         </div>
 
@@ -65,14 +67,14 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @foreach($proposta->trabalho->imagems as $imagem)
                                     <tr>
-                                        @foreach($proposta->trabalho->imagems as $imagem)
-                                        <th scope="row">1</th>
+                                        <th scope="row">{{ $loop->index+1 }}</th>
                                         <td>{{ $imagem->nome_imagem }}</td>
-                                        <td>2,5 MB <a href="{{ $imagem->caminho }}"><i class="lnr-download btn-icon-wrapper"></i></a>
+                                        <td>{{ tamanhoParaHumanos(filesize(public_path($imagem->caminho))) }} <a href="{{ $imagem->caminho }}"><i class="lnr-download btn-icon-wrapper"></i></a>
                                         </td>
-                                        @endforeach
                                     </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>

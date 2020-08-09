@@ -17,18 +17,15 @@
 							</div>
 							@endif
 
-
-
-
 						@auth
 							@if(checkPermission(['freelancer']))
 								<div class="wt-title"><h2>Freelancer</h2></div>
 							@endif
-											
+
 							@if(checkPermission(['admin']))
 								<div class="wt-title"><h2>Admin</h2></div>
 							@endif
-												
+
 							@if(checkPermission(['cliente']))
 								<div class="wt-title"><h2>Cliente</h2></div>
 							@endif
@@ -56,4 +53,4 @@
 				</div>
 			</div>
 @endsection
-		
+

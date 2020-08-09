@@ -67,9 +67,9 @@
                 <div class="mb-4">
                     <h5>Anexos</h5>
                     <div class="main-card card px-3 py-3">
-                        <div class="">
-                            <table class="col-12">
-                                <tbody class="justify-content-center col-12">
+                        <div class="table-responsive">
+                            <table class="mb-0 table table-borderless">
+                                <tbody class="">
                                 @foreach($imagems as $imagem)
                                 <tr class="@if($loop->last) @else limite-abaixo @endif">
                                     <td><i class="fa @include('layouts.includes.icones_ficheiros') mr-2"></i> {{ $imagem->nome_imagem }}</td>

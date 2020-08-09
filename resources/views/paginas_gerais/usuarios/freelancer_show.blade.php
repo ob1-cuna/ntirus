@@ -123,12 +123,12 @@
                 </div>
 
             </div>
-            <br>
+            <!--<br>
             <h5>Portfolio</h5>
             <div class="main-card card">
                 <div class="card-body">
                 </div>
-            </div>
+            </div>-->
             <br>
             <h5>Experiência Profissional</h5>
             <div class="main-card card px-3">
@@ -212,7 +212,7 @@
                         <div class="position-relative form-group"><label for="exampleSelectMulti" class="">
                                 Motivo
                             </label><select name="selectMulti" id="exampleSelectMulti" class="form-control">
-                                <option>1</option>
+                                <option>Selecione um motivo</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>

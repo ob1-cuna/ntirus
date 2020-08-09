@@ -602,3 +602,9 @@ body.wt-login .wt-loginarea {
   z-index: 5;
   padding: 20px 0 0 0;
 }
+
+.app-logo-inverse-login {
+  height: 60px;
+  width: 140px;
+  background: url(../images/brand_ntitus/brand-2.svg) 50% 50% no-repeat;
+}

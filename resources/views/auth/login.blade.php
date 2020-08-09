@@ -10,6 +10,7 @@
     <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template">
     <meta name="msapplication-tap-highlight" content="no">
 	<link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/ajustes.css') }}" rel="stylesheet">
 </head>
 <body>
     <div class="app-container app-theme-white body-tabs-shadow">
@@ -17,14 +18,12 @@
                 <div class="h-100 bg-plum-plate bg-animation">
                     <div class="d-flex h-100 justify-content-center align-items-center">
                         <div class="mx-auto app-login-box col-md-8">
-                            <div class="app-logo-inverse mx-auto mb-3"></div>
+                            <div class="app-logo-inverse-login mx-auto mb-3"></div>
                             <div class="modal-dialog w-100 mx-auto">
                                 <div class="modal-content">
                                     <div class="modal-body">
                                         <div class="h5 modal-title text-center">
                                             <h4 class="mt-2">
-                                                <div></div>
-                                                <span></span>
                                             </h4>
                                         </div>
                                         <form method="POST" action="{{ route('login') }}" class="" id="formulario-de-login">
