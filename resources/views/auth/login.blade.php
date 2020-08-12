@@ -7,8 +7,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Login</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
-    <meta name="description" content="Kero HTML Bootstrap 4 Dashboard Template">
+    <meta name="description" content="Pagina de Login">
     <meta name="msapplication-tap-highlight" content="no">
+    <link href="{{ asset('images/brand_ntitus/favicon-circular.png')}}" rel="icon" type="image/x-icon">
 	<link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ajustes.css') }}" rel="stylesheet">
 </head>
@@ -18,7 +19,9 @@
                 <div class="h-100 bg-plum-plate bg-animation">
                     <div class="d-flex h-100 justify-content-center align-items-center">
                         <div class="mx-auto app-login-box col-md-8">
-                            <div class="app-logo-inverse-login mx-auto mb-3"></div>
+                            <div class="mx-auto mb-3">
+                                <object type="image/svg+xml" data="{{ asset('images/brand_ntitus/brand-2.svg') }}" style="max-height: 35px;"></object>
+                            </div>
                             <div class="modal-dialog w-100 mx-auto">
                                 <div class="modal-content">
                                     <div class="modal-body">

@@ -103,10 +103,8 @@
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-7 col-xl-9 float-left">
                 <form class="form-inline mb-4">
-                    <div class="position-relative form-group">
                         <input name="pesquisa1" id="pesquisa1" placeholder="" type="text" class="mr-2 form-control">
-                    </div>
-                    <button class="btn-icon btn-icon-only btn btn-primary">
+                        <button class="btn-icon btn-icon-only btn btn-primary">
                         <i class="ion-ios-search btn-icon-wrapper"> </i></button>
                 </form>
 

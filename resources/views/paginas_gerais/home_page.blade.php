@@ -1,18 +1,15 @@
 @extends('layouts.app_paginas_gerais')
 @section('title', 'Freelancers')
 @section('content')
-    <div class="my-jumbotron">
-        <div class="col-xs-6 col-sm-12 col-md-8 col-lg-8">
-            <div>
-                <h1 class="pe-7s-"><strong>Encontre aqui os melhores profissionais autonomos</strong></h1>
-            </div>
-        <p class="lead">Os Melhores profissionais cada vez mais perto de si, começe a contratar!
-        </p>
-        <hr class="my-4">
-        <a class="btn btn-secondary btn-lg" href="#" role="button">Cadastre-se</a>
-        <a class="btn btn-outline-secondary btn-lg" href="#" role="button">Faca o Login</a>
+
+    <section class="nt-headline">
+        <h1 class="nt-h1" style="font-family: 'Lato', 'Arial', sans-serif;">Ntirus</h1>
+        <p class="nt-p" style="font-family: 'Lato', 'Arial', sans-serif;">Conectando profissionais autonomos e clientes!</p>
+        <div class="hero-btn-area">
+            <a class="btn btn-primary btn-lg" href="#">Cadastre-se</a>
+            <a class="btn btn-outline-primary btn-lg" href="#">Faca o Login</a>
         </div>
-    </div>
+    </section>
     <div class="clearfix"></div>
     <div class="conteudo col-12">
     <h4>Categorias</h4>

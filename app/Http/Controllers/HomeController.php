@@ -71,9 +71,10 @@ class HomeController extends Controller
     {
         $freelancersTotal = User::where('is_permission', 0)->count();
         $clientesTotal = User::where('is_permission', 1)->count();
-        $users = User::with('habilidades')->where('is_permission', 0)->get();
+        $users = User::with('habilidades')->whereIn('is_permission', [1, 0])->get();
         $trabalhos = Trabalho::with('habilidades')->get();
         $habilidades = Habilidade::with('users')->get();
+        $perfils_bloqueados = User::where('status', 1)->get();
 
         return view ('admin/painel_admin_home', compact([
             'users',
@@ -81,6 +82,7 @@ class HomeController extends Controller
             'freelancersTotal',
             'clientesTotal',
             'trabalhos',
+            'perfils_bloqueados',
             ]));
 
     }

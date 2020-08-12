@@ -107,5 +107,8 @@
 </div>
 
 <div class="app-drawer-overlay d-none animated fadeIn"></div>
-<script type="text/javascript" src="{{ asset('js/main.js') }}"></script></body>
+<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+@yield('meu_script')
+</body>
 </html>
+@yield('meus_modals')

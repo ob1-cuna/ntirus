@@ -21,6 +21,7 @@
     <link href="{{ asset('images/brand_ntitus/favicon-circular.png')}}" rel="icon" type="image/x-icon">
 
     <!-- Estilos -->
+    <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap-grid.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome/fontawesome-all.css') }}" rel="stylesheet">
@@ -34,51 +35,84 @@
 </head>
 
 <body style="background-color: #fbfbfb">
+<div class="nt-page-wrapper app-container app-theme-gray closed-sidebar-mobile sidebar-mobile-open">
+<header class="nt-sombras">
+    <div class="nt-nav-wrapper">
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <a class="navbar-brand" href="#">
+                <img src="{{ asset('images/brand_ntitus/logotype.svg') }}" width="auto" height="22" alt="" loading="lazy">
+            </a>
+            <button class="navbar-toggler mb-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-<header class="wt-header">
-    <div class="wt-navigationarea">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <strong class="wt-logo">
-                        <a href="{{ route('home') }}" class="logo-src">
-                            <img src="{{ asset('images/brand_ntitus/logotype-sm.png') }}" alt="logotipo-aqui">
-                        </a>
-                    </strong>
-                    <div class="wt-rightarea">
-                        <nav id="wt-nav" class="wt-nav navbar-expand-lg" style="">
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                            <div class="collapse navbar-collapse wt-navigation" id="navbarNav">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <a href="{{route('freelancers')}}">Freelancers</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{{ route('trabalhos.list') }}">Trabalhos</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#">Como Funciona</a>
-                                    </li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <form class="navbar-nav mr-auto">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn-icon btn-icon-only btn btn-primary my-2 my-sm-0">
+                        <i class="ion-ios-search btn-icon-wrapper"> </i>
+                    </button>
+                </form>
 
-                                </ul>
+                <ul class="navbar-nav form-inline ">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('freelancers')}}">Freelancers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('trabalhos.list') }}">Trabalhos</a>
+                    </li>
+                    <li @guest class="nav-item" @endguest @auth class="nav-item mr-3" @endauth>
+                        <a class="nav-link" href="#">Como Funciona</a>
+                    </li>
+                    @guest
+                    <li class="nav-item">
+                        <a class="btn btn-outline-primary" href="{{ route('login') }}">Entrar</a>
+                        <a class="btn btn-primary" href="#">Cadastre-se</a>
+                    </li>
+                    @endguest
+                    @auth
+                        <li class="nav-item avatar row dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs z-depth-0 mr-2" alt="avatar image" height="35"> {{ Auth::user()->name }}</a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                   document.getElementById('logout-form').submit();" class="dropdown-item">
+
+
+                                    <i class="metismenu-icon pe-7s-way mr-2"></i>
+                                    Logout
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
                             </div>
-                        </nav>
-                        <div class="wt-loginarea">
-                            <a href="{{ route('login') }}" id="wt-loginbtn" class="btn btn-outline-primary">Entrar</a>
-                            <a href="{{ route('register') }}" class="btn btn-primary">Cadastre-se</a>
-                        </div>
-                    </div>
-                </div>
+                        </li>
+                    @endauth
+                </ul>
             </div>
-        </div>
+        </nav>
     </div>
 </header>
-
+    <section>
         @yield('content')
-
+    </section>
+</div>
 	<script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/vendor/jquery-3.3.1.js') }}"></script>
+<script>
+    $("#nt-search-icon").click(function() {
+        $(".nav").toggleClass("nt-search");
+        $(".nav").toggleClass("nt-no-search");
+        $(".search-input").toggleClass("nt-search-active");
+    });
+
+    $('.nt-menu-toggle').click(function(){
+        $(".nav").toggleClass("nt-mobile-nav");
+        $(".nt-page-wrapper").toggleClass("sidebar-mobile-open");
+        $(this).toggleClass("nt-is-active");
+    });
+</script>
     @yield('meu_script')
 </body>
 </html>

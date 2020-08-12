@@ -109,23 +109,4 @@ class UserController extends Controller
 
 
     }
-
-    public function aprovarPerfil(User $user)
-    {
-        $aprovarPerfil = DB::table('users')
-            ->where('id', $user->id)
-            ->update(['status' => 1]);
-
-        $user->notify(new PerfilAprovado());
-
-        dd([$aprovarPerfil, $user]);
-
-        return redirect()->back();
-    }
-
-
-
-
-
-
 }

@@ -16,6 +16,10 @@ Route::get('/home-2', function () {
     return view('paginas_gerais/home_page');
 });
 
+Route::get('/nav', function () {
+    return view('paginas_de_testes/nav');
+});
+
 //PAGINAS VISIVEIS COM OU SEM LOGIN
 Route::get('/freelancers/','UserController@ListarUsuariosCategoria')->name('freelancers');
 Route::get('/f/{user}', 'UserController@showFreelancer')->name('freelancers.show');
@@ -121,13 +125,13 @@ Route::group(['middleware'=>'auth'], function () {
 
             });
 	});
-
-
-
-	//DASHBOARD ADMINISTRADOR
-	Route::get('/admin/dashboard',['middleware'=>'check-permission:admin','uses'=>'HomeController@admin'])->name('admin.dashboard');
-    Route::post('/admin/aprovar/user/{user}', 'UserController@aprovarPerfil')->name('admin.usuario.aprovar_perfil');
-
+//DASHBOARD ADMINISTRADOR
+    Route::group(['middleware'=>'check-permission:admin'], function ()
+    {
+	    Route::get('/admin/dashboard','HomeController@admin')->name('admin.dashboard');
+        Route::post('/admin/aprovar/perfil/{user}', 'CAdmin\AdminUsersController@aprovarPerfil')->name('admin.usuario.aprovar_perfil');
+        Route::get('/admin/dashboard/categorias','CAdmin\AdminHabilidadesController@index')->name('admin.dashboard.categorias.index');
+    });
 });
 
 //PAGINAS EM FASE DE TESTES
