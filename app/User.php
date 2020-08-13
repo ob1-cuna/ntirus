@@ -17,6 +17,11 @@ class User extends Authenticatable implements MustVerifyEmail
             ->withTimestamps()
             ->withPivot('classificacao');
     }
+    public function metodos_de_pagamento ()
+    {
+        return $this->belongsToMany(MetodosDePagamento::class)
+            ->withTimestamps();
+    }
 
     public function propostas ()
     {
@@ -38,6 +43,21 @@ class User extends Authenticatable implements MustVerifyEmail
     public function trabalho()
     {
         return $this->hasOne(Trabalho::class,'freelancer_id', 'id');
+    }
+
+    public function trabalhos_frees()
+    {
+        return $this->hasMany(Trabalho::class,'freelancer_id', 'id');
+    }
+
+    public function trabalhos_cliente()
+    {
+        return $this->hasMany(Trabalho::class);
+    }
+
+    public function experiencia()
+    {
+        return $this->hasMany(Expereduca::class);
     }
 
     public function imagems()

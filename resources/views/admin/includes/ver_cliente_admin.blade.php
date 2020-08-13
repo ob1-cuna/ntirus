@@ -1,0 +1,5 @@
+@extends('admin.layouts.app')
+@section('title', "Gerir Cliente" )
+@section('descricao', "Perfil de $user->name!" )
+@section('content')
+@endsection()

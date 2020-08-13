@@ -143,7 +143,7 @@
                         </div>
                         <div class="col-auto py-3" style="padding-right: 10px">
                             <div class="text-center">
-                                <h2>29</h2>
+                                <h2> {{$user->trabalhos_frees->count()}}</h2>
                                 <p>Trabalhos Feitos</p>
                             </div>
                             <div class="text-center">

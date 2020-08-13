@@ -11,18 +11,18 @@
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Menu</li>
-                <li class="mm-active">
-                    <a href="#" class="mm-active">
+                <li class="{{ (request()->routeIs('admin.dashboard')) ? 'mm-active' : '' }}">
+                    <a href="#" class="{{ (request()->routeIs('admin.dashboard')) ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="#"><i class="metismenu-icon pe-7s-browser"></i>Meu Perfil</a>
+                    <a href="#"><i class="metismenu-icon pe-7s-browser"></i>Estado</a>
                 </li>
-                <li class="app-sidebar__heading">Trabalhos</li>
-                <li>
-                    <a href="#"><i class="metismenu-icon pe-7s-diamond"></i>Concorridos</a>
+                <li class="app-sidebar__heading">Aplicação</li>
+                <li class="{{ (request()->routeIs('admin.dashboard.usuarios.index')) ? 'mm-active' : '' }}">
+                    <a href="{{ route('admin.dashboard.usuarios.index') }}" class="{{ (request()->routeIs('admin.dashboard.usuarios.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Usuários</a>
                 </li>
                 <li>
                     <a href="#">
@@ -35,6 +35,9 @@
                         <li><a href="#"><i class="metismenu-icon"></i>Cancelados</a></li>
                         <li><a href="#"><i class="metismenu-icon"></i>Finalizados</a></li>
                     </ul>
+                </li>
+                <li class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}">
+                    <a href="{{ route('admin.dashboard.categorias.index') }}" class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Habilidades</a>
                 </li>
                 <li>
                     <a href="#">

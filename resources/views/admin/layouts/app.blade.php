@@ -10,6 +10,8 @@
     <meta name="description" content="@yield('descricao')">
     <meta name="msapplication-tap-highlight" content="no">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/fontawesome/fontawesome-all.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 </head>
 

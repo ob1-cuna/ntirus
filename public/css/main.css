@@ -21798,6 +21798,11 @@ legend {
     opacity: .5
 }
 
+.widget-label {
+    opacity: 1;
+    font-weight: bold
+}
+
 .widget-content .widget-content-right {
     margin-left: auto
 }

@@ -29,6 +29,7 @@ class Trabalho extends Model
         return $this->belongsTo(User::class, 'freelancer_id');
     }
 
+
     public function propostas ()
     {
         return $this->hasMany(Proposta::class);

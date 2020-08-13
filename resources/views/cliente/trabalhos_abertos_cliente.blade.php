@@ -4,7 +4,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-9">
+        <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
             @foreach($trabalhos as $trabalho)
             <div class="main-card card">
                 <div class="card-body"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}"><h5 class="card-title">{{ $trabalho->nome_trabalho }}</h5></a>
@@ -42,7 +42,7 @@
         </div>
 
 
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
             <div class="main-card card">
                 <div class="card-body"><h5 class="card-title">NOVA</h5>
                     <h6 class="card-subtitle">
