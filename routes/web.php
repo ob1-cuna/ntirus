@@ -133,6 +133,8 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/admin/dashboard/categorias','CAdmin\AdminHabilidadesController@index')->name('admin.dashboard.categorias.index');
         Route::get('/admin/dashboard/usuarios','CAdmin\AdminUsersController@index')->name('admin.dashboard.usuarios.index');
         Route::get('/admin/dashboard/usuario/{user}','CAdmin\AdminUsersController@show')->name('admin.dashboard.usuarios.show');
+        Route::get('/admin/dashboard/transacoes','CAdmin\AdminPagamentosController@index')->name('admin.dashboard.transacoes.index');
+        Route::get('/admin/dashboard/transacao/{transacao}','CAdmin\AdminPagamentosController@show')->name('admin.dashboard.transacoes.show');
     });
 });
 

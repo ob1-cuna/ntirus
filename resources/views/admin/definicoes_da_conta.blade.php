@@ -1,4 +1,4 @@
-@extends('layouts.app_new')
+@extends('admin.layouts.app_new')
 @section('title', 'Definições da Conta' )
 @section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
 @section('content')

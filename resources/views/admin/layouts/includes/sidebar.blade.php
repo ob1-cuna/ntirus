@@ -39,8 +39,8 @@
                 <li class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}">
                     <a href="{{ route('admin.dashboard.categorias.index') }}" class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Habilidades</a>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="{{ (request()->routeIs('admin.dashboard.transacoes.index')) ? 'mm-active' : '' }}">
+                    <a href="{{ route('admin.dashboard.transacoes.index') }}">
                         <i class="metismenu-icon pe-7s-display2"></i>
                         Invoices
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>

@@ -50,7 +50,7 @@
                                 <div class="col-md-6 mb-4">
                                     <div class="position-relative form-group">
                                         <label for="preco_proposta" class="">Preco</label>
-                                        <input type="hidden" name="trabalho_id" class="form-control" placeholder="Enter Your Proposal Amount" value="{{ $trabalho->id }}">
+                                        <input type="hidden" name="trabalho_id" class="form-control" placeholder="" value="{{ $trabalho->id }}">
                                         <input type="number" name="preco_proposta" id="preco_proposta" placeholder="Digite o preco da sua proposta" class="form-control" onkeyup="calculateTotal()">
                                     </div>
                                     <small class="form-text font-size-md">

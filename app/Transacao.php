@@ -18,4 +18,9 @@ class Transacao extends Model
     {
         return $this->belongsTo(Trabalho::class);
     }
+
+    public function metodo ()
+    {
+        return $this->belongsTo(MetodosDePagamento::class);
+    }
 }
