@@ -8,7 +8,7 @@
                 <div class="text-center">
                     <div class="avatar-icon-wrapper avatar-icon-xl" style="width: 200px; height: 200px">
                         <div class="avatar-icon" style="width: 200px; height: 200px" >
-                            <img src="{{ asset('images/profile/user.jpg') }}"  style="object-fit: cover;" alt="">
+                            <img src="{{ asset($user->perfil->foto_perfil) }}"  style="object-fit: cover;" alt="">
                         </div>
                     </div>
                     <h6>{{$user->name}}</h6>

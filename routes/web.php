@@ -14,7 +14,7 @@ Route::get('/home', function () {
 
 Route::get('/home-2', function () {
     return view('paginas_gerais/home_page');
-});
+})->name('home-2');
 
 Route::get('/nav', function () {
     return view('paginas_de_testes/nav');

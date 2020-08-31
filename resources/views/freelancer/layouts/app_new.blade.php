@@ -11,6 +11,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
+    @yield('meu_css')
 </head>
 <body>
 <div class="app-container app-theme-gray">

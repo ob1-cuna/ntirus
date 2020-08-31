@@ -99,7 +99,7 @@
                                     </span>
                                 @enderror
                                 <small class="form-text text-muted">
-                                    Podes anexar um ficheiro com possiveis provas de violacao dos termos de uso.
+                                    Podes anexar um ficheiro.
                                 </small>
                             </div>
                             <div class="form-row">

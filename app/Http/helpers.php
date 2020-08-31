@@ -61,4 +61,9 @@
           return round($bytes, 2) . ' ' .$unidades[$i];
       }
 
+      function nomeFicheiro ($file) {
+          $file = preg_replace('/\s+/', '%20', $file);
+          return $file;
+      }
+
 ?>

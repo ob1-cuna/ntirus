@@ -4,38 +4,22 @@
     <div class="clearfix"></div>
     <div class="conteudo">
         <div class="mb-4">
-            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-3 float-left">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-3 float-left mb-4">
                 <div class="main-card card">
                     <div class="card-header float-left"><h6>Habilidades</h6></div>
                     <div class="card-body">
-                        <div class="scroll-area-sm">
+                        <div class="scroll-area-sm" style="max-height: 150px;">
                             <div class="scrollbar-container ps--active-y ps">
                                 <div class="position-relative form-group">
                                     <div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox2"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox2"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox"></label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input">
-                                            <label class="custom-control-label" for="exampleCustomCheckbox2"></label>
-                                        </div>
+                                        <form>
+                                            @foreach($todas_habilidades->sortBy('nome') as $habilidade)
+                                                <div class="custom-checkbox custom-control">
+                                                    <input type="checkbox" id="{{ $habilidade->slug }}" name="{{ $habilidade->slug }}" class="custom-control-input">
+                                                    <label class="custom-control-label" for="{{ $habilidade->slug }}">{{ $habilidade->nome }}</label>
+                                                </div>
+                                            @endforeach
+                                        </form>
                                     </div>
                                 </div>
                                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -48,7 +32,7 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
+                    </div>
                 </div>
                 <br>
                 <div class="main-card card">
@@ -117,14 +101,7 @@
                     Aplicar Filtros
                 </button>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-7 col-xl-9 float-left">
-                <form class="form-inline mb-4">
-                    <div class="position-relative form-group">
-                        <input name="pesquisa1" id="pesquisa1" placeholder="" type="text" class="mr-2 form-control">
-                    </div>
-                    <button class="btn-icon btn-icon-only btn btn-primary">
-                        <i class="ion-ios-search btn-icon-wrapper"> </i></button>
-                </form>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-9 float-left mb-4">
                 @forelse ($trabalhos as $trabalho)
                 <div class="mb-4">
                     <div class="card">
@@ -133,7 +110,7 @@
                                 <div class="card-block py-3">
                                     <ul class="list-inline">
                                         <li class="list-inline-item align-middle">
-                                            <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs" alt="">
+                                            <img src="{{ asset ($trabalho->user->perfil->foto_perfil) }}" class="avatar-icon usuario-avatar-xs" alt="">
                                         </li>
                                         <li class="list-inline-item" style="font-size: medium">{{ $trabalho->user->name }}</li>
                                     </ul>

@@ -13,7 +13,7 @@
                                 <div class="position-relative form-group">
                                     <div>
                                         <form>
-                                        @foreach($todas_habilidades as $habilidade)
+                                        @foreach($todas_habilidades->sortBy('nome') as $habilidade)
                                         <div class="custom-checkbox custom-control">
                                             <input type="checkbox" id="{{ $habilidade->slug }}" name="{{ $habilidade->slug }}" class="custom-control-input">
                                             <label class="custom-control-label" for="{{ $habilidade->slug }}">{{ $habilidade->nome }}</label>
@@ -102,18 +102,12 @@
                 </button>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-7 col-xl-9 float-left">
-                <form class="form-inline mb-4">
-                        <input name="pesquisa1" id="pesquisa1" placeholder="" type="text" class="mr-2 form-control">
-                        <button class="btn-icon btn-icon-only btn btn-primary">
-                        <i class="ion-ios-search btn-icon-wrapper"> </i></button>
-                </form>
-
                 @foreach ($users as $user)
                 <div class="mb-4">
                 <div class="card">
                     <div class="row no-gutters">
                         <div class="col-auto px-3 py-4">
-                            <img src="{{ asset('images/profile/user.jpg') }}" class="img-thumbnail usuario-avatar" alt="">
+                            <img src="{{ asset ($user->perfil->foto_perfil) }}" class="img-thumbnail usuario-avatar" alt="">
                         </div>
                         <div class="col">
                             <div class="card-block py-4">

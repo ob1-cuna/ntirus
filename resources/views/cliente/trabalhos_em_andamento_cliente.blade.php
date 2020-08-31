@@ -1,5 +1,5 @@
 @extends('cliente.layouts.app')
-@section('title', 'Trabalhos Abertos' )
+@section('title', 'Trabalhos em Andamento' )
 @section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
 @section('content')
 
@@ -25,19 +25,19 @@
                             <p>Estado:
                                 @switch($trabalho->status)
                                     @case('Em Andamento')
-                                        <b>Em Execucao</b>
+                                        <b class="badge badge-pill badge-success widget-label">Em Execucao</b>
                                     @break
 
                                     @case('AguardandoAC')
-                                        <b>Aguardar Aprovacao</b>
+                                        <b class="badge badge-pill badge-info widget-label">Aguardar Aprovacao</b>
                                     @break
 
                                     @case('Aprovado')
-                                        <b>Pagamento Pendente</b>
+                                        <b class="badge badge-pill badge-warning widget-label">Pagamento Pendente</b>
                                     @break
 
                                     @case('Recusado')
-                                        <b>Recusado</b>
+                                        <b class="badge badge-pill badge-danger widget-label">Recusado</b>
                                     @break
 
                                     @default
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <a href="#" class="btn btn-warning">
-                        Ver Proposta
+                        Ver Proposta Aceite
                     </a>
                 </div>
                 <div class="d-block text-right card-footer">

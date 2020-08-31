@@ -3,7 +3,7 @@
 @section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
 @section('content')
 
-    <div class="col-lg-12">
+    <div class="col-lg-10 col-md-12 col-xl-10 col-sm-12"  style="padding: 0;">
         <h5 style="font-weight: 500; font-size: 1.25rem;">Propostas</h5>
         <div class="main-card mb-3 card">
             <div class="card-header">Recebeu {{ count($trabalho->propostas) }} Propostas.</div>
@@ -13,8 +13,9 @@
                     <div class="widget-content p-0">
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
-                                <img width="42" class="rounded-circle"
-                                     src="{{ asset('images/avatars/1.jpg') }}" alt="">
+                                <img width="42" class="avatar-icon usuario-avatar-xs"
+                                     src="{{ asset('images/profile/user.jpg') }}" height="42" alt=""
+                                     style="object-fit: cover;">
                             </div>
                             <div class="widget-content-left flex2">
                                 <div class="widget-heading">{{ $proposta->user->name }}</div>
@@ -58,13 +59,14 @@
                         <div id="detalhesProposta{{$proposta->id}}" data-children=".item">
                             <div class="item">
                                 <div data-parent="#detalhesProposta{{$proposta->id}}" id="propostaDetalhes{{$proposta->id}}Open" class="collapse hide">
-                                    <p></p>
-                                    <p class="mb-3">Carta de Apresentacao</p>
+                                    <hr>
+                                    <h6 class="mb-3"><b style="font-weight: 500">Carta de Apresentacao</b></h6>
+                                    <hr>
                                     <?php echo $proposta->carta;?>
                                     <div class="mb-4"></div>
                                     @if(count($proposta->imagems) == 0)
                                     @else
-                                        <h6>Anexos</h6>
+                                        <h6><b style="font-weight: 500">Anexos</b></h6>
                                         <div class="table-responsive">
                                             <table class="mb-0 table">
                                                 <thead>
@@ -79,7 +81,7 @@
                                                     @foreach($proposta->imagems as $imagem)
                                                         <th scope="row">1</th>
                                                         <td>{{ $imagem->nome_imagem }}</td>
-                                                        <td>2,5 MB <a href="{{ $imagem->caminho }}"><i class="lnr-download btn-icon-wrapper"></i></a>
+                                                        <td>{{ tamanhoParaHumanos(filesize(public_path($imagem->caminho))) }} <a href="{{ $imagem->caminho }}"><i class="lnr-download btn-icon-wrapper"></i></a>
                                                         </td>
                                                     @endforeach
                                                 </tr>

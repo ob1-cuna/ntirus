@@ -37,7 +37,7 @@
                     </ul>
                 </li>
                 <li class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}">
-                    <a href="{{ route('admin.dashboard.categorias.index') }}" class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Habilidades</a>
+                    <a href="{{ route('admin.dashboard.categorias.index') }}" class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Categorias</a>
                 </li>
                 <li class="{{ (request()->routeIs('admin.dashboard.transacoes.index')) ? 'mm-active' : '' }}">
                     <a href="{{ route('admin.dashboard.transacoes.index') }}">

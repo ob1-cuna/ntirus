@@ -10,7 +10,7 @@
                         <div class="row no-gutters">
                             <div class="col-auto px-3 py-3">
                                 <div class="align-content-center text-center">
-                                    <img src="{{ asset('images/profile/user.jpg') }}" class="img-thumbnail usuario-avatar mb-2" alt="">
+                                    <img src="{{ asset ($user->perfil->foto_perfil) }}" class="img-thumbnail usuario-avatar mb-2" alt="">
                                     <span> <a href="#"><h5 class="text-center">{{ $user->name }}</h5></a></span>
                                 </div>
                             </div>
@@ -27,7 +27,9 @@
                                         </div>
                                     </div>
                                     <div style="padding-right: 20px"><?php echo $user->perfil->descricao;?></div>
+                                    <br>
                                     <div class="row col">
+
                                         <div class="list-inline">
                                             <div class="list-inline-item">
                                                 <i class="fab fa-lg fa-instagram"></i>
@@ -186,7 +188,7 @@
         </div>
         <div class="mb-4">
             <div class=" col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left">
-                <h5>Reportar Usuário</h5>
+                <h5>Denunciar Usuário</h5>
                 <div class="main-card mb-3 card">
                     <div class="card-body">
                         <form class="">

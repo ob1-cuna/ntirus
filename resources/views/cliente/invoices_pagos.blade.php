@@ -1,11 +1,11 @@
 @extends('cliente.layouts.app')
-@section('title', 'Meu Perfil' )
-@section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
+@section('title', 'Transações' )
+@section('descricao', 'Suas transações na Ntirus!' )
 @section('content')
 
 
 <div class="row">
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-9">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-9" style="padding: 0;">
     <div class="main-card mb-3 card">
         <div class="card-body">
 
@@ -15,6 +15,7 @@
                 <tr>
                     <th>ID Trabalho</th>
                     <th>Valor</th>
+                    <th>Tipo</th>
                     <th style="width: 15%">Estado</th>
                     <th style="width: 20%">Operações</th>
                 </tr>
@@ -22,8 +23,18 @@
                 <tbody>
                 @foreach($transacoes as $transacao)
                     <tr>
-                        <td>{{ $transacao->trabalho->slug }}</td>
-                        <td>{{ $transacao->valor }}</td>
+                        <td><a href="{{ route ('trabalho.show', ['trabalho' => $transacao->trabalho->slug]) }}">{{ $transacao->trabalho->slug }}</a></td>
+                        <td>{{ number_format($transacao->valor, 2 ) }} MTs</td>
+                        <td>
+                            @switch($transacao->tipo)
+                                @case('c2p')
+                                    Pagamento de Trabalho
+                                @break
+                                @case('p2c')
+                                    Reembolso
+                                @break
+                            @endswitch
+                        </td>
                         @switch($transacao->estado)
                         @case('Pendente')
                             <td class="text-center text-capitalize">
@@ -31,11 +42,22 @@
                                     Pendente
                                 </div>
                             </td>
-                            <td>
-                                <button class="btn-icon btn btn-danger btn-block">
-                                    <i class="pe-7s-wallet btn-icon-wrapper"> </i>Pagar
-                                </button>
-                            </td>
+                            @switch($transacao->tipo)
+                                @case('p2c')
+                                <td>
+                                    <button class="btn-icon btn btn-warning btn-block">
+                                        <i class="pe-7s-info btn-icon-wrapper"> </i> Ver Detalhes
+                                    </button>
+                                </td>
+                                @break
+                                @case('c2p')
+                                <td>
+                                    <button class="btn-icon btn btn-danger btn-block">
+                                        <i class="pe-7s-wallet btn-icon-wrapper"> </i> Pagar
+                                    </button>
+                                </td>
+                                @break
+                            @endswitch
                         @break
                         @case('Concluido')
                             <td class="text-center text-capitalize">
@@ -58,8 +80,9 @@
                 <tr>
                     <th>ID Trabalho</th>
                     <th>Valor</th>
-                    <th>Estado</th>
-                    <th>Acções</th>
+                    <th>Tipo</th>
+                    <th style="width: 15%">Estado</th>
+                    <th style="width: 20%">Operações</th>
                 </tr>
                 </tfoot>
             </table>

@@ -8,12 +8,9 @@
             @foreach($trabalhos as $trabalho)
             <div class="main-card card">
                 <div class="card-body"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}"><h5 class="card-title">{{ $trabalho->nome_trabalho }}</h5></a>
-                    <h6 class="card-subtitle">
-                        Subtitulo
-                    </h6>
                     <div class="row">
                         <div class="col-sm-6 col-xl-3">
-                            <p>Data: <b>{{ Carbon::parse($trabalho->data_prev)->format('d M') }} </b></p>
+                            <p>Data: <b>{{ Carbon::parse($trabalho->data_prev)->format('d M Y') }} </b></p>
                         </div>
                         <div class="col-sm-6 col-xl-3">
                             <p>Nivel: <b>{{ $trabalho->nivel }}</b> </p>
@@ -22,7 +19,10 @@
                             <p>Tipo: <b>{{ $trabalho->tipo }}</b></p>
                         </div>
                         <div class="col-sm-6 col-xl-3">
-                            <p><b>{{ $trabalho->distrito }}, {{ $trabalho->provincia }}</b></p>
+                            <p>
+                                <object type="image/svg+xml" data="{{ asset('images/flag/mz-flag.svg') }}" style="width: 18px; height: 12px" class="mr-1"></object>
+                                <b>{{ $trabalho->distrito }}, {{ $trabalho->provincia }}</b>
+                            </p>
                         </div>
                     </div>
                     <a href="{{ route('cliente.trabalhos.abertos.proposta.show', ['trabalho' => $trabalho->id]) }}" class="btn btn-warning">
@@ -63,19 +63,19 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalApagarTrabalho{{ $trabalho->id }}Label">Modal title</h5>
+                    <h5 class="modal-title" id="modalApagarTrabalho{{ $trabalho->id }}Label">Confirmação</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <p class="mb-0">
-                        {{ $trabalho->nome_trabalho }}
+                        Tem certeza que deseja remover <b>{{ $trabalho->nome_trabalho }}</b> da sua lista de trabalhos abertos?
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Sim, tenho certeza</button>
                 </div>
             </div>
         </div>

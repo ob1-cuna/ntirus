@@ -63,7 +63,7 @@
 											</div>
                                         </form>
                                         <div class="divider"></div>
-                                        <h6 class="mb-0">Não tem uma conta? <a href="#" class="text-primary">Cadastre-se</a></h6>
+                                        <h6 class="mb-0">Não tem uma conta? <a href="{{ route('register') }}" class="text-primary">Cadastre-se</a></h6>
                                     </div>
                                     <div class="modal-footer clearfix">
                                         <div class="float-left"><a href="{{ route('password.request') }}" class="btn-lg btn btn-link">Recuperar senha</a></div>

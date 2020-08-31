@@ -1,5 +1,5 @@
 @extends('freelancer.layouts.app')
-@section('title', 'Trabalhos Propostos' )
+@section('title', 'Trabalhos Concorridos' )
 @section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
 @section('content')
 

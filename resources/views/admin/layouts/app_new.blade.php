@@ -13,6 +13,8 @@
     <link href="{{ asset('css/fontawesome/fontawesome-all.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
+
+    @yield('meu_css')
 </head>
 <body>
 <div class="app-container app-theme-gray">

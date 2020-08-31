@@ -34,7 +34,7 @@
                                         <div class="widget-content-wrapper">
                                             <div class="widget-content-left mr-3">
                                                 <img width="42" class="avatar-icon usuario-avatar-xs"
-                                                     src="{{ asset('images/profile/user.jpg') }}" height="42" alt=""
+                                                     src="{{ asset($user->perfil->foto_perfil) }}" height="42" alt=""
                                                      style="object-fit: cover;">
                                             </div>
                                             <div class="widget-content-left">

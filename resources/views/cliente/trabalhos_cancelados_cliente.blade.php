@@ -1,6 +1,6 @@
 @extends('cliente.layouts.app')
-@section('title', 'Trabalhos Abertos' )
-@section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
+@section('title', 'Trabalhos Cancelados' )
+@section('descricao', 'Seus trabalhos cancelados.' )
 @section('content')
 
     <div class="row">
@@ -46,7 +46,8 @@
                     @switch($trabalho->status)
                         @case('Cancelado-F')
                         <div class="d-block text-right card-footer">
-                            <button class="btn btn-outline-secondary">Reclamar</button>
+                            <button class="btn btn-outline-danger">Avaliar</button>
+                            <button class="btn btn-outline-secondary">Pedir reembolso</button>
                         </div>
                         @break
 

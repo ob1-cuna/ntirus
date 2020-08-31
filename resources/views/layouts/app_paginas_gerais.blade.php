@@ -22,11 +22,8 @@
 
     <!-- Estilos -->
     <link href="{{ asset('css/navbar.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/bootstrap-grid.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/fontawesome/fontawesome-all.css') }}" rel="stylesheet">
     <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/jquery-ui.css') }}" rel="stylesheet" >
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     <link href="{{ asset('css/transitions.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ajustes.css') }}" rel="stylesheet">
@@ -39,7 +36,7 @@
 <header class="nt-sombras">
     <div class="nt-nav-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="{{ route('home-2') }}">
                 <img src="{{ asset('images/brand_ntitus/logotype.svg') }}" width="auto" height="22" alt="" loading="lazy">
             </a>
             <button class="navbar-toggler mb-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,7 +45,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <form class="navbar-nav mr-auto">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Pesquise..." aria-label="Search">
                     <button class="btn-icon btn-icon-only btn btn-primary my-2 my-sm-0">
                         <i class="ion-ios-search btn-icon-wrapper"> </i>
                     </button>
@@ -74,7 +71,7 @@
                         <li class="nav-item avatar row dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-4" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs z-depth-0 mr-2" alt="avatar image" height="35"> {{ Auth::user()->name }}</a>
+                                <img src="{{ asset(Auth::user()->perfil->foto_perfil) }}" class="avatar-icon usuario-avatar-xs z-depth-0 mr-2" alt="avatar image" height="35"> {{ Auth::user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();" class="dropdown-item">

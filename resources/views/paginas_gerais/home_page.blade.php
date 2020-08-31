@@ -3,47 +3,47 @@
 @section('content')
 
     <section class="nt-headline">
-        <h1 class="nt-h1" style="font-family: 'Lato', 'Arial', sans-serif;">Ntirus</h1>
-        <p class="nt-p" style="font-family: 'Lato', 'Arial', sans-serif;">Conectando profissionais autonomos e clientes!</p>
+        <h1 class="nt-h1 text-left" style="font-family: 'Lato', 'Arial', sans-serif; margin-left: 100px;">Bem-vindo a Ntirus</h1>
+        <p class="nt-p text-left" style="font-family: 'Lato', 'Arial', sans-serif; margin-left: 100px;">Conectando profissionais autonomos e clientes!</p>
         <div class="hero-btn-area">
-            <a class="btn btn-primary btn-lg" href="#">Cadastre-se</a>
-            <a class="btn btn-outline-primary btn-lg" href="#">Faca o Login</a>
+            <a class="btn btn-light btn-lg" href="#">Cadastre-se</a>
+            <a class="btn btn-light btn-lg" href="#">Faca o Login</a>
         </div>
     </section>
-    <div class="clearfix"></div>
+    <div class="clearfix mb-4"></div>
     <div class="conteudo col-12">
     <h4>Categorias</h4>
         <div class="">
             <div class="row justify-content-center">
                     <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col-xs-10 mb-4">
                         <div class="card">
-                        <img src="{{ asset('images/categories/meu_file.svg') }}" class="card-img-top" alt="">
+                        <img src="{{ asset('images/categories/cabelo.svg') }}" class="card-img-top" alt="">
                         <div class="card-body btn btn-outline-secondary btn-lg btn-square border-0">
-                            <p class="card-text text-center text-capitalize">Programação</p>
+                            <p class="card-text text-center text-capitalize">Cabeleireiro & Estética</p>
                         </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col-xs-10 mb-4">
                         <div class="card">
-                        <img src="{{ asset('images/categories/meu_file.svg') }}" class="card-img-top" alt="">
+                        <img src="{{ asset('images/categories/design-grafico.svg') }}" class="card-img-top" alt="">
                         <div class="card-body btn btn-outline-secondary btn-lg btn-square border-0">
-                            <p class="card-text text-center text-capitalize">Pintura</p>
+                            <p class="card-text text-center text-capitalize">Design Grafico</p>
                         </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col-xs-10 mb-4">
                         <div class="card">
-                        <img src="{{ asset('images/categories/meu_file.svg') }}" class="card-img-top" alt="">
+                        <img src="{{ asset('images/categories/electricidade.svg') }}" class="card-img-top" alt="">
                         <div class="card-body btn btn-outline-secondary btn-lg btn-square border-0">
-                            <p class="card-text text-center text-capitalize">Programação</p>
+                            <p class="card-text text-center text-capitalize">Electricidade</p>
                         </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col-xs-10 mb-4">
                         <div class="card">
-                        <img src="{{ asset('images/categories/meu_file.svg') }}" class="card-img-top" alt="">
+                        <img src="{{ asset('images/categories/instalacao-tv.svg') }}" class="card-img-top" alt="">
                         <div class="card-body btn btn-outline-secondary btn-lg btn-square border-0">
-                            <p class="card-text text-center text-capitalize">Programação</p>
+                            <p class="card-text text-center text-capitalize">Instalação de TV</p>
                         </div>
                         </div>
                     </div>

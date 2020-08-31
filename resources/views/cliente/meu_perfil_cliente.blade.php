@@ -4,9 +4,9 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-10">
         <div class="main-card mb-3 card">
-            <div class="card-body"><h5 class="card-title">Publicar Trabalho</h5>
+            <div class="card-body"><h5 class="card-title">Actualizar Perfil</h5>
                 <form class="">
                     <div class="form-row">
                         <div class="col-md-6">

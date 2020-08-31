@@ -13,6 +13,7 @@ use Auth;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ClienteTrabalhoController extends Controller
 {
@@ -89,6 +90,7 @@ class ClienteTrabalhoController extends Controller
         ]);
 
         $trabalho = Trabalho::create([
+            'slug' => Str::random(9),
             'nome_trabalho' => $request->get('nome_trabalho'),
             'user_id' => Auth::user()->id,
             'nivel' => $request->get('nivel_trabalho'),

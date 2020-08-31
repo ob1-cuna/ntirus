@@ -74,7 +74,7 @@
                                 <tr class="@if($loop->last) @else limite-abaixo @endif">
                                     <td><i class="fa @include('layouts.includes.icones_ficheiros') mr-2"></i> {{ $imagem->nome_imagem }}</td>
                                     <td class=""></td>
-                                    <td class="text-right">{{ tamanhoParaHumanos(filesize(public_path($imagem->caminho))) }} <a href={{ $imagem->caminho }}><i class="fa fa-download ml-2"></i></a></td>
+                                    <td class="text-right">{{ tamanhoParaHumanos(filesize(public_path($imagem->caminho))) }} <a href={{ nomeFicheiro ($imagem->caminho) }}><i class="fa fa-download ml-2"></i></a></td>
                                 </tr>
                                 @endforeach
                                 </tbody>
@@ -119,7 +119,7 @@
                     <h5>Cliente</h5>
                     <div class="main-card card py-2 px-2">
                         <div class="text-center">
-                            <div class="col mb-2"><img src="{{ asset('images/profile/user.jpg') }}" class="rounded-circle usuario-avatar mb-2" alt="" style="max-width: 120px; max-height: 120px"></div>
+                            <div class="col mb-2"><img src="{{ asset ($trabalho->user->perfil->foto_perfil) }}" class="rounded-circle usuario-avatar mb-2" alt="" style="max-width: 120px; max-height: 120px"></div>
                             <div class="col mb-2">{{ $trabalho->user->name }}</div>
                             <div class="col mb-3">
                                 <div class="row">
@@ -134,7 +134,7 @@
                     </div>
                 </div>
                 <div class="mb-4">
-                        <h5>Reportar Trabalho</h5>
+                        <h5>Denunciar Trabalho</h5>
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <form class="">

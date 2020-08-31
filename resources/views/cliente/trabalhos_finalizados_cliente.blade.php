@@ -1,6 +1,6 @@
 @extends('cliente.layouts.app')
-@section('title', 'Trabalhos Abertos' )
-@section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
+@section('title', 'Trabalhos Finalizados' )
+@section('descricao', 'Lista dos seus trabalhos finalizados!' )
 @section('content')
 
     <div class="row">
@@ -44,7 +44,7 @@
 
                     @switch($trabalho->status)
                         @case('Finalizado')
-                        @if (count($avaliacoes) == 0 )
+                        @if (count($trabalho->review_trabs->where('avaliador_id', Auth::user()->id)) == 0 )
                         <div class="d-block text-right card-footer">
                             <button class="btn btn-outline-secondary" data-toggle="collapse" href="#tabFreelancer{{$trabalho->id}}">Avaliar Cliente</button>
                             <div class="collapse text-left" id="tabFreelancer{{$trabalho->id}}">

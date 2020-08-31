@@ -10,8 +10,8 @@
                         <div class="row no-gutters">
                             <div class="col-auto px-3 py-3">
                                 <div class="align-content-center text-center">
-                                <img src="{{ asset('images/profile/user.jpg') }}" class="img-thumbnail usuario-avatar mb-2" alt="">
-                                <span> <a href="#"><h5 class="text-center">Anacleto Cuna</h5></a></span>
+                                <img src="{{ asset ($user->perfil->foto_perfil) }}" class="img-thumbnail usuario-avatar mb-2" alt="">
+                                <span> <a href="#"><h5 class="text-center">{{ $user->name }}</h5></a></span>
                                 </div>
                             </div>
                             <div class="col">
@@ -135,7 +135,7 @@
                 <div class="card-body">
                     @foreach($exper_profs as $exper_prof)
                     <div class="container">
-                        <div class="row mt-2">
+                        <div class="row @if($loop->first) mt-2 @else @endif">
                             <h6 class="bold-medio">{{ $exper_prof->nome}}</h6>
                         </div>
                         <div class="row mb-2">
@@ -152,8 +152,14 @@
                                 <i> <?php echo $exper_prof->descricao; ?> </i>
                         </div>
                     </div>
+                        @if($loop->last)
+                            <div class="mb-3">
+                            </div>
+                        @else
+                            <div class="limite-acima mb-4 mt-2">
+                            </div>
+                        @endif
                     @endforeach
-                    <div class="limite-acima mb-4 mt-3"></div>
                 </div>
             </div>
             <br>
@@ -162,7 +168,7 @@
                 <div class="card-body">
                     @foreach($educas as $educa)
                     <div class="container">
-                        <div class="row mt-2">
+                        <div class="row @if($loop->first) mt-2 @else @endif">
                             <h6 class="bold-medio">{{ $educa->nome }}</h6>
                         </div>
                         <div class="row mb-2">
@@ -179,8 +185,15 @@
                             <i><?php echo $educa->descricao; ?></i>
                         </div>
                     </div>
+                        @if($loop->last)
+                            <div class="mb-3">
+                            </div>
+                        @else
+                            <div class="limite-acima mb-4 mt-2">
+                            </div>
+                        @endif
                     @endforeach
-                    <div class="limite-acima mb-4 mt-3"></div>
+
                 </div>
             </div>
             <br>
@@ -205,7 +218,7 @@
                 </div>
             </div>
             <br>
-            <h5>Reportar Usuário</h5>
+            <h5>Denunciar Usuário</h5>
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <form class="">

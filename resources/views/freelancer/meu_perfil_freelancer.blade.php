@@ -1,6 +1,9 @@
 @extends('freelancer.layouts.app_new')
 @section('title', 'Meu Perfil' )
 @section('descricao', 'Altere os dados do seu perfil!' )
+@section('meu_css')
+
+@endsection
 @section('content')
 
 
@@ -124,37 +127,44 @@
                     </div>
 
 
-                @foreach($exper_profs as $exper_prof)
 
-                    <div id="accordionExp{{ $exper_prof->id }}">
-                        <div class="card mb-1">
-                            <div id="headingExp{{ $exper_prof->id }}" class="card-header">
-                                <div class="row">
-                                <button type="button" data-toggle="collapse" data-target="#collapseExp{{ $exper_prof->id }}" aria-expanded="false" aria-controls="collapseExp{{ $exper_prof->id }}Controls" class="text-left m-0 p-0 btn-pill btn btn-gradient-link collapsed">
-                                    <h6 class="m-0 p-0">{{ $exper_prof->instituicao}}</h6>
-                                    <span>{{ $exper_prof->data_inicio }} - {{ $exper_prof->data_terminio }}</span>
-                                </button>
-                                <div class="pane-right">
-                                    <button class="mb-2 mr-2 btn-icon btn-icon-only border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#modalApagarExp{{ $exper_prof->id }}">
-                                        <i class="lnr-trash btn-icon-wrapper"> </i>
-                                    </button>
+                    @foreach($exper_profs as $exper_prof)
+
+                        <div id="accordionExp{{ $exper_prof->id }}">
+                            <div class="card mb-1">
+                                <div id="headingExp{{ $exper_prof->id }}" class="card-header">
+                                    <div class="pane-left flex2">
+                                        <button type="button" data-toggle="collapse"
+                                                data-target="#collapseExp{{ $exper_prof->id }}" aria-expanded="false"
+                                                aria-controls="collapseExp{{ $exper_prof->id }}Controls"
+                                                class="text-left m-0 p-0 btn-pill btn btn-gradient-link collapsed">
+                                            <h6 class="m-0 p-0">{{ $exper_prof->instituicao}}</h6>
+                                            <span>{{ $exper_prof->data_inicio }} - {{ $exper_prof->data_terminio }}</span>
+                                        </button>
+                                    </div>
+                                    <div class="pane-right">
+                                        <button class="mb-2 mr-2 btn-icon btn-icon-only border-0 btn-transition btn btn-outline-danger"
+                                                data-toggle="modal" data-target="#modalApagarExp{{ $exper_prof->id }}">
+                                            <i class="lnr-trash btn-icon-wrapper"> </i>
+                                        </button>
+                                    </div>
                                 </div>
-                                </div>
-                            </div>
-                            <div data-parent="#accordionExp{{ $exper_prof->id }}" id="collapseExp{{ $exper_prof->id }}" aria-labelledby="headingExp{{ $exper_prof->id }}" class="collapse" style="">
-                                <div class="card-body">
-                                    <form class="" method="POST" action="{{ route('dashboard.perfil.exp-educa.actualizar', ['expereduca' => $exper_prof->id]) }}">
-                                        @csrf
-                                        @method('PATCH')
-                                        <?php $tipo = $exper_prof; $ocupacao = "Ocupacao"; $categoria = 'exper_prof';?>
-                                        @include('freelancer.layouts.includes.formulario_actualizar_expeduca')
-                                    </form>
+                                <div data-parent="#accordionExp{{ $exper_prof->id }}" id="collapseExp{{ $exper_prof->id }}"
+                                     aria-labelledby="headingExp{{ $exper_prof->id }}" class="collapse" style="">
+                                    <div class="card-body">
+                                        <form class="" method="POST"
+                                              action="{{ route('dashboard.perfil.exp-educa.actualizar', ['expereduca' => $exper_prof->id]) }}">
+                                            @method('patch')
+                                            @csrf
+                                            <?php $tipo = $exper_prof; $ocupacao = "Ocupacao"; $categoria = 'exper_prof';?>
+                                            @include('freelancer.layouts.includes.formulario_actualizar_expeduca')
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                @endforeach
+                    @endforeach
                 <br>
             </div>
                     <div class="divider"></div>
@@ -196,20 +206,26 @@
                             <div class="card mb-1">
                                 <div id="headingEduca{{ $educa->id }}" class="card-header">
                                     <div class="pane-left">
-                                    <button type="button" data-toggle="collapse" data-target="#collapseEduca{{ $educa->id }}" aria-expanded="false" aria-controls="collapseEduca{{ $educa->id }}Controls" class="text-left m-0 p-0 btn-pill btn btn-gradient-link collapsed">
-                                        <h6 class="m-0 p-0">{{ $educa->instituicao}}</h6>
-                                        <span>{{ $educa->data_inicio }} - {{ $educa->data_terminio }}</span>
-                                    </button>
+                                        <button type="button" data-toggle="collapse"
+                                                data-target="#collapseEduca{{ $educa->id }}" aria-expanded="false"
+                                                aria-controls="collapseEduca{{ $educa->id }}Controls"
+                                                class="text-left m-0 p-0 btn-pill btn btn-gradient-link collapsed">
+                                            <h6 class="m-0 p-0">{{ $educa->instituicao}}</h6>
+                                            <span>{{ $educa->data_inicio }} - {{ $educa->data_terminio }}</span>
+                                        </button>
                                     </div>
                                     <div class="pane-right">
-                                        <button class="mb-2 mr-2 btn-icon btn-icon-only border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#modalApagarEduca{{ $educa->id }}">
+                                        <button class="mb-2 mr-2 btn-icon btn-icon-only border-0 btn-transition btn btn-outline-danger"
+                                                data-toggle="modal" data-target="#modalApagarEduca{{ $educa->id }}">
                                             <i class="lnr-trash btn-icon-wrapper"> </i>
                                         </button>
                                     </div>
                                 </div>
-                                <div data-parent="#accordionEduca{{ $educa->id }}" id="collapseEduca{{ $educa->id }}" aria-labelledby="headingEduca{{ $educa->id }}" class="collapse" style="">
+                                <div data-parent="#accordionEduca{{ $educa->id }}" id="collapseEduca{{ $educa->id }}"
+                                     aria-labelledby="headingEduca{{ $educa->id }}" class="collapse" style="">
                                     <div class="card-body">
-                                        <form class="" method="POST" action="{{ route('dashboard.perfil.exp-educa.actualizar', ['expereduca' => $educa->id]) }}">
+                                        <form class="" method="POST"
+                                              action="{{ route('dashboard.perfil.exp-educa.actualizar', ['expereduca' => $educa->id]) }}">
                                             @method('patch')
                                             @csrf
                                             <?php $tipo = $educa; $ocupacao = "Cargo"; $categoria = 'educacao';?>
@@ -277,7 +293,7 @@
                                                 Nivel: {{ $habilidade->pivot->classificacao }}
                                             </div>
                                         </div>
-                                        <div class="widget-content-right widget-content-actions">
+                                        <div class="widget-content-right">
                                             <button class="btn-icon btn-icon-only border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#modalApagarHabilidade{{ $habilidade->id }}">
                                                 <i class="lnr-trash btn-icon-wrapper"> </i>
                                             </button>

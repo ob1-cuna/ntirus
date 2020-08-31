@@ -15,7 +15,7 @@ class ClientePagamentosController extends Controller
 {
     public function invoicesPagos ()
     {
-        $transacoes = Transacao::all();
+        $transacoes = Transacao::where('user_id', Auth::user()->id)->get();
         return view('cliente.invoices_pagos', compact('transacoes'));
     }
 }

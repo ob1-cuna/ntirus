@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Expereduca;
 use App\habilidade;
+use App\imagem;
 use App\Review_trab;
 use App\Trabalho;
 use App\Perfil;
@@ -31,6 +32,9 @@ class UserController extends Controller
             $nota = round($round_num, 2);
 
         $trabalhos = Trabalho::where([['freelancer_id', $user->id], ['status', 'Finalizado']])->get();
+        $verificador_foto_perfil = $user->fotoPerfil->count();
+
+        $foto_perfil = $user->fotoPerfil;
         /*
          * Status do Trabalho colocados do ENUM da do Banco de Dados:
          *
@@ -48,6 +52,8 @@ class UserController extends Controller
                         'user',
                         'nota',
                         'trabalhos',
+                        'verificador_foto_perfil',
+                        'foto_perfil',
                         'trabalhos_feitos',
                         'trabalhos_cancelados',
                         'trabalhos_em_execucao',
