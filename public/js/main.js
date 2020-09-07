@@ -50909,12 +50909,14 @@
             }(i)
         }) ? n.apply(e, a) : n) || (t.exports = r)
     }).call(this, i(0))
-}, function (t, e, i) {
+},
+    function (t, e, i) {
     "use strict";
     i.r(e), function (t) {
         i(184);
         t(document).ready(() => {
             t("#signupForm").validate({
+
                 rules: {
                     firstname: "required",
                     lastname: "required",
@@ -50953,7 +50955,36 @@
                 unhighlight: function (e, i, n) {
                     t(e).addClass("is-valid").removeClass("is-invalid")
                 }
-            })
+            }),
+                t("#metodoForm").validate({
+
+                    rules: {
+                        metodo: "required",
+                        titular: {required: !0, minlength: 5},
+                        codigo_confirmacao: {required: !0, minlength: 5}
+                        },
+                    messages: {
+                        metodo: "Por favor, selecione um método",
+                        titular: {
+                            required: "Por favor, escreva o nome do titular",
+                            minlength: "O código de confirmação deve ter no mínimo 5 caracteres"
+                        },
+                        codigo_confirmacao: {
+                            required: "Por favor, escreva o código de confirmação",
+                            minlength: "O código de confirmação deve ter no mínimo 5 caracteres"
+                        }
+                    },
+                    errorElement: "em",
+                    errorPlacement: function (t, e) {
+                        t.addClass("invalid-feedback"), "checkbox" === e.prop("type") ? t.insertAfter(e.next("label")) : t.insertAfter(e)
+                    },
+                    highlight: function (e, i, n) {
+                        t(e).addClass("is-invalid").removeClass("is-valid")
+                    },
+                    unhighlight: function (e, i, n) {
+                        t(e).addClass("is-valid").removeClass("is-invalid")
+                    }
+                })
         })
     }.call(this, i(0))
 }, function (t, e, i) {

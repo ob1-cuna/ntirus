@@ -17,7 +17,7 @@ Route::get('/home-2', function () {
 })->name('home-2');
 
 Route::get('/nav', function () {
-    return view('paginas_de_testes/nav');
+    return view('cliente/factura_pay');
 });
 
 //PAGINAS VISIVEIS COM OU SEM LOGIN
@@ -106,6 +106,10 @@ Route::group(['middleware'=>'auth'], function () {
                             Route::post('cliente/avaliacao/{trabalho}','CCliente\ClienteAvaliacaoController@store')->name('cliente.trabalhos.finalizados.avaliacao.store');
 
                     Route::get('/cliente/invoices/pagos', 'CCliente\ClientePagamentosController@invoicesPagos')->name('cliente.invoices.pagos');
+                    Route::get('/cliente/invoices/i/{transacao}', 'CCliente\ClientePagamentosController@show')->name('cliente.invoices.show');
+                    Route::get('/cliente/invoices/p/{transacao}', 'CCliente\ClientePagamentosController@efectuarPagamento')->name('cliente.invoices.pay');
+                    Route::get('/cliente/invoices/p/{transacao}#step-2', 'CCliente\ClientePagamentosController@efectuarPagamento')->name('cliente.invoices.pay-2');
+                    Route::post('/cliente/invoices/p/{transacao}/store', 'CCliente\ClientePagamentosController@efectuarPagamentoStore')->name('cliente.invoices.pay.store');
 
 
                     Route::get('/cliente/perfil', 'CCliente\ClientePerfilController@meuPerfil')->name('cliente.perfil');
@@ -135,6 +139,11 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/admin/dashboard/usuario/{user}','CAdmin\AdminUsersController@show')->name('admin.dashboard.usuarios.show');
         Route::get('/admin/dashboard/transacoes','CAdmin\AdminPagamentosController@index')->name('admin.dashboard.transacoes.index');
         Route::get('/admin/dashboard/transacao/{transacao}','CAdmin\AdminPagamentosController@show')->name('admin.dashboard.transacoes.show');
+        Route::post('/admin/dashboard/transacao/{transacao}/','CAdmin\AdminPagamentosController@confirmarPagamento')->name('admin.dashboard.transacoes.confirmar');
+        Route::get('/admin/dashboard/transacao/{transacao}/pagar','CAdmin\AdminPagamentosController@efectuarPagamentoIndex')->name('admin.dashboard.transacoes.pagar.index');
+        Route::get('/admin/dashboard/transacao/{transacao}/pagar#step-2','CAdmin\AdminPagamentosController@efectuarPagamentoIndex')->name('admin.dashboard.transacoes.pagar.index-2');
+        Route::post('/admin/dashboard/transacao/{transacao}/pagar','CAdmin\AdminPagamentosController@efectuarPagamentoStore')->name('admin.dashboard.transacoes.pagar.store');
+
     });
 });
 

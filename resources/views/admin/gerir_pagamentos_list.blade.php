@@ -11,7 +11,6 @@
                             <h4 style="font-size: 1.5rem;">Transações</h4>
                         </div>
                         <div class="pane-right">
-
                         </div>
                     </div>
                     <div class="divider"></div>
@@ -37,13 +36,13 @@
                                 </td>
                                 <td>{{ $transacao->trabalho->slug }}</td>
                                 <td><a href="{{ route('admin.dashboard.usuarios.show', ['user' => $transacao->user->id]) }}">{{$transacao->user->name}}</a></td>
-                                <td class="text-center">{{ $transacao->metodo->nome }}</td>
+                                <td class="text-center">{{$transacao->metodo->nome}}</td>
                                 <td>{{ number_format($transacao->valor, 2 ) }} MTs</td>
                                 @switch($transacao->tipo)
                                     @case('c2p')
                                         <td>Cliente -> Plataforma</td>
                                         @switch($transacao->estado)
-                                            @case('Pendente')
+                                        @case('Pendente')
                                         <td class="text-center text-capitalize">
                                             <div class="badge badge-pill badge-info">
                                                 Pendente
@@ -55,18 +54,33 @@
                                                 <i class="pe-7s-wallet btn-icon-wrapper"> </i>Cobrar
                                             </button>
                                         </td>
-                                            @break
-                                            @case('Concluido')
+                                        @break
+                                        @case('Concluido')
                                         <td class="text-center text-capitalize">
                                             <div class="badge badge-pill badge-success">
                                                 Pago
                                             </div>
                                         </td>
                                         <td>
-                                            <button class="btn-icon btn-icon-right btn btn-primary btn-sm btn-block">
-                                                Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
-                                            </button>
+                                            <a href="{{ route('admin.dashboard.transacoes.show', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-warning btn-block">
+                                                <i class="pe-7s-info btn-icon-wrapper"> </i>
+                                                Ver Detalhes
+                                            </a>
                                         </td>
+                                        @break
+                                        @case('Por Confirmar')
+                                        <td class="text-center text-capitalize">
+                                            <div class="badge badge-pill badge-light">
+                                                Por Confirmar
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.dashboard.transacoes.show', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-warning btn-block">
+                                                <i class="pe-7s-info btn-icon-wrapper"> </i>
+                                                Ver Detalhes
+                                            </a>
+                                        </td>
+                                        @break
                                             @break
                                             @default
                                                 <td>Mistake</td>
@@ -82,9 +96,10 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button class="btn-icon btn btn-alternate btn-block">
-                                                        <i class="pe-7s-wallet btn-icon-wrapper"> </i>Pagar
-                                                    </button>
+                                                    <a href="{{ route('admin.dashboard.transacoes.pagar.store', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-alternate btn-block">
+                                                        <i class="pe-7s-wallet btn-icon-wrapper"> </i>
+                                                        Pagar
+                                                    </a>
                                                 </td>
                                             @break
                                             @case('Concluido')
@@ -94,11 +109,13 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <button class="btn-icon btn-icon-right btn btn-primary btn-sm btn-block">
-                                                        Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
-                                                    </button>
+                                                    <a href="{{ route('admin.dashboard.transacoes.show', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-warning btn-block">
+                                                        <i class="pe-7s-info btn-icon-wrapper"> </i>
+                                                        Ver Detalhes
+                                                    </a>
                                                 </td>
                                             @break
+
                                             @default
                                                 <td>Mistake</td>
                                         @endswitch
@@ -126,9 +143,10 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <button class="btn-icon btn-icon-right btn btn-primary btn-sm btn-block">
-                                                Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
-                                            </button>
+                                            <a href="{{ route('admin.dashboard.transacoes.show', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-warning btn-block">
+                                                <i class="pe-7s-info btn-icon-wrapper"> </i>
+                                                Ver Detalhes
+                                            </a>
                                         </td>
                                             @break
                                             @default
@@ -154,7 +172,6 @@
                         </tr>
                         </tfoot>
                     </table>
-
                 </div>
             </div>
         </div>

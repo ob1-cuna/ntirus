@@ -7,6 +7,7 @@ use App\Notifications\AprovarProposta;
 
 use App\Trabalho;
 use App\Proposta;
+use App\Transacao;
 use App\User;
 use Auth;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,22 @@ class ClientePropostaController extends Controller
             ->update(['status' => 3,]);
 
 
+        $criarInvoiceC =  Transacao::create([
+            'trabalho_id' => $proposta->trabalho_id,
+            'user_id' => Auth::user()->id,
+            'valor' => $proposta->preco_proposta,
+            'tipo' => 'c2p',
+        ]);
+
+        $percentagem = ($proposta->preco_proposta * 0.15);
+        $valor_freelancer = $proposta->preco_proposta - $percentagem;
+
+        $criarInvoiceF =  Transacao::create([
+            'trabalho_id' => $proposta->trabalho_id,
+            'user_id' => $proposta->user_id,
+            'valor' => $valor_freelancer,
+            'tipo' => 'p2f',
+        ]);
         return redirect()->back();
     }
 }

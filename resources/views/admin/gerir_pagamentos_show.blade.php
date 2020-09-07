@@ -7,16 +7,10 @@
             <div class="card-body"><h5 class="card-title">Transacao</h5>
                 <div class="row">
                     <div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">
-                        <table class="mb-0 table">
+                        <table class="mb-0 table table-borderless">
                             <tbody>
-                            <thead>
-                            <tr class="table-borderless">
-                                <th style="width: 30%"></th>
-                                <th></th>
-                            </tr>
-                            </thead>
                             <tr>
-                                <th scope="row">ID</th>
+                                <th scope="row" style="width: 30%">ID</th>
                                 <td>{{$transacao->id}}</td>
                             </tr>
                             <tr>
@@ -55,7 +49,7 @@
                             </tr>
                             <tr>
                                 <th scope="row">Codigo</th>
-                                <td>N/A</td>
+                                <td>{{ $transacao->codigover }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Estado</th>
@@ -74,15 +68,44 @@
                                         </div>
                                     </td>
                                     @break
+                                    @case('Por Confirmar')
+                                    <td class="text-capitalize">
+                                        <div class="badge badge-pill badge-info">
+                                            Por Confirmar
+                                        </div>
+                                    </td>
+                                    @break
                                     @endswitch
                             </tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3 text-right">
-                        <button class="btn-icon btn-icon-right btn btn-primary btn-wide">
-                            Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
-                        </button>
+                        @switch($transacao->tipo)
+                            @case('c2p')
+                            @switch($transacao->estado)
+                                @case('Pendente')
+                                <button class="btn-icon btn-icon-right btn btn-primary btn-wide">
+                                    Cobrar<i class="lnr-printer btn-icon-wrapper"> </i>
+                                </button>
+                                @break
+                                @case('Por Confirmar')
+                                <form method="post" action="{{ route('admin.dashboard.transacoes.confirmar', [ 'transacao' => $transacao->id ]) }}">
+                                    @csrf
+                                    <button class="btn-icon btn-icon-right btn btn-primary btn-wide" type="submit">
+                                        Confirmar<i class="lnr-printer btn-icon-wrapper"> </i>
+                                    </button>
+                                </form>
+                                @break
+                                @case('Concluido')
+                                <button class="btn-icon btn-icon-right btn btn-primary btn-wide">
+                                    Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
+                                </button>
+                                @break
+
+                            @endswitch
+                            @break
+                        @endswitch
                     </div>
                 </div>
             </div>

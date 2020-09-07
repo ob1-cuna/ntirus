@@ -130,23 +130,6 @@ class ClienteTrabalhoController extends Controller
             ->update(['status' => 'Aprovado',
                       'data_entrega' => now(\DateTimeZone::AMERICA),]);
 
-        $criarInvoiceC =  Transacao::create([
-            'trabalho_id' => $trabalho->id,
-            'user_id' => $trabalho->user_id,
-            'valor' => $trabalho->preco_final,
-            'tipo' => 'c2p',
-        ]);
-
-        $percentagem = ($trabalho->preco_final * 0.15);
-        $valor_freelancer = $trabalho->preco_final - $percentagem;
-
-        $criarInvoiceF =  Transacao::create([
-            'trabalho_id' => $trabalho->id,
-            'user_id' => $trabalho->freelancer_id,
-            'valor' => $valor_freelancer,
-            'tipo' => 'p2f',
-        ]);
-
         return redirect()->back();
 
     }
