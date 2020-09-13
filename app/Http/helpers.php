@@ -1,7 +1,9 @@
 <?php
 
 
-  function checkPermission($permissions){
+use App\Transacao;
+
+function checkPermission($permissions){
     $userAccess = getMyPermission(auth()->user()->is_permission);
     foreach ($permissions as $key => $value) {
       if($value == $userAccess){
@@ -66,4 +68,26 @@
           return $file;
       }
 
+  function getPercentagem ($valorMaior, $valorMenor){
+      $percentagem =  ($valorMenor * 100)/$valorMaior;
+      return $percentagem;
+  }
+
+  function getSaldo ($user) {
+      $tako_feito = Transacao::where([['user_id', $user], ['tipo', 'p2f']])->sum('valor');
+      $tako_retirado = Transacao::where([['user_id', $user], ['tipo', 'saque']])->sum('valor');
+
+      $saldo_disponivel = $tako_feito - $tako_retirado;
+
+      return $saldo_disponivel;
+  }
+
+function getTotalFeito ($user) {
+    $tako_feito = Transacao::where([['user_id', $user], ['tipo', 'p2f']])->sum('valor');
+    return $tako_feito;
+}
+function getTakoRetirado ($user) {
+    $tako_retirado = Transacao::where([['user_id', $user], ['tipo', 'saque']])->sum('valor');
+    return $tako_retirado;
+}
 ?>
