@@ -36,11 +36,35 @@
                             @endswitch
                         </td>
                         @switch($transacao->estado)
-
-                        @case('Concluido')
+                        @case('Pendente')
                             <td class="text-center text-capitalize">
-                                <div class="badge badge-pill badge-success">
-                                    Pago
+                                <div class="badge badge-pill badge-info">
+                                    Pendente
+                                </div>
+                            </td>
+                            @switch($transacao->tipo)
+                                @case('p2c')
+                                <td>
+                                    <a href="{{ route ('cliente.invoices.show', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-warning btn-block">
+                                        <i class="pe-7s-info btn-icon-wrapper"> </i>
+                                        Ver Detalhes
+                                    </a>
+                                </td>
+                                @break
+                                @case('c2p')
+                                <td>
+                                    <a href="{{ route('cliente.invoices.pay', ['transacao' => $transacao->id])  }}" class="btn-icon btn btn-danger btn-block">
+                                        <i class="pe-7s-wallet btn-icon-wrapper"> </i>
+                                        Pagar
+                                    </a>
+                                </td>
+                                @break
+                            @endswitch
+                        @break
+                        @case('Por Confirmar')
+                            <td class="text-center text-capitalize">
+                                <div class="badge badge-pill badge-light">
+                                    Por Confirmar
                                 </div>
                             </td>
                             <td>
@@ -51,6 +75,7 @@
                             </td>
                         @break
                         @endswitch
+
                     </tr>
                 @endforeach
                 </tbody>

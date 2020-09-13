@@ -41,8 +41,10 @@ class ClienteTrabalhoController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
 
-
-        return view('cliente.trabalhos_em_andamento_cliente', compact(['trabalhos', 'numeroDePropostas']));
+        $transacoes = \App\Transacao::where('user_id', Auth::user()->id)
+            ->whereIn('estado', ['Pendente', 'Por Confirmar'])
+            ->get();
+        return view('cliente.trabalhos_em_andamento_cliente', compact(['trabalhos', 'numeroDePropostas', 'transacoes']));
     }
 
 
@@ -166,7 +168,7 @@ class ClienteTrabalhoController extends Controller
     public function trabalhosFinalizados ()
     {
         $trabalhos = Trabalho::where('user_id', Auth::user()->id)
-            ->whereIn('status', ['Finalizado'])
+            ->whereIn('status', ['Finalizado', 'Pagamento Pendente'])
             ->orderBy('updated_at', 'desc')
             ->get();
         $avaliacoes = Review_trab::where('avaliador_id', Auth::user()->id)->get();

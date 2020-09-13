@@ -11,11 +11,20 @@ use Illuminate\Support\Facades\DB;
 
 class AdminPagamentosController
 {
-    public function index ()
+    public function invoicesPendentes ()
     {
-        $transacoes = Transacao::all();
-        return view( 'admin.gerir_pagamentos_list', compact('transacoes'));
+        $transacoes = Transacao::whereIn('estado', ['Por Confirmar', 'Pendente'])->get();
+        return view( 'admin.gerir_pagamentos_pendentes', compact('transacoes'));
     }
+
+    public function invoicesPagos ()
+    {
+        $transacoes = Transacao::where('estado', 'Concluido')->get();
+        return view( 'admin.gerir_pagamentos_pagos', compact('transacoes'));
+    }
+
+
+
 
     public function show (Transacao $transacao)
     {

@@ -78,6 +78,13 @@ Route::group(['middleware'=>'auth'], function () {
                     Route::post('dashboard/perfil/edu-exp/', 'ExperEducaController@store')->name('dashboard.perfil.exp-educa.adicionar');
                     Route::delete('dashboard/perfil/edu-exp/{expereduca}', 'ExperEducaController@destroy')->name('dashboard.perfil.exp-educa.apagar');
 
+                    //Transações Freelancer
+                    Route::get('/dashboard/invoices/pendentes','CFreelancer\FreelancerTransacaoController@invoicesPendentes')->name('dashboard.invoices.pendentes.list');
+                    Route::get('/dashboard/invoices/pagos','CFreelancer\FreelancerTransacaoController@invoicesPagos')->name('dashboard.invoices.pagos.list');
+                    Route::get('/dashboard/invoices/i/{transacao}','CFreelancer\FreelancerTransacaoController@invoiceShow')->name('dashboard.invoices.show');
+                    Route::get('/dashboard/invoices/download/{transacao}','CFreelancer\FreelancerTransacaoController@invoiceDownload')->name('dashboard.invoices.download');
+                    Route::get('/dashboard/saque/','CFreelancer\FreelancerTransacaoController@saque')->name('dashboard.invoices.saque');
+                    Route::post('/dashboard/saque/','CFreelancer\FreelancerTransacaoController@saqueStore')->name('dashboard.invoices.saque.store');
                     //Definições da conta do Freelancer
                     Route::get('/dashboard/definicoes','CFreelancer\FreelancerDefinicoesController@definicoesConta')->name('dashboard.definicoes');
                 });
@@ -106,6 +113,7 @@ Route::group(['middleware'=>'auth'], function () {
                             Route::post('cliente/avaliacao/{trabalho}','CCliente\ClienteAvaliacaoController@store')->name('cliente.trabalhos.finalizados.avaliacao.store');
 
                     Route::get('/cliente/invoices/pagos', 'CCliente\ClientePagamentosController@invoicesPagos')->name('cliente.invoices.pagos');
+                    Route::get('/cliente/invoices/pendentes', 'CCliente\ClientePagamentosController@invoicesPendentes')->name('cliente.invoices.pendentes');
                     Route::get('/cliente/invoices/i/{transacao}', 'CCliente\ClientePagamentosController@show')->name('cliente.invoices.show');
                     Route::get('/cliente/invoices/p/{transacao}', 'CCliente\ClientePagamentosController@efectuarPagamento')->name('cliente.invoices.pay');
                     Route::get('/cliente/invoices/p/{transacao}#step-2', 'CCliente\ClientePagamentosController@efectuarPagamento')->name('cliente.invoices.pay-2');
@@ -137,7 +145,8 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/admin/dashboard/categorias','CAdmin\AdminHabilidadesController@index')->name('admin.dashboard.categorias.index');
         Route::get('/admin/dashboard/usuarios','CAdmin\AdminUsersController@index')->name('admin.dashboard.usuarios.index');
         Route::get('/admin/dashboard/usuario/{user}','CAdmin\AdminUsersController@show')->name('admin.dashboard.usuarios.show');
-        Route::get('/admin/dashboard/transacoes','CAdmin\AdminPagamentosController@index')->name('admin.dashboard.transacoes.index');
+        Route::get('/admin/dashboard/transacoes/pendentes','CAdmin\AdminPagamentosController@invoicesPendentes')->name('admin.dashboard.transacoes.pendentes');
+        Route::get('/admin/dashboard/transacoes/pagos','CAdmin\AdminPagamentosController@invoicesPagos')->name('admin.dashboard.transacoes.pagos');
         Route::get('/admin/dashboard/transacao/{transacao}','CAdmin\AdminPagamentosController@show')->name('admin.dashboard.transacoes.show');
         Route::post('/admin/dashboard/transacao/{transacao}/','CAdmin\AdminPagamentosController@confirmarPagamento')->name('admin.dashboard.transacoes.confirmar');
         Route::get('/admin/dashboard/transacao/{transacao}/pagar','CAdmin\AdminPagamentosController@efectuarPagamentoIndex')->name('admin.dashboard.transacoes.pagar.index');
@@ -150,9 +159,11 @@ Route::group(['middleware'=>'auth'], function () {
 //PAGINAS EM FASE DE TESTES
 
 
-    Route::get('/teste', 'UpdateController@paginaDeTestes')->name('teste');
+    Route::get('/teste-01', 'UpdateController@paginaDeTestes')->name('teste');
+    Route::get('/form', 'UpdateController@paginaDeTestesForm')->name('teste_form');
     Route::get('/teste-review', 'UpdateController@notaTeste')->name('teste-review');
     Route::get('/teste-notificacao', 'UpdateController@VerUsuariosDaProvincia')->name('teste_de_notificacao');
     Route::post('/teste', 'UpdateController@storeTrabalho')->name('teste.store');
 	Route::get('/upload', 'ImagemController@index');
 	Route::post('/upload', 'ImagemController@store')->name('upload.store');
+    Route::get('/customer/print-pdf/{transacao}', 'UpdateController@printPDF')->name('pdf-file');

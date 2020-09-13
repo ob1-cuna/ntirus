@@ -52,23 +52,29 @@
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">
+                <li class="{{ (strpos(Route::currentRouteName(), 'dashboard.invoices') === 0) ? 'mm-active' : '' }}">
+                    <a href="#" aria-expanded="{{ (strpos(Route::currentRouteName(), 'dashboard.invoices') === 0) ? 'true' : 'false' }}">
                         <i class="metismenu-icon pe-7s-display2"></i>
                         Invoices
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
-                    <ul>
+                    <ul class="{{ (strpos(Route::currentRouteName(), 'dashboard.invoices') === 0) ? 'mm-collapse mm-show' : '' }}">
                         <li>
-                            <a href="#">
+                            <a href="{{ route('dashboard.invoices.pagos.list') }}" class="{{ (strpos(Route::currentRouteName(), 'dashboard.invoices.pagos.list') === 0) ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>Pagos
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('dashboard.invoices.pendentes.list') }}" class="{{ (strpos(Route::currentRouteName(), 'dashboard.invoices.pendentes.list') === 0) ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>Pendentes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dashboard.invoices.saque') }}" class="{{ (strpos(Route::currentRouteName(), 'dashboard.invoices.saque') === 0) ? 'mm-active' : '' }}">
+                                <i class="metismenu-icon">
+                                </i>Saque
                             </a>
                         </li>
                     </ul>

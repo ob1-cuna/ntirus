@@ -17,8 +17,17 @@ class ClientePagamentosController extends Controller
 {
     public function invoicesPagos ()
     {
-        $transacoes = Transacao::where('user_id', Auth::user()->id)->get();
+        $transacoes = Transacao::where([['user_id', Auth::user()->id], ['estado', 'Concluido']])->get();
         return view('cliente.invoices_pagos', compact('transacoes'));
+    }
+
+    public function invoicesPendentes ()
+    {
+        $transacoes = Transacao::where
+            ('user_id', Auth::user()->id)
+            ->whereIn('estado', ['Pendente', 'Por Confirmar'])
+            ->get();
+        return view('cliente.invoices_pendentes', compact('transacoes'));
     }
 
     public function show (Transacao $transacao)

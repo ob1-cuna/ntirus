@@ -31,7 +31,7 @@ class TrabalhoController extends Controller
 
 
     /*
-    // FUNÇÃO RESPONSAVEL PELA EXIBICAO DE TRABALHO REFERENCIADO PELO ID
+    // FUNÇÃO RESPONSÁVEL PELA EXIBIÇÃO DE TRABALHO REFERENCIADO PELO ID
     //
     */
     public function exibirTrabalho (Trabalho $trabalho)

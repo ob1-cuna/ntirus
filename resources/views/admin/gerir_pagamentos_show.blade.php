@@ -25,11 +25,20 @@
                                     @case('p2c')
                                     <td>Reembolso</td>
                                     @break
+                                    @case('saque')
+                                    <td>Saque</td>
+                                    @break
                                 @endswitch
                             </tr>
                             <tr>
                                 <th scope="row">Trabalho</th>
-                                <td>{{$transacao->trabalho->slug}}</td>
+                                <td>
+                                    @if($transacao->trabalho['slug'] != null)
+                                        {{$transacao->trabalho->slug}}
+                                    @else
+                                        <b>Sem Trabalho</b>
+                                    @endif
+                                </td>
                             </tr>
                             <tr>
                                 <th scope="row">Usuario</th>
@@ -41,11 +50,31 @@
                             </tr>
                             <tr>
                                 <th scope="row">Comissao</th>
-                                <td class="text-success">N/A</td>
+                                @switch($transacao->tipo)
+                                    @case('c2p')
+                                    <td class="text-success">
+                                        N/A
+                                    </td>
+                                    @break
+                                    @case('p2f')
+                                    <td class="text-success">
+                                        {{ number_format(($transacao->trabalho->preco_final - $transacao->valor), 2 ) }} MTs
+                                    </td>
+                                    @break
+                                    @case('p2c')
+                                    <td>N/A</td>
+                                    @break
+                                    @case('saque')
+                                    <td class="text-success">
+                                        N/A
+                                    </td>
+                                    @break
+                                @endswitch
+
                             </tr>
                             <tr>
                                 <th scope="row">Metodo</th>
-                                <td>{{$transacao->metodo->nome}}</td>
+                                <td>{{$transacao->metodo['nome']}}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Codigo</th>

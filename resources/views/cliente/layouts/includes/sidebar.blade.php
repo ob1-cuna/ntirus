@@ -1,6 +1,6 @@
 <div class="app-sidebar sidebar-shadow">
     <div class="app-header__logo">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="KeroUI Admin Template" class="logo-src"></a>
+        <a href="{{ route('home') }}" data-toggle="tooltip" data-placement="bottom" title="Dashboard da Ntirus" class="logo-src"></a>
         <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
                                 <span class="hamburger-box">
                                     <span class="hamburger-inner"></span>
@@ -72,8 +72,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <i class="metismenu-icon">
+                            <a href="{{ route('cliente.invoices.pendentes') }}" class="{{ (strpos(Route::currentRouteName(), 'cliente.invoices.pendentes') === 0) ? 'mm-active' : '' }}">
+                            <i class="metismenu-icon">
                                 </i>Pendentes
                             </a>
                         </li>

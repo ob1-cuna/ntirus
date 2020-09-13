@@ -29,6 +29,11 @@
                                         Finalizado
                                     </a>
                                     @break
+                                    @case('Pagamento Pendente')
+                                    <a href="#" class="badge badge-warning badge-pill" style="font-weight: 500;" >
+                                        Por Pagar
+                                    </a>
+                                    @break
                                     @default
                                     <a href="#" class="badge badge-warning" style="font-weight: 500;">
                                         Erro de Digitacao
@@ -37,8 +42,8 @@
                             </p>
                         </div>
                     </div>
-                    <a href="#" class="btn btn-warning">
-                        Ver Detalhes
+                    <a href="#" class="btn btn-info">
+                        Ver Avaliacao
                     </a>
                 </div>
 
@@ -78,6 +83,13 @@
                         @endif
                         @break
 
+                    @case('Pagamento Pendente')
+
+                    <div class="d-block text-right card-footer">
+                        <button class="btn btn-outline-secondary" href="#">Efectuar Pagamento</button>
+                    </div>
+
+                    @break
                         @default
                         <button class="btn btn-danger">M * I * S * T * A * K * E</button>
                     @endswitch

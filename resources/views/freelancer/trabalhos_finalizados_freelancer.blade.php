@@ -16,9 +16,14 @@
                             <a href="#" class="badge badge-success badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="">
                                 Finalizado
                             </a>
-                                @break
+                            @break
+                            @case('Pagamento Pendente')
+                            <a href="#" class="badge badge-warning badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="">
+                                Por Pagar
+                            </a>
+                            @break
                             @default
-                            <a href="#" class="badge badge-warning" style="font-weight: 500;">
+                            <a href="#" class="badge badge-danger" style="font-weight: 500;">
                                 Erro de Digitacao
                             </a>
                         @endswitch
@@ -74,8 +79,15 @@
                                 </div>
                             </div>
                             @endif
-
                             @break
+
+                        @case('Finalizado')
+
+                            <div class="d-block text-right card-footer">
+                                <button class="btn btn-outline-secondary" href="#tabCliente{{$trabalho->id}}">Avaliar Cliente</button>
+                            </div>
+
+                        @break
 
                             @default
                                 <button class="btn btn-danger">M * I * S * T * A * K * E</button>

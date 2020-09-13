@@ -39,21 +39,22 @@
                 <li class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}">
                     <a href="{{ route('admin.dashboard.categorias.index') }}" class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Categorias</a>
                 </li>
-                <li class="{{ (request()->routeIs('admin.dashboard.transacoes.index')) ? 'mm-active' : '' }}">
-                    <a href="{{ route('admin.dashboard.transacoes.index') }}">
+                <li class="{{ (strpos(Route::currentRouteName(), 'admin.dashboard.transacoes') === 0) ? 'mm-active' : '' }}">
+                    <a href="#" aria-expanded="{{ (strpos(Route::currentRouteName(), 'admin.dashboard.transacoes') === 0) ? 'true' : 'false' }}">
                         <i class="metismenu-icon pe-7s-display2"></i>
                         Invoices
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
                         <li>
-                            <a href="#">
+
+                            <a href="{{ route('admin.dashboard.transacoes.pagos') }}" class="{{ (strpos(Route::currentRouteName(), 'admin.dashboard.transacoes.pagos') === 0) ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>Pagos
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('admin.dashboard.transacoes.pendentes') }}" class="{{ (strpos(Route::currentRouteName(), 'admin.dashboard.transacoes.pendentes') === 0) ? 'mm-active' : '' }}">
                                 <i class="metismenu-icon">
                                 </i>Pendentes
                             </a>

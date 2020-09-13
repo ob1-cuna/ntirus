@@ -33,7 +33,7 @@
                                     @break
 
                                     @case('Aprovado')
-                                        <b class="badge badge-pill badge-warning widget-label">Pagamento Pendente</b>
+                                        <b class="badge badge-pill badge-warning widget-label">Por Pagar</b>
                                     @break
 
                                     @case('Recusado')
@@ -80,7 +80,11 @@
 
                         @break
                         @case('Aprovado')
-                            <a href="#" class="btn btn-outline-secondary">Efectuar Pagamento</a>
+                            @foreach($transacoes as $transacao)
+                                @if($transacao->trabalho_id == $trabalho->id)
+                                    <a href="{{ route('cliente.invoices.pay', ['transacao' => $transacao->id])  }}" class="btn btn-outline-secondary">Efectuar Pagamento</a>
+                                @endif
+                            @endforeach
                         @break
 
                         @case('Recusado')

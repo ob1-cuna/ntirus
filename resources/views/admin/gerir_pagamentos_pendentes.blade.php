@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
-@section('title', 'Transações' )
-@section('descricao', 'Página das transações efectuadas no Ntirus.' )
+@section('title', 'Transações Pendentes' )
+@section('descricao', 'Página das transações pendentes fectuadas no Ntirus.' )
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-11">
@@ -34,9 +34,9 @@
                                 <td class="text-center">
                                     <a href="{{ route('admin.dashboard.transacoes.show', ['transacao' => $transacao->id]) }}">{{ $transacao->id }}</a>
                                 </td>
-                                <td>{{ $transacao->trabalho->slug }}</td>
+                                <td>{{ $transacao->trabalho['slug'] }}</td>
                                 <td><a href="{{ route('admin.dashboard.usuarios.show', ['user' => $transacao->user->id]) }}">{{$transacao->user->name}}</a></td>
-                                <td class="text-center">{{$transacao->metodo->nome}}</td>
+                                <td class="text-center">{{ $transacao->metodo['nome'] }}</td>
                                 <td>{{ number_format($transacao->valor, 2 ) }} MTs</td>
                                 @switch($transacao->tipo)
                                     @case('c2p')
@@ -96,9 +96,9 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.dashboard.transacoes.pagar.store', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-alternate btn-block">
-                                                        <i class="pe-7s-wallet btn-icon-wrapper"> </i>
-                                                        Pagar
+                                                    <a href="{{ route('admin.dashboard.transacoes.show', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-warning btn-block">
+                                                        <i class="pe-7s-info btn-icon-wrapper"> </i>
+                                                        Ver Detalhes
                                                     </a>
                                                 </td>
                                             @break
@@ -152,6 +152,39 @@
                                             @default
                                                 <td>Mistake</td>
                                             @endswitch
+                                    @break
+                                    @case('saque')
+                                    <td>Saque</td>
+                                    @switch($transacao->estado)
+                                        @case('Pendente')
+                                        <td class="text-center text-capitalize">
+                                            <div class="badge badge-pill badge-info">
+                                                Pendente
+                                            </div>
+
+                                        </td>
+                                        <td>
+                                            <a href="{{route('admin.dashboard.transacoes.pagar.index', ['transacao' => $transacao->id])}}" class="btn-icon btn btn-alternate btn-block">
+                                                <i class="pe-7s-wallet btn-icon-wrapper"> </i>Pagar
+                                            </a>
+                                        </td>
+                                        @break
+                                        @case('Concluido')
+                                        <td class="text-center text-capitalize">
+                                            <div class="badge badge-pill badge-success">
+                                                Pago
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.dashboard.transacoes.show', ['transacao' => $transacao->id]) }}" class="btn-icon btn btn-warning btn-block">
+                                                <i class="pe-7s-info btn-icon-wrapper"> </i>
+                                                Ver Detalhes
+                                            </a>
+                                        </td>
+                                        @break
+                                        @default
+                                        <td>Mistake</td>
+                                    @endswitch
                                     @break
                                     @default
                                     <td class="text-danger">MISTAKE</td>

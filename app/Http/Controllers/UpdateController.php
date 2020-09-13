@@ -12,9 +12,11 @@ use App\Trabalho;
 use App\habilidade;
 use App\Http\Controllers\Controller;
 use App\perfil;
+use App\Transacao;
 use App\User;
 use Auth;
 use App\HabilidadeUser;
+use PDF;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Notification;
@@ -66,11 +68,21 @@ class UpdateController extends Controller
 
     public function paginaDeTestes()
     {
+        //$dados = $transacao;
         //$habilidades = Habilidade::all();
         //return view('user_talentos', compact('habilidades'));
         //return view('cliente.trabalho_em_execucao_unico');
-        return view ('layouts/includes/icones_ficheiros');
+        //return view ('layouts/includes/icones_ficheiros');
+        //return view ('pdf_factura', compact('dados'));
+        //return view ('about');
 
+        return redirect()->route('dashboard.invoices.saque', ['pedido' => 35]);
+
+    }
+
+    public function paginaDeTestesForm()
+    {
+        return view ('form');
     }
 
     public function notaTeste()
@@ -106,5 +118,15 @@ class UpdateController extends Controller
             $trabalho->habilidades()->sync($request->get('habilidade_id'));
         }
         return redirect()->back();
+    }
+
+    public function printPDF(Transacao $transacao)
+    {
+
+        $data = Transacao::find($transacao->id);
+        $data = view()->share('dados', $data);
+
+        $pdf = PDF::loadView('pdf_factura', $data);
+        return $pdf->download('factura-nr-000'.$data->id.'.pdf');
     }
 }
