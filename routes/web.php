@@ -145,6 +145,7 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/admin/dashboard/categorias','CAdmin\AdminHabilidadesController@index')->name('admin.dashboard.categorias.index');
         Route::get('/admin/dashboard/usuarios','CAdmin\AdminUsersController@index')->name('admin.dashboard.usuarios.index');
         Route::get('/admin/dashboard/usuario/{user}','CAdmin\AdminUsersController@show')->name('admin.dashboard.usuarios.show');
+        Route::get('/admin/dashboard/usuarios/p', 'CAdmin\AdminUsersController@pesquisarUser')->name('admin.dashboard.usuarios.pesquisar');
         Route::get('/admin/dashboard/transacoes/pendentes','CAdmin\AdminPagamentosController@invoicesPendentes')->name('admin.dashboard.transacoes.pendentes');
         Route::get('/admin/dashboard/transacoes/pagos','CAdmin\AdminPagamentosController@invoicesPagos')->name('admin.dashboard.transacoes.pagos');
         Route::get('/admin/dashboard/transacao/{transacao}','CAdmin\AdminPagamentosController@show')->name('admin.dashboard.transacoes.show');
@@ -167,3 +168,4 @@ Route::group(['middleware'=>'auth'], function () {
 	Route::get('/upload', 'ImagemController@index');
 	Route::post('/upload', 'ImagemController@store')->name('upload.store');
     Route::get('/customer/print-pdf/{transacao}', 'UpdateController@printPDF')->name('pdf-file');
+

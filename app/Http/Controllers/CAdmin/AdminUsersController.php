@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\PerfilAprovado;
 
 
+
 class AdminUsersController extends Controller
 {
     public function aprovarPerfil(User $user)
@@ -27,6 +28,91 @@ class AdminUsersController extends Controller
         dd([$aprovarPerfil]);
 
         return redirect()->back();
+    }
+
+    public function pesquisarUser (Request $request)
+    {
+        $request->validate([
+            'query' => 'required|min:3',
+        ]);
+
+        $query = request()->input('query');
+
+        $users_count = User::whereIn('is_permission', [1, 0])->where('name', 'like', "%$query%")->count();
+
+        $freelancers_perfil_activos = DB::table('users')
+            ->leftJoin('perfils', 'users.id', '=', 'perfils.user_id')
+            ->where([
+                ['perfils.status', 1],
+                ['users.is_permission', 0],
+                ['name', 'like', "%$query%"],
+            ])->get();
+        $freelancers_perfil_completos = DB::table('users')
+            ->leftJoin('perfils', 'users.id', '=', 'perfils.user_id')
+            ->where([
+                ['perfils.status', 2],
+                ['users.is_permission', 0],
+                ['name', 'like', "%$query%"],
+            ])->get();
+        $freelancers_perfil_incompletos = DB::table('users')
+            ->leftJoin('perfils', 'users.id', '=', 'perfils.user_id')
+            ->where([
+                ['perfils.status', 0],
+                ['users.is_permission', 0],
+                ['name', 'like', "%$query%"],
+            ])->get();
+
+        $clientes_perfil_activos = DB::table('users')
+            ->leftJoin('perfils', 'users.id', '=', 'perfils.user_id')
+            ->where([
+                ['perfils.status', 1],
+                ['users.is_permission', 1],
+                ['name', 'like', "%$query%"],
+            ])->get();
+
+        $clientes_perfil_completos = DB::table('users')
+            ->leftJoin('perfils', 'users.id', '=', 'perfils.user_id')
+            ->where([
+                ['perfils.status', 2],
+                ['users.is_permission', 1],
+                ['name', 'like', "%$query%"],
+            ])->get();
+
+        $clientes_perfil_incompletos = DB::table('users')
+            ->leftJoin('perfils', 'users.id', '=', 'perfils.user_id')
+            ->where([
+                ['perfils.status', 0],
+                ['users.is_permission', 1],
+                ['name', 'like', "%$query%"],
+            ])->get();
+
+        if (request()->slug) {
+            $users = User::whereIn('is_permission', [1, 0])->where('name', 'like', "%$query%")->whereHas('habilidades',
+                function ($query) {
+                    $query->where('slug', request()->slug);
+                })->paginate(5);
+            $habilidades = Habilidade::with('users')->get();
+            //$todas_habilidades = Habilidade::all();
+
+        } else {
+            $users = User::whereIn('is_permission', [1, 0])->where('name', 'like', "%$query%")->paginate(5);
+            $habilidades = Habilidade::with('users')->get();
+            $todas_habilidades = Habilidade::all();
+        }
+
+        return view('admin.gerir_usuarios_list',
+            compact([
+                'users',
+                'habilidades',
+                'todas_habilidades',
+                'freelancers_perfil_activos',
+                'freelancers_perfil_completos',
+                'freelancers_perfil_incompletos',
+                'clientes_perfil_activos',
+                'clientes_perfil_completos',
+                'clientes_perfil_incompletos',
+                'users_count']));
+
     }
 
     public function index()
@@ -75,12 +161,12 @@ class AdminUsersController extends Controller
             $users = User::whereIn('is_permission', [1, 0])->whereHas('habilidades',
                 function ($query) {
                     $query->where('slug', request()->slug);
-                })->get();
+                })->paginate(5);
             $habilidades = Habilidade::with('users')->get();
             //$todas_habilidades = Habilidade::all();
 
         } else {
-            $users = User::whereIn('is_permission', [1, 0])->get();
+            $users = User::whereIn('is_permission', [1, 0])->paginate(5);
             $habilidades = Habilidade::with('users')->get();
             $todas_habilidades = Habilidade::all();
         }

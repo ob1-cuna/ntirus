@@ -24,6 +24,12 @@
             <br>
         </div>
         <div class="col-md-9 col-sm-12">
+            @include('admin.includes.caixa-pesquisa-usuarios')
+            <div class="divider"></div>
+            @if(request()->input('query') != null)
+                <h5>@if($users->count() == 1) 1 resultado @elseif( $users->count() == 0) Sem resultados @else {{ $users_count }} resultados @endif para "<b class="bold-medio">{{request()->input('query')}}</b>"</h5>
+                <div class="divider"></div>
+            @endif
             @foreach($users as $user)
                 <div class="card mb-2">
                     <div class="card-body">
@@ -185,6 +191,10 @@
                     </div>
                 </div>
             @endforeach
+            <div class="text-center" style="margin-top: 25px">
+               {{ $users->links() }}
+            </div>
+
         </div>
 
     </div>
