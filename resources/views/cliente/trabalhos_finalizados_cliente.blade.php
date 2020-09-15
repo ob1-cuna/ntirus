@@ -97,6 +97,9 @@
             </div>
                 <br>
             @endforeach
+            <div class="" style="margin-top: 25px">
+                {{ $trabalhos->links() }}
+            </div>
         </div>
 
 

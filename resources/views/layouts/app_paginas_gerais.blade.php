@@ -45,10 +45,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <form class="navbar-nav mr-auto">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Pesquise..." aria-label="Search">
-                    <button class="btn-icon btn-icon-only btn btn-primary my-2 my-sm-0">
-                        <i class="ion-ios-search btn-icon-wrapper"> </i>
-                    </button>
+                    <div class="caixa-de-pesquisa-alt">
+                        <input type="search" name="query" id="query" value="{{request()->input('query')}}" placeholder="Pesquise..." class="form-control" autocomplete="off">
+                        <i class="caixa-de-pesquisa-icon-wrapper-alt fa fa-search"></i>
+                    </div>
                 </form>
 
                 <ul class="navbar-nav form-inline ">

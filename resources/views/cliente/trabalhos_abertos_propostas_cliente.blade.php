@@ -1,6 +1,13 @@
 @extends('cliente.layouts.app')
 @section('title', 'Propostas' )
 @section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
+@section('meu_css')
+    <style>
+        .pagination {
+            justify-content: center;
+        }
+    </style>
+@endsection
 @section('content')
 
     <div class="col-lg-10 col-md-12 col-xl-10 col-sm-12"  style="padding: 0;">
@@ -98,8 +105,11 @@
                 </li>
                 @endforeach
             </ul>
-        </div>
 
+        </div>
+        <div class="" style="margin-top: 25px">
+            {{ $propostas->links() }}
+        </div>
     </div>
 
 @endsection

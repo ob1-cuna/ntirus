@@ -21,14 +21,20 @@ class TrabalhoController extends Controller
     */
     public function listarTrabalhos()
     {
-       $trabalhos = Trabalho::where('status', 'Aberto')->get();     // status=0 (pode-se concorrer)
+       $trabalhos = Trabalho::where('status', 'Aberto')->paginate(5);     // status=0 (pode-se concorrer)
                                                                     // =1 (activo) =2 (terminado) =3 (cancelado)
        $todas_habilidades = Habilidade::all();
        return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades']));
     }
 
 
+    public function filtros ()
+    {
+        $variaveis = [1, 5, 6];
 
+        $valores = Habilidade::whereIn('id', $variaveis)->get();
+        dd($variaveis);
+    }
 
     /*
     // FUNÇÃO RESPONSÁVEL PELA EXIBIÇÃO DE TRABALHO REFERENCIADO PELO ID

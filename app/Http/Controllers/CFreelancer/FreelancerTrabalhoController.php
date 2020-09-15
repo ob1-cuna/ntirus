@@ -33,8 +33,8 @@ class FreelancerTrabalhoController extends Controller
         $trabalhos = Trabalho::where('freelancer_id', Auth::user()->id)
             ->whereIn('status', ['Em Andamento', 'Aprovado', 'Recusado', 'AguardandoAC'])
             ->orderBy('updated_at', 'desc')
-            ->get();
-        return view ('freelancer/trabalhos_em_andamento_freelancer', compact([
+            ->paginate(5);
+        return view ('freelancer.trabalhos_em_andamento_freelancer', compact([
             'trabalhos',
         ]));
     }
@@ -44,8 +44,8 @@ class FreelancerTrabalhoController extends Controller
         $trabalhos = Trabalho::where('freelancer_id', Auth::user()->id)
             ->whereIn('status', ['Cancelado-F', 'Cancelado-C'])
             ->orderBy('updated_at', 'desc')
-            ->get();
-        return view ('freelancer/trabalhos_cancelados_freelancer', compact([
+            ->paginate(5);
+        return view ('freelancer.trabalhos_cancelados_freelancer', compact([
             'trabalhos',
         ]));
     }
@@ -55,7 +55,7 @@ class FreelancerTrabalhoController extends Controller
         $trabalhos = Trabalho::where('freelancer_id', Auth::user()->id)
             ->whereIn('status', ['Finalizado'])
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate(5);
         $avaliacoes = Review_trab::where('avaliador_id', Auth::user()->id)->get();
         return view ('freelancer/trabalhos_finalizados_freelancer', compact([
             'trabalhos',

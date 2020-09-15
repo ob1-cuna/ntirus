@@ -104,6 +104,10 @@
                 </div>
                 </div>
             @endforeach
+
+                <div class="" style="margin-top: 25px">
+                    {{ $propostas->links() }}
+                </div>
         </div>
 
 

@@ -96,7 +96,7 @@ class UserController extends Controller
                     ['is_permission', '=', '0'],
                     ['status', '=', '1'],])->whereHas('habilidades',
                 function ($query){
-                $query->where('slug', request()->slug);})->get();
+                $query->where('slug', request()->slug);})->paginate(5);
                 $habilidades = Habilidade::with('users')->get();
                 $todas_habilidades = Habilidade::all();
 
@@ -106,7 +106,7 @@ class UserController extends Controller
         {
             $users = User::with('habilidades')->where([
                 ['is_permission', '=', '0'],
-                ['status', '=', '1'],])->get();
+                ['status', '=', '1'],])->paginate(5);
             $habilidades = Habilidade::with('users')->get();
             $todas_habilidades = Habilidade::all();
         }

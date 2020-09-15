@@ -191,7 +191,7 @@
                     </div>
                 </div>
             @endforeach
-            <div class="text-center" style="margin-top: 25px">
+            <div class="paginacao-rounded" style="margin-top: 25px">
                {{ $users->links() }}
             </div>
 

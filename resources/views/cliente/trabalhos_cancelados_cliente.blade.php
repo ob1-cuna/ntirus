@@ -1,6 +1,7 @@
 @extends('cliente.layouts.app')
 @section('title', 'Trabalhos Cancelados' )
 @section('descricao', 'Seus trabalhos cancelados.' )
+
 @section('content')
 
     <div class="row">
@@ -62,6 +63,9 @@
             </div>
                 <br>
             @endforeach
+            <div class="" style="margin-top: 25px">
+                {{ $trabalhos->links() }}
+            </div>
         </div>
 
 

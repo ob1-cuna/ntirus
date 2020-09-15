@@ -1,5 +1,16 @@
 @extends('layouts.app_paginas_gerais')
 @section('title', 'Trabalhos')
+@section('meu_css')
+    <style>
+        .pagination {
+            justify-content: center;
+        }
+        .pagination li a, .pagination li span {
+            border-radius: 50px !important;
+            margin: 0 .3rem
+        }
+    </style>
+@endsection
 @section('content')
     <div class="clearfix"></div>
     <div class="conteudo">
@@ -102,6 +113,7 @@
                 </button>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-9 float-left mb-4">
+
                 @forelse ($trabalhos as $trabalho)
                 <div class="mb-4">
                     <div class="card">
@@ -161,21 +173,7 @@
                 @empty
                     <h5>SEM TRABALHOS DISPONIVEIS</h5>
                 @endforelse
-                    <nav class="pagination-rounded" aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item"><a href="" class="page-link" aria-label="Previous">
-                                    <span aria-hidden="true">«</span><span class="sr-only">Previous</span></a>
-                            </li>
-                            <li class="page-item active"><a href="" class="page-link">1</a></li>
-                            <li class="page-item"><a href="" class="page-link">2</a></li>
-                            <li class="page-item"><a href="" class="page-link">3</a></li>
-                            <li class="page-item"><a href="" class="page-link">4</a></li>
-                            <li class="page-item"><a href="" class="page-link">5</a></li>
-                            <li class="page-item"><a href="" class="page-link" aria-label="Next">
-                                    <span aria-hidden="true">»</span><span class="sr-only">Next</span></a>
-                            </li>
-                        </ul>
-                    </nav>
+                    {{ $trabalhos->links() }}
             </div>
         </div>
     </div>

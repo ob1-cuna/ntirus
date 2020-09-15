@@ -608,3 +608,27 @@ body.wt-login .wt-loginarea {
   width: 140px;
   background: url(../images/brand_ntitus/brand-2.svg) 50% 50% no-repeat;
 }
+
+.caixa-de-pesquisa-alt {
+  position: relative
+}
+
+.caixa-de-pesquisa-alt input {
+  padding: 5px 5px 5px 50px;
+  border-radius: 25px;
+  width: 100%;
+  outline: none !important
+}
+
+.caixa-de-pesquisa-alt .caixa-de-pesquisa-icon-wrapper-alt {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  margin-top: -16px;
+  height: 15px;
+  line-height: 32px;
+  width: 15px;
+  text-align: center;
+  opacity: .4;
+  font-size: 1.2rem
+}

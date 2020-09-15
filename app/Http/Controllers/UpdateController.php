@@ -68,15 +68,28 @@ class UpdateController extends Controller
 
     public function paginaDeTestes()
     {
-        //$dados = $transacao;
-        //$habilidades = Habilidade::all();
-        //return view('user_talentos', compact('habilidades'));
-        //return view('cliente.trabalho_em_execucao_unico');
-        //return view ('layouts/includes/icones_ficheiros');
-        //return view ('pdf_factura', compact('dados'));
-        //return view ('about');
 
-        return redirect()->route('dashboard.invoices.saque', ['pedido' => 35]);
+
+            //$habilidades = Habilidade::where('id', 1)->with('users')->get();
+
+
+        $users = User::whereHas('habilidades', function ($q)
+        {
+            $q->where('habilidades.id', '=',  1);
+        })->where([
+            ['is_permission', '=', '0'],
+            ['status', '=', '1'],])->get();
+
+            $todas_habilidades = Habilidade::all();
+
+
+        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades', 'todas_habilidades']));
+
+
+
+        //$valores = habilidade::whereIn('id', $variaveis)->get();
+
+        //return view('about', compact('valores'));
 
     }
 

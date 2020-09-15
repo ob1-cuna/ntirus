@@ -23,7 +23,7 @@ class ClienteTrabalhoController extends Controller
    */
     public function listarTrabalhosAbertosCliente()
     {
-        $trabalhos = Trabalho::where([['status', 'Aberto'], ['user_id', Auth::user()->id]])->get();    // status=0 (pode-se concorrer)
+        $trabalhos = Trabalho::where([['status', 'Aberto'], ['user_id', Auth::user()->id]])->paginate(5);    // status=0 (pode-se concorrer)
                                                                                                 // =1 (activo) =2 (terminado) =3 (cancelado)
 
         return view('cliente.trabalhos_abertos_cliente', compact(['trabalhos', 'numeroDePropostas']));
@@ -39,7 +39,7 @@ class ClienteTrabalhoController extends Controller
         $trabalhos = Trabalho::where('user_id', Auth::user()->id)
             ->whereIn('status', ['Em Andamento', 'AguardandoAC', 'Aprovado', 'Recusado'])
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate(5);
 
         $transacoes = \App\Transacao::where('user_id', Auth::user()->id)
             ->whereIn('estado', ['Pendente', 'Por Confirmar'])
@@ -54,7 +54,7 @@ class ClienteTrabalhoController extends Controller
     */
     public function exibirPropostasCliente(Trabalho $trabalho)
     {
-        $propostas = Proposta::where('trabalho_id', $trabalho->id)->get();      // status=0 (pode-se concorrer)
+        $propostas = Proposta::where('trabalho_id', $trabalho->id)->paginate(10);      // status=0 (pode-se concorrer)
                                                                                 // =1 (activo) =2 (terminado) =3 (cancelado)
 
         $nrPropostas = Proposta::where([['trabalho_id', $trabalho->id], ['status', 'Aceite']])->count();
@@ -159,8 +159,8 @@ class ClienteTrabalhoController extends Controller
         $trabalhos = Trabalho::where('user_id', Auth::user()->id)
             ->whereIn('status', ['Cancelado-F', 'Cancelado-C'])
             ->orderBy('updated_at', 'desc')
-            ->get();
-        return view ('cliente/trabalhos_cancelados_cliente', compact([
+            ->paginate(5);
+        return view ('cliente.trabalhos_cancelados_cliente', compact([
             'trabalhos',
         ]));
     }
@@ -170,9 +170,9 @@ class ClienteTrabalhoController extends Controller
         $trabalhos = Trabalho::where('user_id', Auth::user()->id)
             ->whereIn('status', ['Finalizado', 'Pagamento Pendente'])
             ->orderBy('updated_at', 'desc')
-            ->get();
+            ->paginate(5);
         $avaliacoes = Review_trab::where('avaliador_id', Auth::user()->id)->get();
-        return view ('cliente/trabalhos_finalizados_cliente', compact([
+        return view ('cliente.trabalhos_finalizados_cliente', compact([
             'trabalhos',
             'avaliacoes',
         ]));
