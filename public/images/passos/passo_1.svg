@@ -5,7 +5,7 @@
 <style type="text/css">
 	.st0{filter:url(#Elipse_15);}
 	.st1{fill:#F9F9F9;}
-	.st2{fill:#DAAA4A;}
+	.st2{fill:#777777;}
 </style>
 <filter  filterUnits="userSpaceOnUse" height="161" id="Elipse_15" width="162" x="0" y="0">
 	<feOffset  dy="3" input="SourceAlpha"></feOffset>
