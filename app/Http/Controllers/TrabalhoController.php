@@ -21,9 +21,22 @@ class TrabalhoController extends Controller
     */
     public function listarTrabalhos()
     {
-       $trabalhos = Trabalho::where('status', 'Aberto')->paginate(5);     // status=0 (pode-se concorrer)
-                                                                    // =1 (activo) =2 (terminado) =3 (cancelado)
-       $todas_habilidades = Habilidade::all();
+        $todas_habilidades = Habilidade::all();
+
+        if (request()->slug)
+        {
+            $trabalhos = Trabalho::where('status', 'Aberto')->whereHas('habilidades',
+                function ($query) {
+                    $query->where('slug', request()->slug);
+                })->paginate(5);
+
+        }
+
+        else
+        {
+            $trabalhos = Trabalho::where('status', 'Aberto')->paginate(5);
+        }
+
        return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades']));
     }
 
