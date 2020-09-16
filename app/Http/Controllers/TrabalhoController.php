@@ -23,11 +23,11 @@ class TrabalhoController extends Controller
     {
         $todas_habilidades = Habilidade::all();
 
-        if (request()->slug)
+        if (request()->cat)
         {
             $trabalhos = Trabalho::where('status', 'Aberto')->whereHas('habilidades',
                 function ($query) {
-                    $query->where('cat', request()->slug);
+                    $query->where('slug', request()->cat);
                 })->paginate(5);
 
         }

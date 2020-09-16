@@ -16,6 +16,12 @@
     <div class="conteudo">
         <div class="mb-4">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-3 float-left mb-4">
+                <form method="GET" action="" class="mb-4">
+                    <div class="caixa-de-pesquisa-alt">
+                        <input type="search" name="p-trabalhos" id="p-trabalhos" value="{{request()->input('p-trabalhos')}}" placeholder="Pesquise..." class="form-control" autocomplete="off">
+                        <i class="caixa-de-pesquisa-icon-wrapper-alt fa fa-search"></i>
+                    </div>
+                </form>
                 <div class="main-card card">
                     <div class="card-header float-left"><h6>Habilidades</h6></div>
                     <div class="card-body">
