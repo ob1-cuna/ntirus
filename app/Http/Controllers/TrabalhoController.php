@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Habilidade;
+use App\perfil;
 use App\Proposta;
 use App\Review_trab;
 use App\Trabalho;
@@ -22,6 +23,7 @@ class TrabalhoController extends Controller
     public function listarTrabalhos()
     {
         $todas_habilidades = Habilidade::all();
+        $provincias = Trabalho::distinct()->whereNotNull('provincia')->get(['provincia']);
 
         if (request()->cat)
         {
@@ -37,16 +39,43 @@ class TrabalhoController extends Controller
             $trabalhos = Trabalho::where('status', 'Aberto')->paginate(5);
         }
 
-       return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades']));
+       return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades', 'provincias']));
     }
 
 
-    public function filtros ()
-    {
-        $variaveis = [1, 5, 6];
+    public function filtrarTrabalhos (Request $request)
+    {   $provincias = Trabalho::distinct()->whereNotNull('provincia')->get(['provincia']);
 
-        $valores = Habilidade::whereIn('id', $variaveis)->get();
-        dd($variaveis);
+        $pesquisa = request()->get('p-trabalhos');
+        $provincia_filter = request()->get('prov');
+        $categoria_filter = request()->get('cat');
+
+        $todas_habilidades = Habilidade::all();
+
+        if ($provincia_filter == null && $categoria_filter != null) {
+            //apenas categoria & nome
+            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->whereHas('habilidades',
+                function ($query){
+                    $query->whereIn('slug', request()->get('cat'));})->paginate(5);}
+
+        elseif ($categoria_filter == null && $provincia_filter != null) {
+            //apenas província e nome
+            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->whereIn('provincia', request()->get('prov'))->paginate(5);}
+
+
+        elseif ($categoria_filter == null && $provincia_filter == null) {
+            //apenas nome
+            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->paginate(5);}
+
+        else {
+
+            //todos filtros
+            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->whereHas('habilidades',
+                function ($query)
+                {$cat = request()->get('cat');
+                    $query->whereIn('slug', $cat);})->whereIn('provincia', request()->get('prov'))->paginate(5);}
+
+        return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades', 'provincias']));
     }
 
     /*

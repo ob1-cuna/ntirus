@@ -16,13 +16,11 @@
     <div class="conteudo">
         <div class="mb-4">
             <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 col-xl-3 float-left">
-                <form method="GET" action="" class="mb-4">
-                    <div class="caixa-de-pesquisa-alt">
+                <form method="GET" action="{{ route('freelancers.filter') }}">
+                    <div class="caixa-de-pesquisa-alt mb-4">
                         <input type="search" name="query-freelancers" id="query-freelancers" value="{{request()->input('query-freelancers')}}" placeholder="Pesquise..." class="form-control" autocomplete="off">
                         <i class="caixa-de-pesquisa-icon-wrapper-alt fa fa-search"></i>
                     </div>
-                </form>
-
                 <div class="main-card card">
                     <div class="card-header float-left"><h6>Habilidades</h6></div>
                     <div class="card-body">
@@ -30,14 +28,12 @@
                             <div class="scrollbar-container ps--active-y ps">
                                 <div class="position-relative form-group">
                                     <div>
-                                        <form>
                                         @foreach($todas_habilidades->sortBy('nome') as $habilidade)
                                         <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="{{ $habilidade->slug }}" name="{{ $habilidade->slug }}" class="custom-control-input">
+                                            <input type="checkbox" id="{{ $habilidade->slug }}" name="cat[]" value="{{ $habilidade->slug }}" class="custom-control-input">
                                             <label class="custom-control-label" for="{{ $habilidade->slug }}">{{ $habilidade->nome }}</label>
                                         </div>
                                         @endforeach
-                                        </form>
                                     </div>
                                 </div>
                                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -60,46 +56,12 @@
                             <div class="scrollbar-container ps--active-y ps">
                                 <div class="position-relative form-group">
                                     <div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Maputo" class="custom-control-input">
-                                            <label class="custom-control-label" for="Maputo">Maputo</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Gaza" class="custom-control-input">
-                                            <label class="custom-control-label" for="Gaza">Gaza</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Inhambane" class="custom-control-input">
-                                            <label class="custom-control-label" for="Inhambane">Inhambane</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Sofala" class="custom-control-input">
-                                            <label class="custom-control-label" for="Sofala">Sofala</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Manica" class="custom-control-input">
-                                            <label class="custom-control-label" for="Manica">Manica</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Tete" class="custom-control-input">
-                                            <label class="custom-control-label" for="Tete">Tete</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Zambezia" class="custom-control-input">
-                                            <label class="custom-control-label" for="Zambezia">Zambezia</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Nampula" class="custom-control-input">
-                                            <label class="custom-control-label" for="Nampula">Nampula</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Cabo Delgado" class="custom-control-input">
-                                            <label class="custom-control-label" for="Cabo Delgado">Cabo Delgado</label>
-                                        </div>
-                                        <div class="custom-checkbox custom-control">
-                                            <input type="checkbox" id="Niassa" class="custom-control-input">
-                                            <label class="custom-control-label" for="Niassa">Niassa</label>
-                                        </div>
+                                        @foreach($provincias->sortBy('provincia') as $provincia)
+                                            <div class="custom-checkbox custom-control">
+                                                <input type="checkbox" id="{{$provincia->provincia}}" name="prov[]" value="{{$provincia->provincia}}" class="custom-control-input">
+                                                <label class="custom-control-label" for="{{$provincia->provincia}}">{{$provincia->provincia}}</label>
+                                            </div>
+                                        @endforeach
                                     </div>
                                 </div>
                                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
@@ -115,9 +77,10 @@
                     </div>
                 </div>
                 <br>
-                <button class="mb-2 mr-2 btn btn-primary btn-lg btn-block">
+                <button type="submit" class="mb-2 mr-2 btn btn-primary btn-lg btn-block">
                     Aplicar Filtros
                 </button>
+</form>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-7 col-xl-9 float-left">
                 @foreach ($users as $user)

@@ -22,10 +22,12 @@ Route::get('/nav', function () {
 
 //PAGINAS VISIVEIS COM OU SEM LOGIN
 Route::get('/freelancers/','UserController@ListarUsuariosCategoria')->name('freelancers');
+Route::get('/freelancers!p','UserController@filtrarFreelancers')->name('freelancers.filter');
 Route::get('/f/{user}', 'UserController@showFreelancer')->name('freelancers.show');
 Route::get('/c/{user}', 'UserController@showCliente')->name('cliente.show');
 
 Route::get('/trabalhos', 'TrabalhoController@listarTrabalhos')->name('trabalhos.list');
+Route::get('/trabalhos!p', 'TrabalhoController@filtrarTrabalhos')->name('trabalhos.filter');
 Route::get('/t/{trabalho}', 'TrabalhoController@exibirTrabalho')->name('trabalho.show');
 
 
@@ -161,10 +163,10 @@ Route::group(['middleware'=>'auth'], function () {
 
 
     Route::get('/teste-01', 'UpdateController@paginaDeTestes')->name('teste');
+    Route::get('/teste-02', 'UpdateController@paginaDeTestes01')->name('teste-02');
     Route::get('/form', 'UpdateController@paginaDeTestesForm')->name('teste_form');
     Route::get('/teste-review', 'UpdateController@notaTeste')->name('teste-review');
     Route::get('/teste-notificacao', 'UpdateController@VerUsuariosDaProvincia')->name('teste_de_notificacao');
-    Route::post('/teste', 'UpdateController@storeTrabalho')->name('teste.store');
 	Route::get('/upload', 'ImagemController@index');
 	Route::post('/upload', 'ImagemController@store')->name('upload.store');
     Route::get('/customer/print-pdf/{transacao}', 'UpdateController@printPDF')->name('pdf-file');

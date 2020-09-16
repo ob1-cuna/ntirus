@@ -28,7 +28,95 @@
     <link href="{{ asset('css/transitions.css') }}" rel="stylesheet">
     <link href="{{ asset('css/ajustes.css') }}" rel="stylesheet">
     @yield('meu_css')
+    <style>
+        #footer {
+            background: transparent !important;
+            margin: 80px 0 0 0;
+            padding: 20px 100px 20px 100px;
+        }
+        #footer .divisor {
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            margin-right: -50px;
+            margin-left: -50px;
+            height: 2px;
+            overflow: hidden;
+            background: #6e757c;
+            opacity: 0.2;
+        }
+        #footer h5{
+            padding-left: 10px;
+            border-left: 3px solid #6e757c;
+            padding-bottom: 6px;
+            margin-bottom: 20px;
+            color:#495057;
+        }
+        #footer a {
+            color: #495057;
+            text-decoration: none !important;
+            background-color: transparent;
+            -webkit-text-decoration-skip: objects;
+        }
+        #footer ul.social li{
+            padding: 3px 0;
+        }
+        #footer ul.social li a i {
+            margin-right: 5px;
+            font-size:25px;
+            -webkit-transition: .5s all ease;
+            -moz-transition: .5s all ease;
+            transition: .5s all ease;
+        }
+        #footer ul.social li:hover a i {
+            font-size:30px;
+            margin-top:-10px;
+        }
+        #footer ul.social li a,
+        #footer ul.quick-links li a{
+            color:#495057;
+        }
+        #footer ul.social li a:hover{
+            color:#6e757c;
+        }
+        #footer ul.quick-links li{
+            padding: 3px 0;
+            -webkit-transition: .5s all ease;
+            -moz-transition: .5s all ease;
+            transition: .5s all ease;
+        }
 
+        #footer ul.last-quick li.info-footer{
+
+        }
+
+        #footer ul.quick-links li:hover{
+            padding: 3px 0;
+            margin-left:5px;
+            font-weight:700;
+        }
+        #footer ul.quick-links li a i{
+            margin-right: 5px;
+        }
+        #footer ul.quick-links li:hover a i {
+            font-weight: 700;
+        }
+
+        @media (max-width:767px){
+            #footer h5 {
+                padding-left: 0;
+                border-left: transparent;
+                padding-bottom: 0px;
+                margin-bottom: 10px;
+            }
+            #footer {
+                padding: 5px 15px 5px 15px;
+            }
+
+            #footer ul.last-quick li.info-footer{
+                display: none;
+            }
+        }
+    </style>
 </head>
 
 <body style="background-color: #fbfbfb">
@@ -93,6 +181,45 @@
 </header>
     <section>
         @yield('content')
+    </section>
+    <section id="footer">
+        <div class="divisor"></div>
+        <div class="container">
+            <div class="row text-center text-xs-center text-sm-left text-md-left">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <h5>Informa-te</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li><a href="#"><i class="fa fa-angle-double-right"></i>Como funciona</a></li>
+                        <li><a href="#"><i class="fa fa-angle-double-right"></i>Sobre nós</a></li>
+                        <li><a href="#"><i class="fa fa-angle-double-right"></i>Perguntas frequentes</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <h5>Conteudo</h5>
+                    <ul class="list-unstyled quick-links">
+                        <li><a href="{{route('freelancers')}}"><i class="fa fa-angle-double-right"></i>Freelancers</a></li>
+                        <li><a href="{{route('trabalhos.list')}}"><i class="fa fa-angle-double-right"></i>Trabalho</a></li>
+                        <li><a href="#"><i class="fa fa-angle-double-right"></i>Categorias</a></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <h5>Quem somos</h5>
+                    <ul class="list-unstyled last-quick">
+                        <li><a href="{{ route('home-2') }}"><object type="image/svg+xml" data="{{ asset('images/brand_ntitus/logotype-02.svg') }}" style="width: auto; height: 22px;"></object></a></li>
+                        <li style="color: #495057" class="info-footer"><u><a href="https://www.nationaltransaction.com/">Ntirus</a></u> é um website desenvolvido por <u><a href="https:://twitter.com/vnvcleto">Anacleto Cuna</a></u>, como requisito parcial para obtenção de grau de licenciatura em <b>Eng. Informática</b> pela Universidade Zambeze</li>
+                        <li style="color: #495057">Tema desenvolvido pela Keru UI e adaptado pelo Autor</li>
+                        </ul>
+                </div>
+            </div>
+            <div class="row text-right">
+                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-sm-center text-md-right text-white ">
+                    <ul class="list-unstyled">
+                        <li style="color: #495057;">© 2020 <u><a class="text-green ml-2" href="https://www.sunlimetech.com" target="_blank">Ntirus Brand</a></u>. Todos direitos reservados.</li>
+                    </ul>
+                </div>
+                <hr>
+            </div>
+        </div>
     </section>
 </div>
 	<script src="{{ asset('js/main.js') }}"></script>

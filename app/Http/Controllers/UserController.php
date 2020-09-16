@@ -90,6 +90,7 @@ class UserController extends Controller
 
     public function ListarUsuariosCategoria ()
     {
+        $provincias = perfil::distinct()->whereNotNull('provincia')->get(['provincia']);
         if (request()->slug)
         {
                 $users = User::with('habilidades')->where([
@@ -111,8 +112,56 @@ class UserController extends Controller
             $todas_habilidades = Habilidade::all();
         }
 
-        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades', 'todas_habilidades']));
+        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades', 'todas_habilidades', 'provincias']));
 
 
+    }
+
+    public function filtrarFreelancers (Request $request)
+    {
+        $provincias = perfil::distinct()->whereNotNull('provincia')->get(['provincia']);
+        $pesquisa = request()->get('query-freelancers');
+        $provincia_filter = request()->get('prov');
+        $categoria_filter = request()->get('cat');
+
+        $habilidades = Habilidade::with('users')->get();
+        $todas_habilidades = Habilidade::all();
+
+        if ($provincia_filter == null && $categoria_filter != null) {
+            $users = User::with('habilidades')->where([
+                ['is_permission', '=', '0'],
+                ['status', '=', '1'],
+                ['name', 'like', "%$pesquisa%"]])->whereHas('habilidades',function ($query){
+                    $query->whereIn('slug', request()->get('cat'));})->paginate(5);
+        }
+
+        elseif ($categoria_filter == null && $provincia_filter != null) {
+            $users = User::with('habilidades')->where([
+                ['is_permission', '=', '0'],
+                ['status', '=', '1'],
+                ['name', 'like', "%$pesquisa%"]])->whereHas('perfil', function ($query) {
+                $query->whereIn('provincia', request()->get('prov'));
+            })->paginate(5);
+        }
+
+        elseif ($categoria_filter == null && $provincia_filter == null) {
+            $users = User::with('habilidades')->where([
+                ['is_permission', '=', '0'],
+                ['status', '=', '1'],
+                ['name', 'like', "%$pesquisa%"]])->paginate(5);
+        }
+        else {
+            $users = User::with('habilidades')->where([
+                ['is_permission', '=', '0'],
+                ['status', '=', '1'],
+                ['name', 'like', "%$pesquisa%"]])->whereHas('habilidades',
+                function ($query){
+                    $query->whereIn('slug', request()->get('cat'));})
+                ->whereHas('perfil', function ($query) {
+                $query->whereIn('provincia', request()->get('prov'));
+            })->paginate(5);
+        }
+
+        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades', 'todas_habilidades', 'provincias']));
     }
 }
