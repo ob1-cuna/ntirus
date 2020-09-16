@@ -27,7 +27,7 @@ class TrabalhoController extends Controller
         {
             $trabalhos = Trabalho::where('status', 'Aberto')->whereHas('habilidades',
                 function ($query) {
-                    $query->where('slug', request()->slug);
+                    $query->where('cat', request()->slug);
                 })->paginate(5);
 
         }

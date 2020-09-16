@@ -133,7 +133,7 @@
                                     <ul class="list-inline">
                                         @foreach($trabalho->habilidades->slice(0,4) as $habilidade)
                                             <li class="list-inline-item">
-                                                <a href="{{ route ('trabalhos.list', ['slug' => $habilidade['slug']]) }}" class="btn btn-primary">
+                                                <a href="{{ route ('trabalhos.list', ['cat' => $habilidade['slug']]) }}" class="btn btn-primary">
                                                     {{ $habilidade->nome }}
                                                 </a>
                                             </li>
