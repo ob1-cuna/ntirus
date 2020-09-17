@@ -26,7 +26,7 @@ class HabilidadeUserController extends Controller
     {
         $user = User::find(Auth::user()->id);
         $user->habilidades()->detach($habilidade);
-        return redirect()->back();
+        return back()->with('success-remove-habilidade', 'Removeste '.$habilidade->nome.' do seu perfil com sucesso');
     }
 
     //A funcao tambem faz a actualizacao da classificacao da habilidade/talento
@@ -37,7 +37,7 @@ class HabilidadeUserController extends Controller
         $habilidade = $request->input('habilidade_id');
         $user->habilidades()->syncWithoutDetaching([$habilidade => ['classificacao' => $classificacao]]);
 
-        return redirect()->back();
+        return back()->with('success-add-habilidades', 'Habilidades actualizadas com sucesso');
 
     }
 }
