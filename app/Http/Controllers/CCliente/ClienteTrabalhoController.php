@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\CCliente;
 
+use App\HabilidadeTrabalho;
 use App\Http\Controllers\Controller;
 use App\Habilidade;
 use App\imagem;
@@ -74,9 +75,43 @@ class ClienteTrabalhoController extends Controller
         return view ('cliente.postar_trabalho_cliente', compact('habilidades'));
     }
 
+    public function editTrabalho (Trabalho $trabalho)
+    {
+        $habilidades = Habilidade::all();
+        return view ('cliente.postar_trabalho_cliente_edit', compact(['habilidades', 'trabalho', $trabalho]));
+    }
+
+    public function editTrabalhoStore (Trabalho $trabalho, Request $request)
+    {
+        $trabalho->update($this->validarDados());
+
+        if ($request->has('habilidade_id'))
+        {
+            $trabalho->habilidades()->sync($request->get('habilidade_id'));
+        }
+
+        return back()->with('success', 'Trabalho Actualizado');
+    }
+
+    public function destroyTrabalho(Trabalho $trabalho)
+    {
+        $trabalho->delete();
+        return back()->with('success', 'Trabalho Apagado');
+    }
 
 
-    // VERSAO INCOMPLETA
+    protected function validarDados()
+    {
+        return $data = request()->validate( [
+            'nome_trabalho'  => ['required'],
+            'tipo' => ['required'],
+            'nivel' => ['required'],
+            'data_prev' => ['required'],
+            'descricao' => ['required'],
+            'provincia' => ['required'],
+            'distrito' => ['required'],
+        ]);
+    }
 
     /*
     // FUNÇÃO PARA A INSERSÃO DE TRABALHO NO BANCO DE DADOS
@@ -85,22 +120,16 @@ class ClienteTrabalhoController extends Controller
     public function storeTrabalho (Request $request)
     {
         $request->validate([
-            'nome_trabalho' => 'required',
-            'descricao' => 'required',
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-
+            'file' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $trabalho = Trabalho::create([
+        $trabalho = Trabalho::create($this->validarDados());
+
+        $trabalho_slug = DB::table('trabalhos')
+        ->where('id', $trabalho->id)
+        ->update([
             'slug' => Str::random(9),
-            'nome_trabalho' => $request->get('nome_trabalho'),
             'user_id' => Auth::user()->id,
-            'nivel' => $request->get('nivel_trabalho'),
-            'tipo' => $request->get('tipo_trabalho'),
-            'data_prev' => $request->get('data_prev'),
-            'descricao' => $request->get ('descricao'),
-            'provincia' => $request->get('provincia'),
-            'distrito' => $request->get('cidade')
         ]);
 
         if ($request->has('habilidade_id'))
@@ -122,7 +151,7 @@ class ClienteTrabalhoController extends Controller
             $imagem->imagemable_id = $trabalho->id;
             $imagem->save();
         }
-        return redirect()->back();
+        return back()->with('success', 'Trabalho Publicado');
     }
 
     public function aprovarTrabalhoEmExecucao (Trabalho $trabalho)
