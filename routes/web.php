@@ -43,6 +43,7 @@ Route::group(['middleware'=>'auth'], function () {
         Route::post('registro/perfil/post','PerfilController@CadastrarPerfil')->name('registro.perfil.post');
         Route::get('/registo/terminado', 'PerfilController@cadastroConcluido')->name('registo.concluido');
         Route::get('/registro/fix', 'PerfilController@cadastroFix')->name('registo.fix');
+        Route::patch('perfil/update','PerfilController@perfilEdit')->name('perfil.edit');
 
             Route::group(['middleware'=>'check-permission:freelancer'], function () {
 
@@ -69,7 +70,6 @@ Route::group(['middleware'=>'auth'], function () {
 
                     //PERFIL DO USUARIO CADASTRADO COM SUCESSO
                     Route::get('dashboard/perfil', 'CFreelancer\FreelancerPerfilController@meuPerfilFreelancer')->name('dashboard.perfil');
-                        Route::patch('dashboard/perfil/{user}', 'CFreelancer\FreelancerPerfilController@actualizarPerfil')->name('dashboard.perfil.actualizar');
 
                     //remocao, adicao e actualizacao de habilidades do perfil do usuario, pelo usuario cadastrado
                     Route::delete('dashboard/perfil/habilidade/{habilidade}', 'HabilidadeUserController@deleteUsersHabilidades')->name('dashboard.perfil.habilidade.apagar');
@@ -86,7 +86,9 @@ Route::group(['middleware'=>'auth'], function () {
                     Route::get('/dashboard/invoices/i/{transacao}','CFreelancer\FreelancerTransacaoController@invoiceShow')->name('dashboard.invoices.show');
                     Route::get('/dashboard/invoices/download/{transacao}','CFreelancer\FreelancerTransacaoController@invoiceDownload')->name('dashboard.invoices.download');
                     Route::get('/dashboard/saque/','CFreelancer\FreelancerTransacaoController@saque')->name('dashboard.invoices.saque');
+                    Route::get('/dashboard/saque#step-2','CFreelancer\FreelancerTransacaoController@saque')->name('dashboard.invoices.saque.step-2');
                     Route::post('/dashboard/saque/','CFreelancer\FreelancerTransacaoController@saqueStore')->name('dashboard.invoices.saque.store');
+
                     //Definições da conta do Freelancer
                     Route::get('/dashboard/definicoes','CFreelancer\FreelancerDefinicoesController@definicoesConta')->name('dashboard.definicoes');
                 });
@@ -102,6 +104,10 @@ Route::group(['middleware'=>'auth'], function () {
 
                     Route::get('/cliente/postar-job', 'CCliente\ClienteTrabalhoController@postarTrabalho')->name('cliente.postar_job');
                     Route::post('/cliente/postar-job', 'CCliente\ClienteTrabalhoController@storeTrabalho')->name('cliente.postar_job.store');
+
+                    Route::get('/cliente/actualizar-job/{trabalho}', 'CCliente\ClienteTrabalhoController@editTrabalho')->name('cliente.postar_job.edit.view');
+                    Route::post('/cliente/actualizar-job/{trabalho}/store', 'CCliente\ClienteTrabalhoController@editTrabalhoStore')->name('cliente.postar_job.edit');
+                    Route::delete('/cliente/apagar-job/{trabalho}/destroy', 'CCliente\ClienteTrabalhoController@destroyTrabalho')->name('cliente.trabalho.destroy');
 
                     Route::get('/cliente/trabalho/em-andamento','CCliente\ClienteTrabalhoController@listarTrabalhosEmAndamentoCliente')->name('cliente.trabalhos.em_andamento');
                         Route::post('/cliente/trabalho/aprovar/{trabalho}', 'CCliente\ClienteTrabalhoController@aprovarTrabalhoEmExecucao')->name('cliente.trabalho.em_andamento.aprovar');
