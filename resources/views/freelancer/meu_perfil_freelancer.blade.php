@@ -11,8 +11,7 @@
     <div class="p-3 stick-to-parent">
         <div class="dropdown-menu nav p-0 dropdown-menu-inline dropdown-menu-rounded dropdown-menu-hover-primary">
             <h6 tabindex="-1" class="pt-0 dropdown-header">Menu</h6>
-            <a href="#tab-info-pessoal" data-toggle="tab" tabindex="0"
-               class="mb-1 active dropdown-item">Dados Pessoais</a>
+            <a href="#tab-info-pessoal" data-toggle="tab" tabindex="0" class="mb-1 active dropdown-item">Dados Pessoais</a>
             <a href="#tab-exp-educa" data-toggle="tab" tabindex="0" class="mb-1 dropdown-item">
                 Experiencia & Educação</a>
             <a href="#tab-habilidades" data-toggle="tab" tabindex="0" class="mb-1 dropdown-item">
@@ -29,9 +28,27 @@
         <div class="tab-content">
             <div class="tab-pane active show" id="tab-info-pessoal" ><h4>Dados Pessoais</h4>
                 <div class="divider"></div>
-                <form class="" action="{{ route('dashboard.perfil.actualizar', ['user' => Auth::user()->id]) }}" method="POST">
+                <form class="" method="POST" action="{{ route('perfil.edit') }}">
                     @method('patch')
                     @csrf
+
+                    @if(count($errors) > 0)
+                        <div class="alert alert-danger">
+                            <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                            <ul>
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     <div class="position-relative form-group">
                         <label for="name" class="">Nome Completo</label>
                         <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ Auth::user()->name }}" required>
@@ -55,8 +72,8 @@
                             <div class="position-relative form-group">
                                 <label for="provincia" class="">Provincia</label>
                                 <select name="provincia" id="provincia" class="form-control @error('provincia') is-invalid @enderror" value="{{ Auth::user()->perfil->provincia }}" required>
-                                    <option disabled selected hidden value="">{{ Auth::user()->perfil->provincia }}</option>
-                                    @include('layouts.includes.select_provincias')
+                                    {{ $var = $perfil->provincia  }}
+                                    @include('layouts.includes.select_provincias_edit')
                                 </select>
                                 @error('provincia')
                                 <span class="invalid-feedback" role="alert">
@@ -108,6 +125,7 @@
                             Nova
                         </button>
                     </div>
+
                 </div>
                 <div class="divider"></div>
 
@@ -277,6 +295,22 @@
                             <button class="mb-3 mr-2 btn btn-primary">Adicionar Habilidade</button>
                         </div>
                 </form>
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if(session('success-remove-habilidade') || session('success-add-habilidades'))
+                    <div class="alert alert-success">
+                        {{ session('success-remove-habilidade') ?? session('success-add-habilidades')}}
+                    </div>
+                @endif
 
                     <div class="card-body">
                         <h5>Minhas Habilidades</h5>

@@ -23,6 +23,32 @@ class PerfilController extends Controller
 
     }
 
+    public function perfilEdit (Request $request)
+    {
+        $user = Auth::user()->id;
+        $provincia = $request->input('provincia');
+        $cidade = $request->input('cidade');
+        $descricao = $request->input('descricao');
+        $name = $request->input('name');
+
+        DB::table('perfils')
+            ->where('user_id', $user)
+            ->update([
+                'cidade' => $cidade,
+                'provincia' => $provincia,
+                'descricao' => $descricao,
+                'updated_at' => now(\DateTimeZone::AMERICA),
+            ]);
+
+        DB::table('users')
+            ->where('id', $user)
+            ->update([
+                'name' => $name,
+                'updated_at' => now(\DateTimeZone::AMERICA),
+            ]);
+        return back()->with('success', 'Perfil actualizado com sucesso');
+    }
+
     public function cadastroConcluido ()
     {
         return view('auth.cadastro_ultimo_passo');

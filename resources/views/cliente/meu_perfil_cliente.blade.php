@@ -7,7 +7,25 @@
     <div class="col-md-10">
         <div class="main-card mb-3 card">
             <div class="card-body"><h5 class="card-title">Actualizar Perfil</h5>
-                <form class="">
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                <form class="" method="POST" action="{{ route('perfil.edit') }}">
+                    @csrf
                     <div class="form-row">
                         <div class="col-md-6">
                             <div class="position-relative form-group">
@@ -26,8 +44,8 @@
                                 <input id="d_nascimento" type="date" class="form-control @error('d_nascimento') is-invalid @enderror" name="d_nascimento" value="{{ Auth::user()->d_nascimento}}" required autocomplete="none">
                                 @error('d_nascimento')
                                 <span class="invalid-feedback" role="alert">
-												<strong>{{ $message }}</strong>
-											</span>
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -38,8 +56,8 @@
                             <div class="position-relative form-group">
                                 <label for="provincia" class="">Provincia</label>
                                 <select name="provincia" id="provincia" class="form-control @error('provincia') is-invalid @enderror">
-                                    <option disabled selected hidden value="">{{ $perfil->provincia }}</option>
-                                    @include('layouts.includes.select_provincias')
+                                    {{ $var = $perfil->provincia  }}
+                                    @include('layouts.includes.select_provincias_edit')
                                 </select>
                             </div>
                         </div>
