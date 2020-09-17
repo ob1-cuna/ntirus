@@ -78,6 +78,6 @@ class FreelancerTransacaoController extends Controller
                 'estado' => 'Pendente'
             ]);
 
-            dd($transacao);
+            return redirect()->route('dashboard.invoices.saque.step-2');
         }
 }
