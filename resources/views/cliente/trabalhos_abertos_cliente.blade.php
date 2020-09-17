@@ -5,9 +5,26 @@
 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-9">
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
             @foreach($trabalhos as $trabalho)
             <div class="main-card card">
-                <div class="card-body"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}"><h5 class="card-title">{{ $trabalho->nome_trabalho }}</h5></a>
+                <div class="card-body"><h5 class="card-title"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}">{{ $trabalho->nome_trabalho }}</a></h5>
                     <div class="row">
                         <div class="col-sm-6 col-xl-3">
                             <p>Data: <b>{{ Carbon::parse($trabalho->data_prev)->format('d M Y') }} </b></p>
@@ -34,7 +51,7 @@
                 </div>
                 <div class="d-block text-right card-footer">
                     <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalApagarTrabalho{{ $trabalho->id }}">Remover</button>
-                    <button class="btn btn-outline-secondary">Actualizar</button>
+                    <a href="{{ route('cliente.postar_job.edit.view', ['trabalho' => $trabalho->id]) }}" class="btn btn-outline-secondary">Actualizar</a>
                 </div>
             </div>
                 <br>
@@ -70,7 +87,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Sim, tenho certeza</button>
+                    <form method="POST" action="{{ route('cliente.trabalho.destroy', ['trabalho' => $trabalho->id]) }}">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-primary">SIM, TENHO</button>
+                    </form>
                 </div>
             </div>
         </div>
