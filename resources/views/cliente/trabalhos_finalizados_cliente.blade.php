@@ -51,7 +51,7 @@
                         @case('Finalizado')
                         @if (count($trabalho->review_trabs->where('avaliador_id', Auth::user()->id)) == 0 )
                         <div class="d-block text-right card-footer">
-                            <button class="btn btn-outline-secondary" data-toggle="collapse" href="#tabFreelancer{{$trabalho->id}}">Avaliar Cliente</button>
+                            <button class="btn btn-outline-secondary" data-toggle="collapse" href="#tabFreelancer{{$trabalho->id}}">Avaliar Freelancer</button>
                             <div class="collapse text-left" id="tabFreelancer{{$trabalho->id}}">
                             <form action="{{ route('cliente.trabalhos.finalizados.avaliacao.store', ['trabalho' => $trabalho->id]) }}" method="POST">
                                 @csrf
@@ -103,16 +103,8 @@
         </div>
 
 
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-3">
-            <div class="main-card card">
-                <div class="card-body"><h5 class="card-title">NOVA</h5>
-                    <h6 class="card-subtitle">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-                    </h6>
-                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis eni</p>
-                </div>
-            </div>
-            <br>
+        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+            @include('cliente.layouts.includes.estatisticas_trabalhos')
         </div>
     </div>
 

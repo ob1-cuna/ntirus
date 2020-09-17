@@ -46,15 +46,7 @@
 
 
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
-            <div class="main-card card">
-                <div class="card-body"><h5 class="card-title">NOVA</h5>
-                    <h6 class="card-subtitle">
-                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit
-                    </h6>
-                    <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis eni</p>
-                </div>
-            </div>
-            <br>
+            @include('cliente.layouts.includes.estatisticas_trabalhos')
         </div>
     </div>
 
