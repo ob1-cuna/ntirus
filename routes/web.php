@@ -120,7 +120,7 @@ Route::group(['middleware'=>'auth'], function () {
                     Route::get('/cliente/invoices/p/{transacao}', 'CCliente\ClientePagamentosController@efectuarPagamento')->name('cliente.invoices.pay');
                     Route::get('/cliente/invoices/p/{transacao}#step-2', 'CCliente\ClientePagamentosController@efectuarPagamento')->name('cliente.invoices.pay-2');
                     Route::post('/cliente/invoices/p/{transacao}/store', 'CCliente\ClientePagamentosController@efectuarPagamentoStore')->name('cliente.invoices.pay.store');
-
+                    Route::get('/factura/pdf/{transacao}', 'CCliente\ClientePagamentosController@printPDF')->name('imprimir.factura.cliente');
 
                     Route::get('/cliente/perfil', 'CCliente\ClientePerfilController@meuPerfil')->name('cliente.perfil');
 

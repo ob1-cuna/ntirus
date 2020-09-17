@@ -19,17 +19,16 @@
     </style>
 </head>
 <body>
-<a href="{{ route('pdf-file') }}" class="btn btn-primary">Baixar</a>
 <div>
     <div>
     <table style="float: left; ">
         <tbody>
         <tr>
             <td>
-                <b>Autor</b>
+                <b>De</b>
             </td>
             <td>
-                {{ $dados->trabalho->user->name }}
+                Ntirus Receitas
             </td>
         </tr>
         <tr>
@@ -37,7 +36,7 @@
 
             </td>
             <td>
-                {{ $dados->trabalho->user->perfil->cidade }}, {{ $dados->trabalho->user->perfil->provincia }}
+                Beira, Sofala
             </td>
         </tr>
         <tr>
@@ -57,7 +56,7 @@
         </tr>
         <tr>
             <td>
-                <b>Autor</b>
+                <b>Para</b>
             </td>
             <td>
                 {{ $dados->trabalho->user->name }}
@@ -103,7 +102,7 @@
                 Data Emissão
             </td>
             <td style="text-align: right">
-                11 Mar 1997
+                {{ Carbon::parse($dados->trabalho->data_aceite)->format('d/m/Y') }}
             </td>
         </tr>
         <tr>
@@ -111,7 +110,7 @@
                 Data de Pagamento
             </td>
             <td style="text-align: right">
-                11 Mar 1998
+                {{ Carbon::parse($dados->data_de_pagamento)->format('d/m/Y') }}
             </td>
         </tr>
         <tr>
@@ -119,7 +118,7 @@
                 Valor Pago
             </td>
             <td style="text-align: right">
-                1,984.00 MZN
+                {{ number_format($dados->trabalho->preco_final, 2 ) }} MZN
             </td>
         </tr>
     </table>

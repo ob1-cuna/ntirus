@@ -10,6 +10,7 @@ use App\Trabalho;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 use App\Transacao;
 
@@ -61,5 +62,15 @@ class ClientePagamentosController extends Controller
                 'estado' => 3
             ]);
         return redirect()->route('cliente.invoices.pay-2', ['transacao' => $transacao_id]);
+    }
+
+    public function printPDF(Transacao $transacao)
+    {
+
+        $data = Transacao::find($transacao->id);
+        $data = view()->share('dados', $data);
+
+        $pdf = PDF::loadView('cliente.gerir_pagamentos_show_print', $data);
+        return $pdf->download('factura-nr-000'.$data->id.'.pdf');
     }
 }

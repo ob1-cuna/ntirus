@@ -71,9 +71,9 @@
                         </table>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3 text-right">
-                        <button class="btn-icon btn-icon-right btn btn-primary btn-wide">
+                        <a href="{{ route('imprimir.factura.cliente', ['transacao' => $transacao->id]) }}" class="btn-icon btn-icon-right btn btn-primary btn-wide">
                             Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
