@@ -28,36 +28,7 @@ class FreelancerPerfilController extends Controller
         return view('freelancer.meu_perfil_freelancer', compact(['perfil', 'educas', 'exper_profs','habilidades']));
     }
 
-    protected function actualizarPerfil(Request $request)
-    {
 
-        $user = Auth::user()->id;
-        $name = $request->input('name');
-        $d_nascimento = $request->input('d_nascimento');
-
-        $provincia = $request->input('provincia');
-        $cidade = $request->input('cidade');
-        $descricao = $request->input('descricao');
-
-
-        DB::table('perfils')
-            ->where('user_id', $user)
-            ->update([
-                'provincia' => $provincia,
-                'cidade' => $cidade,
-                'descricao' => $descricao,
-                'updated_at' => now(\DateTimeZone::AMERICA),
-            ]);
-
-        DB::table('users')
-            ->where('id', $user)
-            ->update([
-                'name' => $name,
-                'd_nascimento' => $d_nascimento,
-                'updated_at' => now(\DateTimeZone::AMERICA),
-            ]);
-        return redirect()->back();
-    }
     protected function actualizarPerfilCadastro(Request $request)
     {
 
