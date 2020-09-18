@@ -44,6 +44,8 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/registo/terminado', 'PerfilController@cadastroConcluido')->name('registo.concluido');
         Route::get('/registro/fix', 'PerfilController@cadastroFix')->name('registo.fix');
         Route::patch('perfil/update','PerfilController@perfilEdit')->name('perfil.edit');
+        Route::post('definicoes/update/password','DefinicoesController@updatePassword')->name('update.password');
+        Route::post('definicoes/update/email','DefinicoesController@changeEmail')->name('update.email');
 
             Route::group(['middleware'=>'check-permission:freelancer'], function () {
 

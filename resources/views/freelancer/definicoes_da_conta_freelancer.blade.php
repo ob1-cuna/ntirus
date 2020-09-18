@@ -26,18 +26,50 @@
         <div class="tab-content">
             <div class="tab-pane active show" id="tab-faq-1" ><h4>Alterar Senha</h4>
                 <div class="divider"></div>
-                <form class="">
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if(session('success-update-password'))
+                    <div class="alert alert-success">
+                        {{ session('success-update-password') }}
+                    </div>
+                @endif
+                <form class="" method="POST" action="{{ route('update.password') }}">
+                    @csrf
                     <div class="position-relative form-group">
                         <label for="senha_actual" class="">Senha Actual</label>
-                        <input name="titulo_trabalho" id="senha_actual" placeholder="******" type="password" class="form-control">
+                        <input name="senha_actual" id="senha_actual" type="password" class="form-control  @error('senha_actual') is-invalid @enderror" required autocomplete="off">
+                        @error('senha_actual')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="position-relative form-group">
                         <label for="nova_senha" class="">Nova Senha</label>
-                        <input name="titulo_trabalho" id="nova_senha" placeholder="*******" type="password" class="form-control">
+                        <input name="nova_senha" id="nova_senha"  type="password" class="form-control @error('nova_senha') is-invalid @enderror" required autocomplete="confirmacao_nova_senha">
+                        @error('nova_senha')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="position-relative form-group">
                         <label for="confirmacao_nova_senha" class="">Confirmação da nova senha</label>
-                        <input name="titulo_trabalho" id="confirmacao_nova_senha" placeholder="" type="password" class="form-control">
+                        <input name="confirmacao_nova_senha" id="confirmacao_nova_senha" placeholder="" type="password" class="form-control @error('confirmacao_nova_senha') is-invalid @enderror">
+                        @error('confirmacao_nova_senha')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="clearfix">
                         <div class="text-left">
@@ -48,18 +80,50 @@
             </div>
             <div class="tab-pane" id="tab-faq-2"><h4>Alterar Email</h4>
                 <div class="divider"></div>
-                <form class="">
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
+                @if(session('success-update-email'))
+                    <div class="alert alert-success">
+                        {{ session('success-update-email') }}
+                    </div>
+                @endif
+                <form class="" method="POST" action="{{ route('update.email') }}">
+                    @csrf
                     <div class="position-relative form-group">
                         <label for="email_actual" class="">Email Actual</label>
-                        <input name="titulo_trabalho" id="email_actual" placeholder="exemplo@site.com" type="email" class="form-control">
+                        <input name="email_actual" id="email_actual" placeholder="exemplo@site.com" type="email" class="form-control @error ('email_actual') is-invalid @enderror" value="{{ old('email_actual') }}" autocomplete="off">
+                        @error('email_actual')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="position-relative form-group">
-                        <label for="novo_email" class="">Novo Email</label>
-                        <input name="titulo_trabalho" id="novo_email" placeholder="novoexemplo@site.com" type="email" class="form-control">
+                        <label for="email" class="">Novo Email</label>
+                        <input name="email" id="email" placeholder="novoexemplo@site.com" type="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" autocomplete="off">
+                        @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="position-relative form-group">
                         <label for="password_novo_email" class="">Confirmar senha</label>
-                        <input name="titulo_trabalho" id="password_novo_email" placeholder="*******" type="password" class="form-control">
+                        <input name="password_novo_email" id="password_novo_email" type="password" class="form-control @error('password_novo_email') is-invalid @enderror" autocomplete="off">
+                        @error('password_novo_email')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
                     <div class="clearfix">
                         <div class="text-left">
