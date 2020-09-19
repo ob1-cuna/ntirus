@@ -1,6 +1,33 @@
 @extends('admin.layouts.app')
 @section('title', 'Gerir Usuarios' )
 @section('descricao', 'Página de gestão dos usuários da Aplicação.' )
+@section('meu_css')
+<style>
+    .caixa-de-pesquisa-alt {
+        position: relative
+    }
+
+    .caixa-de-pesquisa-alt input {
+        padding: 5px 5px 5px 50px;
+        border-radius: 25px;
+        width: 100%;
+        outline: none !important
+    }
+
+    .caixa-de-pesquisa-alt .caixa-de-pesquisa-icon-wrapper-alt {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        margin-top: -16px;
+        height: 15px;
+        line-height: 32px;
+        width: 15px;
+        text-align: center;
+        opacity: .4;
+        font-size: 1.2rem
+    }
+</style>
+@endsection
 @section('content')
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
@@ -24,7 +51,13 @@
             <br>
         </div>
         <div class="col-md-9 col-sm-12">
-            @include('admin.includes.caixa-pesquisa-usuarios')
+            <form method="GET" action="{{route('admin.dashboard.usuarios.pesquisar')}}">
+                <div class="caixa-de-pesquisa-alt col-md-6" style="padding-left: 0;">
+                    <label for="query" style="display: none"></label>
+                    <input type="search" name="query" id="query" value="{{request()->input('query')}}" placeholder="Pesquise..." class="form-control" autocomplete="off">
+                    <i class="caixa-de-pesquisa-icon-wrapper-alt fa fa-search"></i>
+                </div>
+            </form>
             <div class="divider"></div>
             @if(request()->input('query') != null)
                 <h5>@if($users->count() == 1) 1 resultado @elseif( $users->count() == 0) Sem resultados @else {{ $users_count }} resultados @endif para "<b class="bold-medio">{{request()->input('query')}}</b>"</h5>
@@ -75,7 +108,15 @@
                                                         <div class="badge badge-pill badge-warning widget-label">
                                                             Completo
                                                         </div>
+                                                        @case(3)
+                                                        <div class="badge badge-pill badge-dark widget-label">
+                                                            Suspenso
+                                                        </div>
                                                         @break
+                                                        @default
+                                                        <div class="badge badge-pill badge-danger widget-label">
+                                                            MISTAKE
+                                                        </div>
                                                     @endswitch
                                                 </div>
                                             </div>
@@ -132,6 +173,13 @@
                                         {{ $user->perfil->cidade }}, {{ $user->perfil->provincia }}
                                     </div>
                                     @break
+                                    @case (3)
+                                    <div class="col-md-12 mb-1">
+                                        <div class="alert alert-danger">
+                                            <li class="text-center list-unstyled">Conta Suspensa</li>
+                                        </div>
+                                    </div>
+                                    @break
                                     @default
                                     Miskate
                                 @endswitch
@@ -186,6 +234,20 @@
                             <button class="btn-icon btn-icon-right btn btn-outline-danger">
                                 Reprovar <i class="fa fa-thumbs-down btn-icon-wrapper ml-1"> </i>
                             </button>
+                            @break
+                            @case(3)
+                            <a href="{{ route('admin.dashboard.usuarios.reactivar', ['user' => $user->id]) }}"
+                               onclick="event.preventDefault();
+                                                               document.getElementById('reactivar-perfil-{{ $user->id }}').submit();"
+                               class="btn-icon btn-icon-right btn btn-success">
+                                Reactivar <i class="fa fa-thumbs-up btn-icon-wrapper ml-1"> </i>
+                            </a>
+                            <button class="btn-icon btn-icon-right btn btn-danger" data-toggle="modal" data-target="#modalApagarUsuario">
+                                Apagar Conta <i class="fa fa-user-times btn-icon-wrapper ml-1"> </i>
+                            </button>
+                            <form method="post" id="reactivar-perfil-{{ $user->id }}" action="{{ route('admin.dashboard.usuarios.reactivar', ['user' => $user->id]) }}" style="display: none;">
+                                @csrf
+                            </form>
                             @break
                         @endswitch
                     </div>

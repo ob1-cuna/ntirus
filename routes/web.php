@@ -154,6 +154,7 @@ Route::group(['middleware'=>'auth'], function () {
         Route::post('/admin/aprovar/perfil/{user}', 'CAdmin\AdminUsersController@aprovarPerfil')->name('admin.usuario.aprovar_perfil');
         Route::get('/admin/dashboard/categorias','CAdmin\AdminHabilidadesController@index')->name('admin.dashboard.categorias.index');
         Route::get('/admin/dashboard/usuarios','CAdmin\AdminUsersController@index')->name('admin.dashboard.usuarios.index');
+        Route::get('/admin/dashboard/usuarios/p', 'CAdmin\AdminUsersController@pesquisarUser')->name('admin.dashboard.usuarios.pesquisar');
         Route::get('/admin/dashboard/usuario/{user}','CAdmin\AdminUsersController@show')->name('admin.dashboard.usuarios.show');
         Route::get('/admin/dashboard/usuarios/p', 'CAdmin\AdminUsersController@pesquisarUser')->name('admin.dashboard.usuarios.pesquisar');
         Route::get('/admin/dashboard/transacoes/pendentes','CAdmin\AdminPagamentosController@invoicesPendentes')->name('admin.dashboard.transacoes.pendentes');

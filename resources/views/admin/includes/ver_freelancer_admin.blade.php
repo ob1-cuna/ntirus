@@ -49,6 +49,11 @@
                                                 </a>
                                             </li>
                                         </ul>
+                                        @if(session('success'))
+                                        <div class="alert alert-success">
+                                            {{ session('success') }}
+                                        </div>
+                                        @endif
                                         <div class="tab-content">
                                             <div class="tab-pane active" id="tab-animated-0" role="tabpanel">
                                                 <hr>
@@ -117,11 +122,11 @@
                                                     </div>
                                                     <div class="col-md-9 col-sm-9">
                                                         <p>
-                                                            @foreach($user->metodos_de_pagamento as $habilidade)
+                                                            @foreach($transacoes as $transacao_metodo)
                                                                 @if($loop->last)
-                                                                    {{ $habilidade->nome }}.
+                                                                    {{ $transacao_metodo->metodo->nome }}.
                                                                 @else
-                                                                    {{ $habilidade->nome }},
+                                                                    {{ $transacao_metodo->metodo->nome }},
                                                                 @endif
                                                             @endforeach
                                                         </p>
@@ -220,10 +225,10 @@
                                                     </button>
                                                     @break
                                                     @case(1)
-                                                    <button class="btn-icon btn-icon-right btn btn-warning">
+                                                    <button class="btn-icon btn-icon-right btn btn-warning" data-toggle="modal" data-target="#modalSuspenderUsuario">
                                                         Suspender <i class="fa fa-ban btn-icon-wrapper ml-1"> </i>
                                                     </button>
-                                                    <button class="btn-icon btn-icon-right btn btn-danger">
+                                                    <button class="btn-icon btn-icon-right btn btn-danger" data-toggle="modal" data-target="#modalApagarUsuario">
                                                         Apagar Conta <i class="fa fa-user-times btn-icon-wrapper ml-1"> </i>
                                                     </button>
                                                     @break
@@ -241,6 +246,20 @@
                                                         Reprovar <i class="fa fa-thumbs-down btn-icon-wrapper ml-1"> </i>
                                                     </button>
                                                     @break
+                                                    @case(3)
+                                                    <a href="{{ route('admin.dashboard.usuarios.reactivar', ['user' => $user->id]) }}"
+                                                       onclick="event.preventDefault();
+                                                               document.getElementById('reactivar-perfil').submit();"
+                                                       class="btn-icon btn-icon-right btn btn-success">
+                                                        Reactivar <i class="fa fa-thumbs-up btn-icon-wrapper ml-1"> </i>
+                                                    </a>
+                                                    <button class="btn-icon btn-icon-right btn btn-danger" data-toggle="modal" data-target="#modalApagarUsuario">
+                                                        Apagar Conta <i class="fa fa-user-times btn-icon-wrapper ml-1"> </i>
+                                                    </button>
+                                                    <form method="post" id="reactivar-perfil" action="{{ route('admin.dashboard.usuarios.reactivar', ['user' => $user->id]) }}" style="display: none;">
+                                                        @csrf
+                                                    </form>
+                                                    @break
                                                 @endswitch
                                                 <hr>
                                             </div>
@@ -251,3 +270,7 @@
            <!--/tab-content-->
         </div>
 @endsection()
+
+@section('meus_modals')
+    @include('admin.includes.modal_apagar_suspender')
+@endsection

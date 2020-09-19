@@ -40,6 +40,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Transacao::class);
     }
 
+    public function transacoes()
+    {
+        return $this->hasMany(Transacao::class);
+    }
+
     public function trabalho()
     {
         return $this->hasOne(Trabalho::class,'freelancer_id', 'id');

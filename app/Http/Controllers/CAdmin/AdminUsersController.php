@@ -194,10 +194,32 @@ class AdminUsersController extends Controller
     }
 
     public function showCliente (User $user){
-        return view('admin.includes.ver_cliente_admin', compact('user') );
+        $transacoes = $user->transacoes()->distinct()->whereNotNull('metodo_id')->get(['metodo_id']);
+        return view('admin.includes.ver_cliente_admin', compact(['user', 'transacoes']) );
     }
 
     public function showFreelancer (User $user){
-        return view('admin.includes.ver_freelancer_admin', compact('user') );
+        $transacoes = $user->transacoes()->distinct()->whereNotNull('metodo_id')->get(['metodo_id']);
+        return view('admin.includes.ver_freelancer_admin', compact(['user', 'transacoes']) );
+    }
+
+    protected function apagarUser(User $user)
+    {
+        //Perfil::where('user_id', $user->id)->update(['status'=> 0]);
+        //return back()->with('success-apagar-user', 'O seu novo email é '.$request->email.'.');
+    }
+
+    protected function suspenderUser(User $user)
+    {
+        Perfil::where('user_id', $user->id)->update(['status'=> 3]);
+        User::where('id', $user->id)->update(['status'=> 2]);
+        return back()->with('success', 'A conta de '.$user->name.' foi suspensa com sucesso.');
+    }
+
+    protected function reactivarUser(User $user)
+    {
+        Perfil::where('user_id', $user->id)->update(['status'=> 1]);
+        User::where('id', $user->id)->update(['status'=> 1]);
+        return back()->with('success', 'A conta de '.$user->name.' foi reactivada com sucesso.');
     }
 }
