@@ -152,11 +152,26 @@ Route::group(['middleware'=>'auth'], function () {
     {
 	    Route::get('/admin/dashboard','HomeController@admin')->name('admin.dashboard');
         Route::post('/admin/aprovar/perfil/{user}', 'CAdmin\AdminUsersController@aprovarPerfil')->name('admin.usuario.aprovar_perfil');
+
         Route::get('/admin/dashboard/categorias','CAdmin\AdminHabilidadesController@index')->name('admin.dashboard.categorias.index');
+        Route::post('/admin/dashboard/categoria','CAdmin\AdminHabilidadesController@store')->name('admin.dashboard.categorias.store');
+        Route::post('/admin/dashboard/categoria/{habilidade}/update','CAdmin\AdminHabilidadesController@update')->name('admin.dashboard.categorias.update');
+        Route::delete('/admin/dashboard/categoria/{habilidade}/delete','CAdmin\AdminHabilidadesController@destroy')->name('admin.dashboard.categorias.delete');
+        Route::post('/admin/dashboard/categoria/{habilidade}/ocultar','CAdmin\AdminHabilidadesController@ocultar')->name('admin.dashboard.categorias.ocultar');
+
         Route::get('/admin/dashboard/usuarios','CAdmin\AdminUsersController@index')->name('admin.dashboard.usuarios.index');
         Route::get('/admin/dashboard/usuarios/p', 'CAdmin\AdminUsersController@pesquisarUser')->name('admin.dashboard.usuarios.pesquisar');
         Route::get('/admin/dashboard/usuario/{user}','CAdmin\AdminUsersController@show')->name('admin.dashboard.usuarios.show');
-        Route::get('/admin/dashboard/usuarios/p', 'CAdmin\AdminUsersController@pesquisarUser')->name('admin.dashboard.usuarios.pesquisar');
+            Route::post('/admin/dashboard/usuarios/{user}/apagar', 'CAdmin\AdminUsersController@apagarUser')->name('admin.dashboard.usuarios.apagar');
+            Route::post('/admin/dashboard/usuarios/{user}/suspender', 'CAdmin\AdminUsersController@suspenderUser')->name('admin.dashboard.usuarios.suspender');
+            Route::post('/admin/dashboard/usuarios/{user}/reactivar', 'CAdmin\AdminUsersController@reactivarUser')->name('admin.dashboard.usuarios.reactivar');
+
+        Route::get('/admin/dashboard/trabalhos','CAdmin\AdminTrabalhoController@index')->name('admin.dashboard.trabalho.index');
+        Route::get('/admin/dashboard/trabalhos!p','CAdmin\AdminTrabalhoController@pesquisar')->name('admin.dashboard.trabalho.pesquisar');
+        Route::get('/admin/dashboard/trabalhos/t/{trabalho}','CAdmin\AdminTrabalhoController@show')->name('admin.dashboard.trabalho.show');
+            Route::post('/admin/dashboard/trabalhos/t/{trabalho}/ocultar','CAdmin\AdminTrabalhoController@ocultar')->name('admin.dashboard.trabalho.ocultar');
+            Route::delete('/admin/dashboard/trabalhos/t/{trabalho}/delete','CAdmin\AdminTrabalhoController@delete')->name('admin.dashboard.trabalho.delete');
+
         Route::get('/admin/dashboard/transacoes/pendentes','CAdmin\AdminPagamentosController@invoicesPendentes')->name('admin.dashboard.transacoes.pendentes');
         Route::get('/admin/dashboard/transacoes/pagos','CAdmin\AdminPagamentosController@invoicesPagos')->name('admin.dashboard.transacoes.pagos');
         Route::get('/admin/dashboard/transacao/{transacao}','CAdmin\AdminPagamentosController@show')->name('admin.dashboard.transacoes.show');

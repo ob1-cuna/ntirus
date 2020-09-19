@@ -157,7 +157,7 @@
                                                 aria-controls="collapseExp{{ $exper_prof->id }}Controls"
                                                 class="text-left m-0 p-0 btn-pill btn btn-gradient-link collapsed">
                                             <h6 class="m-0 p-0">{{ $exper_prof->instituicao}}</h6>
-                                            <span>{{ $exper_prof->data_inicio }} - {{ $exper_prof->data_terminio }}</span>
+                                            <span>{{ $exper_prof->data_inicio }} - @if($exper_prof->data_terminio == 'Jan 1900') Até Hoje @else {{ $exper_prof->data_terminio }}@endif</span>
                                         </button>
                                     </div>
                                     <div class="pane-right">
@@ -229,7 +229,7 @@
                                                 aria-controls="collapseEduca{{ $educa->id }}Controls"
                                                 class="text-left m-0 p-0 btn-pill btn btn-gradient-link collapsed">
                                             <h6 class="m-0 p-0">{{ $educa->instituicao}}</h6>
-                                            <span>{{ $educa->data_inicio }} - {{ $educa->data_terminio }}</span>
+                                            <span>{{ $educa->data_inicio }} - @if($educa->data_terminio == 'Jan 1900') Até hoje @else {{ $educa->data_terminio }}@endif</span>
                                         </button>
                                     </div>
                                     <div class="pane-right">

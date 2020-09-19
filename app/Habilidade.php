@@ -15,4 +15,8 @@ class habilidade extends Model
     {
         return $this->belongsToMany(Trabalho::class);
     }
+
+    protected $fillable = [
+        'nome', 'slug', 'visibilidade',
+    ];
 }

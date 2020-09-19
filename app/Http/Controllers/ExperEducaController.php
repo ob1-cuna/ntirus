@@ -39,7 +39,6 @@ class ExperEducaController extends Controller
             'instituicao' => ['required', 'string', 'max:150'],
             'nome' => ['required', 'string', 'max:150'],
             'data_inicio' => ['required'],
-            'data_terminio' => ['required', 'string'],
             'descricao' => ['string'],
 
         ]);

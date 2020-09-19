@@ -18,6 +18,22 @@
                 </div>
             </div>
             <div class="divider"></div>
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if(count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <table style="width: 100%;" id="example"
                    class="table table-hover table-striped table-bordered">
                 <thead>
@@ -80,7 +96,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <form action="#" method="POST">
+                <form action="{{ route('admin.dashboard.categorias.store') }}" method="POST">
+                    @csrf
                 <div class="modal-body">
                     <div class="position-relative form-group">
                         <label for="nome" class="">Nome</label>
@@ -110,19 +127,34 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p class="mb-0">
-                            Tem certeza que deseja remover o <b>{{ $habilidade->nome }}</b> na aplicação?
-                        </p>
+
+                        @if(($habilidade->trabalhos->count() + $habilidade->users->count()) == 0)
+                            <p class="mb-0">
+                                Tem certeza que deseja remover o <b>{{ $habilidade->nome }}</b> na aplicação?
+                            </p>
+                            @else
+                            <p class="mb-2">
+                                Categorias que tem mais de um uso na aplicação serão ocultadas a partir de do momento que confirmar a operação.
+                            </p>
+                            <p class="mb-0">
+                                <b>{{ $habilidade->nome }}</b> tem <b>{{ $habilidade->trabalhos->count() }} TRABALHO(S)</b> e <b>{{ $habilidade->users->count() }} FREELANCER(S)</b>, tem certeza que deseja prosseguir com a operação?
+                            </p>
+                        @endif
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCELAR</button>
-                        <form action="#" method="POST">
+                        @if($habilidade->trabalhos->count() == 0 || $habilidade->trabalhos->count() == 0)
+                        <form action="{{ route('admin.dashboard.categorias.delete', ['habilidade' => $habilidade->id ] )}}" method="POST">
                             @method('DELETE')
                             @csrf
                             <button type="submit" class="btn btn-danger odom-submit">SIM, TENHO CERTEZA</button>
-
                         </form>
-
+                        @else
+                        <form action="{{ route('admin.dashboard.categorias.ocultar', ['habilidade' => $habilidade->id ] )}}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger odom-submit">SIM, TENHO CERTEZA</button>
+                        </form>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -139,7 +171,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form action="#" method="POST">
+                    <form action="{{ route('admin.dashboard.categorias.update', ['habilidade' => $habilidade->id]) }}" method="POST">
+                        @csrf
                         <div class="modal-body">
                             <div class="position-relative form-group">
                                 <label for="nome" class="">Nome</label>
@@ -148,6 +181,13 @@
                             <div class="position-relative form-group">
                                 <label for="slug" class="">Slug</label>
                                 <input name="slug" id="slug" placeholder="" type="text" class="form-control" value="{{ $habilidade->slug }}" autocomplete="off">
+                            </div>
+                            <div class="position-relative form-group">
+                                <label for="visibilidade" class="">Visibilidade</label>
+                                <select name="visibilidade" id="visibilidade" class="form-control" autocomplete="off">
+                                    <option value="1" @if ($habilidade->visibilidade == 'Visivel') selected @else @endif>Visivel</option>
+                                    <option value="2" @if ($habilidade->visibilidade == 'Invisivel') selected @else @endif>Ocultada</option>
+                                </select>
                             </div>
                         </div>
                         <div class="modal-footer">

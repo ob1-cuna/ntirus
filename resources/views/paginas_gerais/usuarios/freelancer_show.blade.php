@@ -145,7 +145,7 @@
                             </div>
                             <div class="limite-direita ml-3 mr-2 py-1"></div>
                             <div class="">
-                                <i class="fa fa-calendar-alt mr-2"></i>{{ $exper_prof->data_inicio }} - @if($exper_prof->data_terminio == 'Nov -0001')  Até Hoje @else {{ ($exper_prof->data_terminio)}}@endif
+                                <i class="fa fa-calendar-alt mr-2"></i>{{ $exper_prof->data_inicio }} - @if($exper_prof->data_terminio == 'Jan 1900')  Até hoje @else {{ ($exper_prof->data_terminio)}}@endif
                             </div>
                         </div>
                         <div class="row">
@@ -178,7 +178,7 @@
                             </div>
                             <div class="limite-direita"></div>
                             <div class="ml-3">
-                                <i class="fa fa-calendar-alt mr-2"></i> {{ $educa->data_inicio }} - @if($educa->data_terminio == 'Nov -0001')  Até Hoje @else {{ ($educa->data_terminio) }}@endif
+                                <i class="fa fa-calendar-alt mr-2"></i> {{ $educa->data_inicio }} - @if($educa->data_terminio == 'Jan 1900')  Até Hoje @else {{ ($educa->data_terminio) }}@endif
                             </div>
                         </div>
                         <div class="row">

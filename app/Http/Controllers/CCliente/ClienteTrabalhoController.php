@@ -24,7 +24,7 @@ class ClienteTrabalhoController extends Controller
    */
     public function listarTrabalhosAbertosCliente()
     {
-        $trabalhos = Trabalho::where([['status', 'Aberto'], ['user_id', Auth::user()->id]])->paginate(5);    // status=0 (pode-se concorrer)
+        $trabalhos = Trabalho::where([['status', 'Aberto'], ['user_id', Auth::user()->id]])->orderBy('created_at', 'desc')->paginate(5);    // status=0 (pode-se concorrer)
                                                                                                 // =1 (activo) =2 (terminado) =3 (cancelado)
 
         return view('cliente.trabalhos_abertos_cliente', compact(['trabalhos', 'numeroDePropostas']));
