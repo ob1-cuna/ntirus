@@ -69,8 +69,15 @@ function checkPermission($permissions){
       }
 
   function getPercentagem ($valorMaior, $valorMenor){
-      $percentagem =  ($valorMenor * 100)/$valorMaior;
-      return $percentagem;
+    if ($valorMaior == 0 || $valorMenor == 0)
+    {
+        $percentagem = 0;
+        return $percentagem;
+    }
+
+     else
+         $percentagem =  ($valorMenor * 100)/$valorMaior;
+        return $percentagem;
   }
 
   function getSaldo ($user) {
