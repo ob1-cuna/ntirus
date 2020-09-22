@@ -86,7 +86,7 @@ Route::group(['middleware'=>'auth'], function () {
                     Route::get('/dashboard/invoices/pendentes','CFreelancer\FreelancerTransacaoController@invoicesPendentes')->name('dashboard.invoices.pendentes.list');
                     Route::get('/dashboard/invoices/pagos','CFreelancer\FreelancerTransacaoController@invoicesPagos')->name('dashboard.invoices.pagos.list');
                     Route::get('/dashboard/invoices/i/{transacao}','CFreelancer\FreelancerTransacaoController@invoiceShow')->name('dashboard.invoices.show');
-                    Route::get('/dashboard/invoices/download/{transacao}','CFreelancer\FreelancerTransacaoController@invoiceDownload')->name('dashboard.invoices.download');
+                    Route::get('/dashboard/invoices/download/{transacao}.pdf','CFreelancer\FreelancerTransacaoController@invoiceDownload')->name('dashboard.invoices.download');
                     Route::get('/dashboard/saque/','CFreelancer\FreelancerTransacaoController@saque')->name('dashboard.invoices.saque');
                     Route::get('/dashboard/saque#step-2','CFreelancer\FreelancerTransacaoController@saque')->name('dashboard.invoices.saque.step-2');
                     Route::post('/dashboard/saque/','CFreelancer\FreelancerTransacaoController@saqueStore')->name('dashboard.invoices.saque.store');
@@ -150,7 +150,7 @@ Route::group(['middleware'=>'auth'], function () {
 //DASHBOARD ADMINISTRADOR
     Route::group(['middleware'=>'check-permission:admin'], function ()
     {
-	    Route::get('/admin/dashboard','HomeController@admin')->name('admin.dashboard');
+	    Route::get('/admin/dashboard','HomeController@admin')->name('admin.dashboard.home');
         Route::post('/admin/aprovar/perfil/{user}', 'CAdmin\AdminUsersController@aprovarPerfil')->name('admin.usuario.aprovar_perfil');
 
         Route::get('/admin/dashboard/categorias','CAdmin\AdminHabilidadesController@index')->name('admin.dashboard.categorias.index');
@@ -176,10 +176,11 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/admin/dashboard/transacoes/pendentes','CAdmin\AdminPagamentosController@invoicesPendentes')->name('admin.dashboard.transacoes.pendentes');
         Route::get('/admin/dashboard/transacoes/pagos','CAdmin\AdminPagamentosController@invoicesPagos')->name('admin.dashboard.transacoes.pagos');
         Route::get('/admin/dashboard/transacao/{transacao}','CAdmin\AdminPagamentosController@show')->name('admin.dashboard.transacoes.show');
-        Route::post('/admin/dashboard/transacao/{transacao}/','CAdmin\AdminPagamentosController@confirmarPagamento')->name('admin.dashboard.transacoes.confirmar');
+        Route::post('/admin/dashboard/transacao/{transacao}/confirmar','CAdmin\AdminPagamentosController@confirmarPagamento')->name('admin.dashboard.transacoes.confirmar');
         Route::get('/admin/dashboard/transacao/{transacao}/pagar','CAdmin\AdminPagamentosController@efectuarPagamentoIndex')->name('admin.dashboard.transacoes.pagar.index');
         Route::get('/admin/dashboard/transacao/{transacao}/pagar#step-2','CAdmin\AdminPagamentosController@efectuarPagamentoIndex')->name('admin.dashboard.transacoes.pagar.index-2');
         Route::post('/admin/dashboard/transacao/{transacao}/pagar','CAdmin\AdminPagamentosController@efectuarPagamentoStore')->name('admin.dashboard.transacoes.pagar.store');
+        Route::get('/admin/dashboard/transacao/pdf/{transacao}', 'CCliente\ClientePagamentosController@printPDF')->name('imprimir.factura.admin');
 
         Route::get('/admin/dashboard/definicoes', 'CAdmin\AdminDefinicoesController@definicoesConta')->name('admin.definicoes');
     });

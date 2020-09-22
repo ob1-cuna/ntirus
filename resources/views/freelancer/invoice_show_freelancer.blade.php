@@ -35,11 +35,11 @@
                             </tr>
                             <tr>
                                 <th scope="row">Metodo</th>
-                                <td>{{$transacao->metodo->nome}}</td>
+                                <td>{{$transacao->metodo['nome']}}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Codigo</th>
-                                <td>{{ $transacao->codigover }}</td>
+                                <td>{{ $transacao['codigover'] }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Estado</th>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\CAdmin;
 
 
 use App\MetodosDePagamento;
+use App\Trabalho;
 use App\Transacao;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,7 +38,16 @@ class AdminPagamentosController
             ->where('id', $transacao->id)
             ->update(['estado' => 'Concluido',
                 'data_de_pagamento' => now(\DateTimeZone::AMERICA),]);
-        return redirect()->back();
+
+        Trabalho::where('id', $transacao->trabalho_id)->update(['status' => 'Finalizado']);
+
+        Transacao::where([
+            ['user_id', $transacao->trabalho->freelancer->id],
+            ['tipo', 'p2f'],
+            ['trabalho_id', $transacao->trabalho_id]])->update(['estado' => 'Concluido',
+            'data_de_pagamento' => now(\DateTimeZone::AMERICA),]);
+
+        return back()->with('success', 'Transação confirmada!');
     }
 
     public function efectuarPagamentoStore (Request $request)

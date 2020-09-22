@@ -152,6 +152,5 @@
 </div>
     <p style="text-align: right"> Processado pela: <img src="images/brand_ntitus/logotype.svg" width="65px" height="15px" alt="logotipo"></p>
 </div>
-<a href="{{ route('pdf-file', ['transacao' => $dados->id]) }}" class="btn btn-primary">Baixar</a>
 </body>
 </html>

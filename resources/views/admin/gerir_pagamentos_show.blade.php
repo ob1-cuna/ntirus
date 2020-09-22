@@ -127,9 +127,9 @@
                                 </form>
                                 @break
                                 @case('Concluido')
-                                <button class="btn-icon btn-icon-right btn btn-primary btn-wide">
+                                <a class="btn-icon btn-icon-right btn btn-primary btn-wide" href="{{ route('imprimir.factura.admin', [ 'transacao' => $transacao->id ]) }}">
                                     Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
-                                </button>
+                                </a>
                                 @break
 
                             @endswitch
