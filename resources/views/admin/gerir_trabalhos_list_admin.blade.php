@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
-@section('title', 'Categorias' )
-@section('descricao', 'Página de gestão das categorias dos usuários da Aplicação.' )
+@section('title', 'Trabalhos' )
+@section('descricao', 'Página de gestão das trabalhos dos usuários da Aplicação.' )
 @section('meu_css')
     <style>
         .caixa-de-pesquisa-alt {
@@ -36,9 +36,10 @@
                     <li class="list-group-item text-muted">Estatisticas</li>
                     <li class="list-group-item"><span class="text-left">Publicados</span> <o class="pull-right"><span class="badge badge-primary badge-pill">{{ $trabalhos->count() }}</span></o></li>
                     <li class="list-group-item"><span class="text-left">Abertos</span> <o class="pull-right"><span class="badge badge-info badge-pill">{{ $trabalhos->where('status', 'Aberto')->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Ocultados</span> <o class="pull-right"><span class="badge badge-secondary badge-pill">{{ $trabalhos->where('status', 'Ocultado')->count() }}</span></o></li>
                     <li class="list-group-item"><span class="text-left">Em Andamento</span> <o class="pull-right"><span class="badge badge-alternate badge-pill">{{ $trabalhos->where('status', 'Em Andamento')->count() }}</span></o></li>
                     <li class="list-group-item"><span class="text-left">Cancelados</span> <o class="pull-right"><span class="badge badge-warning badge-pill mr-1">{{ $trabalhos->where('status', 'Cancelado-F')->count() }}</span><span class="badge badge-danger badge-pill">{{ $trabalhos->where('status', 'Cancelado-C')->count() }}</span></o></li>
-                    <li class="list-group-item"><span class="text-left">Finalizados</span> <o class="pull-right"><span class="badge badge-success badge-pill">{{ $trabalhos->where('status', 'Finalizados')->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Finalizados</span> <o class="pull-right"><span class="badge badge-success badge-pill">{{ $trabalhos->where('status', 'Finalizado')->count() }}</span></o></li>
                 </ul>
             </div>
         </div>
@@ -46,7 +47,7 @@
     <form method="GET" action="{{route('admin.dashboard.trabalho.pesquisar')}}">
         <div class="caixa-de-pesquisa-alt col-md-6 col-xl-6 col-sm-12" style="padding-left: 0;">
             <label for="query" style="display: none"></label>
-            <input type="search" name="query" id="query" value="{{request()->input('query')}}" placeholder="Pesquise..." class="form-control" autocomplete="off">
+            <input type="search" name="query" id="query" value="{{request()->input('query')}}" placeholder="Pesquise..." class="form-control @error('query') is-invalid @enderror" autocomplete="off">
             <i class="caixa-de-pesquisa-icon-wrapper-alt fa fa-search"></i>
         </div>
         <br>
@@ -55,12 +56,37 @@
         <h5>@if($trabalhos->count() == 1) 1 resultado @elseif( $trabalhos->count() == 0) Sem resultados @else {{ $trabalhos_count }} resultados @endif para "<b class="bold-medio">{{request()->input('query')}}</b>"</h5>
         <div class="divider"></div>
     @endif
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(count($errors) > 0)
+            <div class="alert alert-danger">
+                <strong>Ups</strong> houve alguns beefs com os dados inseridos.<br>
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     @foreach($trabalhos as $trabalho)
     <div class="main-card card">
         <div class="card-body"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}"><h5 class="card-title">{{ $trabalho->nome_trabalho }}</h5></a>
 
             <h6 class="card-subtitle">
                 <a href="{{ route ('admin.dashboard.usuarios.show', ['user' => $trabalho->user->id]) }}">{{ $trabalho->user->name }}</a>
+                @switch($trabalho->status)
+                    @case('Aberto')
+                    @case('Ocultado')
+
+                    @break
+                    @default
+                    | <a href="{{ route ('admin.dashboard.usuarios.show', ['user' => $trabalho->freelancer->id]) }}">{{ $trabalho->freelancer->name }} </a>
+                @endswitch
             </h6>
             <div class="divider"></div>
             <div class="row">
@@ -120,18 +146,75 @@
                                     Aguardado Confirmação
                                 </a>
                                 @break
+                                @case('Ocultado')
+                                <a href="#" class="badge badge-secondary" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="Enviado pelo freelancer e nao confirmado pelo cliente">
+                                    Ocultado
+                                </a>
+                                @break
                                 @default
                                 Ups falhaste em algum lugar...
                             @endswitch</b></p>
                 </div>
             </div>
-            <a href="{{ route('admin.dashboard.trabalho.show', ['trabalho' => $trabalho->id ]) }}" class="btn btn-warning">
+            <a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}" class="btn btn-warning">
                 Ver Detalhes
             </a>
         </div>
+        @if ($trabalho->status == 'Aberto')
+
+        @endif
+        @switch($trabalho->status)
+            @case('Aberto')
+            <div class="d-block text-right card-footer">
+                <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalOcultarTrabalho{{ $trabalho->id }}">Ocultar</button>
+            </div>
+            @break
+            @case('Ocultado')
+            <div class="d-block text-right card-footer">
+                <a href="{{ route('admin.dashboard.trabalho.reabrir', ['trabalho' => $trabalho->id]) }}"
+                   onclick="event.preventDefault();
+                           document.getElementById('aprovar-perfil-{{ $trabalho->id }}').submit();"
+                   class="btn btn-outline-primary">
+                    Reabrir
+                </a>
+                <form method="POST" id="aprovar-perfil-{{ $trabalho->id }}" action="{{ route('admin.dashboard.trabalho.reabrir', ['trabalho' => $trabalho->id]) }}" style="display: none;">
+                    @csrf
+                </form>
+            </div>
+            @break
+        @endswitch
     </div>
         <div class="divider" style="background: transparent"></div>
     @endforeach
     </div>
     </div>
 @endsection()
+
+@section('meus_modals')
+    @foreach($trabalhos as $trabalho)
+        <div class="modal fade" id="modalOcultarTrabalho{{ $trabalho->id }}" tabindex="-1" role="dialog" aria-labelledby="modalOcultarTrabalho{{ $trabalho->id }}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalOcultarTrabalho{{ $trabalho->id }}Label">Confirmação</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="mb-0">
+                            Tem certeza que deseja ocultar <b>{{ $trabalho->nome_trabalho }}</b> publicado por <b>{{ $trabalho->user->name }}</b> da lista de trabalhos abertos?
+                        </p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                        <form method="POST" action="{{ route('admin.dashboard.trabalho.ocultar', ['trabalho' => $trabalho->id]) }}">
+                            @csrf
+                            <button type="submit" class="btn btn-primary">SIM, TENHO</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+@endsection

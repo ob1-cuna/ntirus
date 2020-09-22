@@ -169,8 +169,9 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/admin/dashboard/trabalhos','CAdmin\AdminTrabalhoController@index')->name('admin.dashboard.trabalho.index');
         Route::get('/admin/dashboard/trabalhos!p','CAdmin\AdminTrabalhoController@pesquisar')->name('admin.dashboard.trabalho.pesquisar');
         Route::get('/admin/dashboard/trabalhos/t/{trabalho}','CAdmin\AdminTrabalhoController@show')->name('admin.dashboard.trabalho.show');
-            Route::post('/admin/dashboard/trabalhos/t/{trabalho}/ocultar','CAdmin\AdminTrabalhoController@ocultar')->name('admin.dashboard.trabalho.ocultar');
-            Route::delete('/admin/dashboard/trabalhos/t/{trabalho}/delete','CAdmin\AdminTrabalhoController@delete')->name('admin.dashboard.trabalho.delete');
+            Route::post('/admin/dashboard/trabalho/{trabalho}/ocultar','CAdmin\AdminTrabalhoController@ocultar')->name('admin.dashboard.trabalho.ocultar');
+            Route::post('/admin/dashboard/trabalho/{trabalho}/reabrir','CAdmin\AdminTrabalhoController@reabrir')->name('admin.dashboard.trabalho.reabrir');
+            Route::delete('/admin/dashboard/trabalho/{trabalho}/delete','CAdmin\AdminTrabalhoController@delete')->name('admin.dashboard.trabalho.delete');
 
         Route::get('/admin/dashboard/transacoes/pendentes','CAdmin\AdminPagamentosController@invoicesPendentes')->name('admin.dashboard.transacoes.pendentes');
         Route::get('/admin/dashboard/transacoes/pagos','CAdmin\AdminPagamentosController@invoicesPagos')->name('admin.dashboard.transacoes.pagos');
