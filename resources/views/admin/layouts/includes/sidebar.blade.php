@@ -11,8 +11,8 @@
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Menu</li>
-                <li class="{{ (request()->routeIs('admin.dashboard')) ? 'mm-active' : '' }}">
-                    <a href="#" class="{{ (request()->routeIs('admin.dashboard')) ? 'mm-active' : '' }}">
+                <li class="{{ (request()->routeIs('admin.dashboard.home')) ? 'mm-active' : '' }}">
+                    <a href="{{ route('admin.dashboard.home') }}" class="{{ (request()->routeIs('admin.dashboard.home')) ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
@@ -24,17 +24,11 @@
                 <li class="{{ (request()->routeIs('admin.dashboard.usuarios.index')) ? 'mm-active' : '' }}">
                     <a href="{{ route('admin.dashboard.usuarios.index') }}" class="{{ (request()->routeIs('admin.dashboard.usuarios.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Usuários</a>
                 </li>
-                <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-diamond"></i>
+                <li class="{{(strpos(Route::currentRouteName(), 'admin.dashboard.trabalho') === 0) ? 'mm-active' : '' }}">
+                    <a href="{{ route('admin.dashboard.trabalho.index') }}" class="{{ (strpos(Route::currentRouteName(), 'admin.dashboard.trabalho') === 0) ? 'mm-active' : ''  }}">
+                        <i class="metismenu-icon pe-7s-rocket"></i>
                         Gerir Trabalhos
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
-                    <ul>
-                        <li><a href="#"><i class="metismenu-icon"></i>Em Andamento</a></li>
-                        <li><a href="#"><i class="metismenu-icon"></i>Cancelados</a></li>
-                        <li><a href="#"><i class="metismenu-icon"></i>Finalizados</a></li>
-                    </ul>
                 </li>
                 <li class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}">
                     <a href="{{ route('admin.dashboard.categorias.index') }}" class="{{ (request()->routeIs('admin.dashboard.categorias.index')) ? 'mm-active' : '' }}"><i class="metismenu-icon pe-7s-diamond"></i>Gerir Categorias</a>
@@ -62,8 +56,8 @@
                     </ul>
                 </li>
                 <li class="app-sidebar__heading">Conta</li>
-                <li>
-                    <a href="#">
+                <li class="{{ (request()->routeIs('admin.definicoes')) ? 'mm-active' : '' }}">
+                    <a href="{{ route('admin.definicoes') }}" class="{{ (request()->routeIs('admin.definicoes')) ? 'mm-active' : '' }}">
                         <i class="metismenu-icon pe-7s-graph"></i>
                         Definições da Conta
                     </a>

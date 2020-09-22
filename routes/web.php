@@ -180,6 +180,7 @@ Route::group(['middleware'=>'auth'], function () {
         Route::get('/admin/dashboard/transacao/{transacao}/pagar#step-2','CAdmin\AdminPagamentosController@efectuarPagamentoIndex')->name('admin.dashboard.transacoes.pagar.index-2');
         Route::post('/admin/dashboard/transacao/{transacao}/pagar','CAdmin\AdminPagamentosController@efectuarPagamentoStore')->name('admin.dashboard.transacoes.pagar.store');
 
+        Route::get('/admin/dashboard/definicoes', 'CAdmin\AdminDefinicoesController@definicoesConta')->name('admin.definicoes');
     });
 });
 

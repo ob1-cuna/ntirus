@@ -10,8 +10,6 @@
                    class="mb-1 active dropdown-item">Alterar Senha</a>
                 <a href="#tab-faq-2" data-toggle="tab" tabindex="0" class="mb-1 dropdown-item">
                     Alterar Email</a>
-                <a href="#tab-faq-3" data-toggle="tab" tabindex="0" class="mb-1 dropdown-item">
-                    Remover Conta</a>
             </div>
         </div>
     </div>
@@ -126,21 +124,6 @@
                         <div class="clearfix">
                             <div class="text-left">
                                 <button class="btn-wide mb-3 mr-2 btn-icon btn btn-primary btn-lg">Alterar Email</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="tab-pane" id="tab-faq-3"><h4>Remover conta</h4>
-                    <div class="divider"></div>
-                    <form class="">
-                        <div class="position-relative form-group">
-                            <label for="motivo_remover_conta" class="">Diga-nos porque</label>
-                            <input name="titulo_trabalho" id="motivo_remover_conta" placeholder="Digite um titulo simples..." type="text" class="form-control">
-                        </div>
-
-                        <div class="clearfix">
-                            <div class="text-left">
-                                <button class="btn-wide mb-3 mr-2 btn-icon btn btn-primary btn-lg">APAGAR CONTA</button>
                             </div>
                         </div>
                     </form>

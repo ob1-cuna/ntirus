@@ -20,7 +20,7 @@
 <div class="app-container app-theme-gray">
     <div class="app-main">
         <div class="app-sidebar-wrapper">
-            @include('freelancer.layouts.includes.sidebar')
+            @include('admin.layouts.includes.sidebar')
         </div>
         <div class="app-sidebar-overlay d-none animated fadeIn"></div>
         <div class="app-main__outer">
