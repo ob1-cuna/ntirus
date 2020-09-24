@@ -173,11 +173,11 @@
             <div class="d-block text-right card-footer">
                 <a href="{{ route('admin.dashboard.trabalho.reabrir', ['trabalho' => $trabalho->id]) }}"
                    onclick="event.preventDefault();
-                           document.getElementById('aprovar-perfil-{{ $trabalho->id }}').submit();"
+                           document.getElementById('reabrir-trabalho-{{ $trabalho->id }}').submit();"
                    class="btn btn-outline-primary">
                     Reabrir
                 </a>
-                <form method="POST" id="aprovar-perfil-{{ $trabalho->id }}" action="{{ route('admin.dashboard.trabalho.reabrir', ['trabalho' => $trabalho->id]) }}" style="display: none;">
+                <form method="POST" id="reabrir-trabalho-{{ $trabalho->id }}" action="{{ route('admin.dashboard.trabalho.reabrir', ['trabalho' => $trabalho->id]) }}" style="display: none;">
                     @csrf
                 </form>
             </div>
