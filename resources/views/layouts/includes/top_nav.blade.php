@@ -4,7 +4,9 @@
             <div class="dropdown">
                 <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="p-0 btn btn-link">
                     <i class="typcn typcn-bell"></i>
-                    <span class="badge badge-dot badge-dot-sm badge-danger">Notificações</span>
+                    @if(Auth::user()->unreadNotifications->count() >= 1)
+                        <span class="badge badge-dot badge-dot-sm badge-danger">Notificações</span>
+                    @endif
                 </button>
                 <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
                     <div class="dropdown-menu-header mb-0">
@@ -12,7 +14,7 @@
                             <div class="menu-header-image opacity-5" style="background-image: url('{{ asset('images/dropdown-header/city1.jpg') }}');"></div>
                             <div class="menu-header-content text-light">
                                 <h5 class="menu-header-title">Notificações</h5>
-                                <h6 class="menu-header-subtitle">Tens <b>21</b> notificações não lidas</h6>
+                                <h6 class="menu-header-subtitle">Tens <b>{{ Auth::user()->unreadNotifications->count() }}</b> notificações não lidas</h6>
                             </div>
                         </div>
                     </div>
@@ -25,43 +27,23 @@
                                     <div class="p-3">
                                         <div class="notifications-box">
                                             <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column">
-                                                <div class="vertical-timeline-item dot-success vertical-timeline-element">
-                                                    <div><span class="vertical-timeline-element-icon bounce-in"></span>
-                                                        <div class="vertical-timeline-element-content bounce-in">
-                                                            <h4 class="timeline-title">Build the production release
-                                                                <span class="badge badge-danger ml-2">NEW</span>
-                                                            </h4>
-                                                            <span class="vertical-timeline-element-date"></span></div>
+                                                @foreach( Auth::user()->notifications as $notificacao)
+                                                    <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                                        <div><span class="vertical-timeline-element-icon bounce-in"></span>
+                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                <h4 class="timeline-title">
+                                                                    <a href="{{ route('notificacao.url', ['notificacao' => $notificacao->id]) }}" class="@if($notificacao->read_at == null) bold-medio @endif">
+                                                                        {{ $notificacao->data['data'] }}
+                                                                    </a>
+                                                                    @if($notificacao->read_at == null)
+                                                                        <span class="badge badge-danger ml-2">NOVA</span>
+                                                                    @endif
+                                                                </h4>
+                                                                <span class="vertical-timeline-element-date"></span>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="vertical-timeline-item dot-primary vertical-timeline-element">
-                                                    <div><span class="vertical-timeline-element-icon bounce-in"></span>
-                                                        <div class="vertical-timeline-element-content bounce-in">
-                                                            <h4 class="timeline-title">Build the production release
-                                                                <span class="badge badge-danger ml-2">NEW</span>
-                                                            </h4>
-                                                            <span class="vertical-timeline-element-date"></span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="vertical-timeline-item dot-success vertical-timeline-element">
-                                                    <div><span class="vertical-timeline-element-icon bounce-in"></span>
-                                                        <div class="vertical-timeline-element-content bounce-in">
-                                                            <h4 class="timeline-title">Build the production release
-                                                                <span class="badge badge-danger ml-2">NEW</span>
-                                                            </h4>
-                                                            <span class="vertical-timeline-element-date"></span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="vertical-timeline-item dot-info vertical-timeline-element">
-                                                    <div><span class="vertical-timeline-element-icon bounce-in"></span>
-                                                        <div class="vertical-timeline-element-content bounce-in"><h4 class="timeline-title">This dot has an info state</h4><span class="vertical-timeline-element-date"></span></div>
-                                                    </div>
-                                                </div>
-                                                <div class="vertical-timeline-item dot-danger vertical-timeline-element">
-                                                    <div><span class="vertical-timeline-element-icon bounce-in"></span>
-                                                        <div class="vertical-timeline-element-content bounce-in"><h4 class="timeline-title">All Hands Meeting</h4><span class="vertical-timeline-element-date"></span></div>
-                                                    </div>
-                                                </div>
+                                                @endforeach()
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +67,7 @@
                 <div class="widget-content-left">
                     <div class="btn-group">
                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                            <img width="42" class="rounded" src="{{ asset('images/avatars/3.jpg') }}" alt="">
+                            <img width="35" height="35" class="rounded-circle" src="{{ asset(Auth::user()->perfil->foto_perfil) }}" alt="" style="object-fit: cover;">
                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                         </a>
                         <div tabindex="-1" role="menu" aria-hidden="true" class="rm-pointers dropdown-menu-lg dropdown-menu dropdown-menu-right">
@@ -96,9 +78,7 @@
                                         <div class="widget-content p-0">
                                             <div class="widget-content-wrapper">
                                                 <div class="widget-content-left mr-3">
-                                                    <img width="42" class="rounded-circle"
-                                                         src="{{ asset('images/avatars/3.jpg') }}"
-                                                         alt="">
+                                                    <img width="42" height="42" class="rounded-circle" src="{{ asset(Auth::user()->perfil->foto_perfil) }}" alt="" style="object-fit: cover;">
                                                 </div>
                                                 <div class="widget-content-left">
                                                     <div class="widget-heading">{{ Auth::user()->name }}

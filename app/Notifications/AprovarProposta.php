@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class AprovarProposta extends Notification
 {
     use Queueable;
-
+    private $detalhes;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($detalhes)
     {
-        //
+        $this->detalhes = $detalhes;
     }
 
     /**
@@ -29,7 +29,7 @@ class AprovarProposta extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail', 'database'];
     }
 
     /**
@@ -40,10 +40,13 @@ class AprovarProposta extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = route('trabalho.show', ['trabalho' => $this->detalhes['trabalho_id']]);
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject($this->detalhes['simples'])
+            ->greeting($this->detalhes['saudacao'])
+            ->line($this->detalhes['corpo-email'])
+            ->action('Veja os detalhes', $url)
+            ->line($this->detalhes['agradecimento']);
     }
 
     /**
@@ -55,8 +58,8 @@ class AprovarProposta extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'amount' => 500,
-            'link' => 'Link Aqui',
+            'data' => $this->detalhes['simples'],
+            'url_id' => $this->detalhes['trabalho_id']
         ];
     }
 }

@@ -7,18 +7,20 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
+
 class PerfilAprovado extends Notification
 {
     use Queueable;
+    private $detalhes;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($detalhes)
     {
-        //
+        $this->detalhes = $detalhes;
     }
 
     /**
@@ -40,19 +42,21 @@ class PerfilAprovado extends Notification
      */
     public function toMail($notifiable)
     {
+        $url = route('home-2');
+
         return (new MailMessage)
-                    ->line('O seu perfil foi aprovado')
-                    ->action('Notification Action', url('/'))
-                    ->line('Obrigado por usar nossa aplicacao');
+                    ->subject($this->detalhes['simples'])
+                    ->greeting($this->detalhes['saudacao'])
+                    ->line($this->detalhes['corpo-email'])
+                    ->action('Visite-nos', $url)
+                    ->line($this->detalhes['agradecimento']);
     }
 
 
     public function toDatabase ($notifiable)
     {
         return [
-            'amount' => 500,
-            'link' => 'Link Aqui',
-
+            'data' => $this->detalhes['simples']
         ];
     }
     /**

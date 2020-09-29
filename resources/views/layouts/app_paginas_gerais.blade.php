@@ -161,11 +161,13 @@
                                aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ asset(Auth::user()->perfil->foto_perfil) }}" class="avatar-icon usuario-avatar-xs z-depth-0 mr-2" alt="avatar image" height="35"> {{ Auth::user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
+                                <a href="#" class="dropdown-item">
+                                    <i class="metismenu-icon pe-7s-rocket mr-2"></i>
+                                    Dashboard
+                                </a>
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();" class="dropdown-item">
-
-
-                                    <i class="metismenu-icon pe-7s-way mr-2"></i>
+                                    <i class="metismenu-icon ion-log-out ion mr-2"></i>
                                     Logout
                                 </a>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -173,6 +175,68 @@
                                 </form>
                             </div>
                         </li>
+                        <div class="header-btn-lg pr-0">
+                            <div class="header-dots">
+                                <div class="dropdown">
+                                    <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="p-0 btn btn-link">
+                                        <i class="typcn typcn-bell"></i>
+                                        @if(Auth::user()->unreadNotifications->count() >= 1)
+                                            <span class="badge badge-dot badge-dot-sm badge-danger">Notificações</span>
+                                        @endif
+                                    </button>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-xl rm-pointers dropdown-menu dropdown-menu-right">
+                                        <div class="dropdown-menu-header mb-0">
+                                            <div class="dropdown-menu-header-inner bg-night-sky">
+                                                <div class="menu-header-image opacity-5" style="background-image: url('{{ asset('images/dropdown-header/city1.jpg') }}');"></div>
+                                                <div class="menu-header-content text-light">
+                                                    <h5 class="menu-header-title">Notificações</h5>
+                                                    <h6 class="menu-header-subtitle">Tens <b>{{ Auth::user()->unreadNotifications->count() }}</b> notificações não lidas</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="tabs-animated-shadow tabs-animated nav nav-justified tabs-shadow-bordered p-3">
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab-messages-header" role="tabpanel">
+                                                <div class="scroll-area-sm">
+                                                    <div class="scrollbar-container">
+                                                        <div class="p-3">
+                                                            <div class="notifications-box">
+                                                                <div class="vertical-time-simple vertical-without-time vertical-timeline vertical-timeline--one-column">
+                                                                    @foreach( Auth::user()->notifications as $notificacao)
+                                                                    <div class="vertical-timeline-item dot-success vertical-timeline-element">
+                                                                        <div><span class="vertical-timeline-element-icon bounce-in"></span>
+                                                                            <div class="vertical-timeline-element-content bounce-in">
+                                                                                <h4 class="timeline-title">
+                                                                                    <a href="{{ route('notificacao.url', ['notificacao' => $notificacao->id]) }}" class="@if($notificacao->read_at == null) bold-medio @endif">
+                                                                                        {{ $notificacao->data['data'] }}
+                                                                                    </a>
+                                                                                    @if($notificacao->read_at == null)
+                                                                                    <span class="badge badge-danger ml-2">NOVA</span>
+                                                                                    @endif
+                                                                                </h4>
+                                                                                <span class="vertical-timeline-element-date"></span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endforeach()
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item-divider nav-item"></li>
+                                            <li class="nav-item-btn text-center nav-item">
+                                                <button class="btn-shadow btn-wide btn-pill btn btn-focus btn-sm">Ver Todas Notificações</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     @endauth
                 </ul>
             </div>

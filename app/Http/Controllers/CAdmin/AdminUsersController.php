@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\CAdmin;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\AprovarProposta;
 use Illuminate\Http\Request;
 
 use App\Expereduca;
@@ -13,7 +14,7 @@ use App\Perfil;
 use App\User;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\PerfilAprovado;
-
+use Illuminate\Support\Facades\Notification;
 
 
 class AdminUsersController extends Controller
@@ -24,7 +25,14 @@ class AdminUsersController extends Controller
             ->where('user_id', $user->id)
             ->update(['status' => 1]);
 
-        //$user->notify(new PerfilAprovado());
+        $detalhes = [
+            'saudacao' => 'Olá '.$user->name.'.',
+            'simples' => 'O seu perfil foi aprovado',
+            'corpo-email' => 'O seu perfil foi aprovado com sucesso, para ter mais informações de como prosseguir clique no link abaixo',
+            'agradecimento' => 'Obrigado por usar Ntirus!',
+        ];
+
+        Notification::send($user, new PerfilAprovado($detalhes));
         dd([$aprovarPerfil]);
 
         return redirect()->back();

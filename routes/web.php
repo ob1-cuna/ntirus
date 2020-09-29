@@ -35,7 +35,7 @@ Route::get('/t/{trabalho}', 'TrabalhoController@exibirTrabalho')->name('trabalho
 Auth::routes(['verify'=>true]);
 
 Route::group(['middleware'=>'auth'], function () {
-
+    Route::get('notificacao/{notificacao}', 'NotificacoesController@verNotificacao')->name('notificacao.url');
 	Route::group(['middleware'=>'verified'], function () {
 
 	    //CADASTRO DO PERFIL E HABILIDADE PRINCIPAL DO USUÁRIO
