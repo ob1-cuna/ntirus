@@ -1,0 +1,19 @@
+Para instalar ou clonar com sucesso o projecto, tens de executar os seguintes comandos no cmd
+
+    composer install
+    npm install
+        ou
+        yarn
+    cp .env.example .env
+    php artisan key:generate
+
+Após a criação do ficheiro .env terás de criar uma nova base de dados para aplicação
+No ficheiro ".env" terás de adicionar os seguintes DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, and DB_PASSWORD com os
+dados da base de dados criadas anteriormente.
+
+    php artisan migrate
+    php artisan storage:link
+
+//caso necessário
+
+    php artisan db:seed
