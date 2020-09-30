@@ -17,14 +17,13 @@ class CreatePerfilsTable extends Migration
             $table->id();
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users');
-            $table->integer('preco_habitual')->nullable();
-            $table->string('slogan');
-            $table->text('descricao');
+            $table->string('foto_perfil')->default('images/profile/ovo.jpg');
+            $table->longText('descricao');
             $table->string('provincia');
             $table->string('cidade');
             $table->string('fb_link')->nullable();
             $table->string('twt_link')->nullable();
-            $table->boolean('status')->default(false);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }

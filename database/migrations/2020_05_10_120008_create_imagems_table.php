@@ -15,12 +15,12 @@ class CreateImagemsTable extends Migration
     {
         Schema::create('imagems', function (Blueprint $table) {
             $table->id();
-            $table->string('caminho');
-            $table->string('nome_anexo')->nullable();
             $table->bigInteger('id_usuario')->unsigned();
             $table->foreign('id_usuario')->references('id')->on('users');
-            $table->string('nome_tabela');
-            $table->bigInteger('id_localizacao')->unsigned();
+            $table->string('caminho');
+            $table->string('nome_imagem')->nullable();
+            $table->bigInteger('imagemable_id')->unsigned();
+            $table->string('imagemable_type');
             $table->timestamps();
         });
     }
