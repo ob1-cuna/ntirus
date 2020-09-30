@@ -24,7 +24,7 @@ class PagamentoConfirmadoCliente extends Notification
 
     public function toMail($notifiable)
     {
-        $url = route('dashboard.invoices.show', ['transacao' => $this->detalhes['transacao_id']]);
+        $url = route('cliente.invoices.show', ['transacao' => $this->detalhes['transacao_id']]);
 
         return (new MailMessage)
             ->subject($this->detalhes['simples'])
