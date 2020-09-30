@@ -18,13 +18,16 @@
                             </a>
                                 @break
                             @case('AguardandoAC')
-                            <a href="#" class="badge badge-info" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="A sua proposta foi aceite pelo cliente">
+                            <a href="#" class="badge badge-info" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="A aguarda a resposta do cliente">
                                 Aguardar Resposta
                             </a>
                                 @break
                             @case('Aprovado')
-                            <a href="#" class="badge badge-success badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="A proposta de um outro freelancer foi aceite pelo cliente">
+                            <a href="#" class="badge badge-success badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="Proposta do trabalho aprovada, a aguardar pagamento">
                                 Aprovado
+                            </a>
+                            <a href="#" class="badge badge-info badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="Proposta do trabalho aprovada, a aguardar pagamento">
+                                Aguardar Pagamento
                             </a>
                                 @break
                             @case('Recusado')
@@ -57,7 +60,7 @@
                             @case('Em Andamento')
                                 <a href="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" onclick="event.preventDefault();
                                     document.getElementById('pedir-aprovacao-trabalho-form').submit();" class="btn btn-outline-secondary">
-                                    <span>Enviar Aprovação</span>
+                                    <span>Solicitar Aprovação</span>
                                 </a>
                                 <form method="post" id="pedir-aprovacao-trabalho-form" action="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" style="display: none">
                                     @csrf
@@ -70,7 +73,7 @@
                             @break
 
                             @case('Aprovado')
-                                <button class="btn btn-outline-danger" style="display: none" data-toggle="modal" data-target="#modalCancelarTrabalho{{ $trabalho->id}}">Cancelar Trabalho</button>
+                                <a class="btn btn-outline-secondary" href="{{ route('dashboard.invoices.pendentes.list') }}">Ver Invoice</a>
                             @break
 
                             @case('Recusado')
