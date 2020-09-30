@@ -126,6 +126,7 @@ class UserController extends Controller
 
         $habilidades = Habilidade::with('users')->get();
         $todas_habilidades = Habilidade::all();
+        $users_count = User::where([['is_permission', 0], ['name', 'like', "%$pesquisa%"], ['status', 1]])->count();
 
         if ($provincia_filter == null && $categoria_filter != null) {
             $users = User::with('habilidades')->where([
@@ -162,6 +163,6 @@ class UserController extends Controller
             })->paginate(5);
         }
 
-        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades', 'todas_habilidades', 'provincias']));
+        return view('paginas_gerais.usuarios.freelancers_list', compact(['users','habilidades', 'todas_habilidades', 'provincias', 'users_count']));
     }
 }

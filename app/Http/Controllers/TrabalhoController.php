@@ -49,6 +49,7 @@ class TrabalhoController extends Controller
         $pesquisa = request()->get('p-trabalhos');
         $provincia_filter = request()->get('prov');
         $categoria_filter = request()->get('cat');
+        $trabalhos_count = User::where([['status', 'Aberto'],['name', 'like', "%$pesquisa%"]])->count();
 
         $todas_habilidades = Habilidade::all();
 
@@ -75,7 +76,7 @@ class TrabalhoController extends Controller
                 {$cat = request()->get('cat');
                     $query->whereIn('slug', $cat);})->whereIn('provincia', request()->get('prov'))->paginate(5);}
 
-        return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades', 'provincias']));
+        return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades', 'provincias', 'trabalhos_count']));
     }
 
     /*

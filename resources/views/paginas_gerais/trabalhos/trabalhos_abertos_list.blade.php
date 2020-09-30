@@ -86,7 +86,10 @@
                 </form>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7 col-xl-9 float-left mb-4">
-
+                @if(request()->input('p-trabalhos') != null)
+                    <h5>@if($trabalhos->count() == 1) 1 resultado @elseif( $trabalhos->count() == 0) Sem resultados @else {{ $trabalhos_count }} resultados @endif para "<b class="bold-medio">{{request()->input('p-trabalhos')}}</b>"</h5>
+                    <div class="divider"></div>
+                @endif
                 @forelse ($trabalhos as $trabalho)
                 <div class="mb-4">
                     <div class="card">

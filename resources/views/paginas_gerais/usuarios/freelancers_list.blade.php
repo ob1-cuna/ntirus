@@ -83,6 +83,10 @@
 </form>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-8 col-lg-7 col-xl-9 float-left">
+                @if(request()->input('query-freelancers') != null)
+                    <h5>@if($users->count() == 1) 1 resultado @elseif( $users->count() == 0) Sem resultados @else {{ $users_count }} resultados @endif para "<b class="bold-medio">{{request()->input('query-freelancers')}}</b>"</h5>
+                    <div class="divider"></div>
+                @endif
                 @foreach ($users as $user)
                 <div class="mb-4">
                 <div class="card">
