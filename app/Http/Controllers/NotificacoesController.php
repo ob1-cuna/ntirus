@@ -67,6 +67,10 @@ class NotificacoesController extends Controller
                     case 'App\Notifications\PagamentoCliente':
                         return redirect()->route('admin.dashboard.transacoes.show', ['transacao' => $notificacao->data['url_id']]);
                         break;
+
+                    case 'App\Notifications\PagamentoConfirmadoCliente':
+                        return redirect()->route('cliente.invoices.show', ['transacao' => $notificacao->data['url_id']]);
+                        break;
                 }
 
 
