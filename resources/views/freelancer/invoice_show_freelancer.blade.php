@@ -71,9 +71,11 @@
                         </table>
                     </div>
                     <div class="col-sm-12 col-md-4 col-lg-3 col-xl-3 text-right">
+                        @if($transacao->tipo != 'saque')
                         <a href="{{ route('dashboard.invoices.download', ['transacao' => $transacao->id]) }}" class="btn-icon btn-icon-right btn btn-primary btn-wide">
                             Imprimir<i class="lnr-printer btn-icon-wrapper"> </i>
                         </a>
+                        @endif
                     </div>
                 </div>
             </div>

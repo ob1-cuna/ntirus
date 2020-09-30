@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\CFreelancer;
 
 use App\Http\Controllers\Controller;
+use App\Notifications\PedidoDeAprovacaoDeTrabalho;
+use App\Notifications\TrabalhoCanceladoFreelancer;
 use App\Trabalho;
 use App\Review_trab;
 use App\Proposta;
+use App\User;
 use Auth;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -14,17 +18,25 @@ class FreelancerTrabalhoController extends Controller
 {
     public function solicitarAprovacao (Trabalho $trabalho)
     {
-        $pedirAprovacao = DB::table('trabalhos')
-            ->where('id', $trabalho->id)
-            ->update(['status' => 'AguardandoAC']);
+        $pedirAprovacao = Trabalho::where('id', $trabalho->id)->update(['status' => 'AguardandoAC']);
+
+        $cliente = User::where('id', $trabalho->user->id)->firstOrFail();
+        $detalhes = [
+            'simples' => $trabalho->freelancer->name. ' pediu a confirmação para '.$trabalho->nome_trabalho.'.',
+        ];
+        Notification::send($cliente, new PedidoDeAprovacaoDeTrabalho($detalhes));
         return redirect()->back();
     }
 
     public function cancelarTrabalho (Trabalho $trabalho)
     {
-        $cancelarTrabalho = DB::table('trabalhos')
-            ->where('id', $trabalho->id)
-            ->update(['status' => 'Cancelado-F']);
+        $cancelarTrabalho = Trabalho::where('id', $trabalho->id)->update(['status' => 'Cancelado-F']);
+        $cliente = User::where('id', $trabalho->user->id)->firstOrFail();
+        $detalhes = [
+            'simples' => $trabalho->freelancer->name.' cancelou o trabalho '.$trabalho->nome_trabalho.' volte a abrir ou peça o reembolso',
+        ];
+        Notification::send($cliente, new TrabalhoCanceladoFreelancer($detalhes));
+
         return redirect()->back();
     }
 

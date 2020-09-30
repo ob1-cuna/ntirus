@@ -21,9 +21,8 @@ class AdminUsersController extends Controller
 {
     public function aprovarPerfil(User $user)
     {
-        $aprovarPerfil = DB::table('perfils')
-            ->where('user_id', $user->id)
-            ->update(['status' => 1]);
+        $aprovarPerfil = Perfil::where('user_id', $user->id)->update(['status' => 1]);
+        $activar_visibilidade = User::where('id', $user->id)->update(['status'=> 1]);
 
         $detalhes = [
             'saudacao' => 'Olá '.$user->name.'.',
@@ -33,8 +32,6 @@ class AdminUsersController extends Controller
         ];
 
         Notification::send($user, new PerfilAprovado($detalhes));
-        dd([$aprovarPerfil]);
-
         return redirect()->back();
     }
 

@@ -6,6 +6,10 @@ use App\HabilidadeTrabalho;
 use App\Http\Controllers\Controller;
 use App\Habilidade;
 use App\imagem;
+use App\Notifications\TrabalhoAprovado;
+use App\Notifications\TrabalhoCanceladoCliente;
+use App\Notifications\TrabalhoCanceladoFreelancer;
+use App\Notifications\TrabalhoRejeitado;
 use App\Proposta;
 use App\Review_trab;
 use App\Trabalho;
@@ -15,6 +19,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Notification;
 
 class ClienteTrabalhoController extends Controller
 {
@@ -156,30 +161,41 @@ class ClienteTrabalhoController extends Controller
 
     public function aprovarTrabalhoEmExecucao (Trabalho $trabalho)
     {
-        $aprovarTrabalhoEmExecucao = DB::table('trabalhos')
-            ->where('id', $trabalho->id)
+        $aprovarTrabalhoEmExecucao = Trabalho::where('id', $trabalho->id)
             ->update(['status' => 'Aprovado',
                       'data_entrega' => now(\DateTimeZone::AMERICA),]);
-
+        $freelancer = User::where('id', $trabalho->freelancer->id)->firstOrFail();
+        $detalhes = [
+            'simples' => $trabalho->user->name.' aprovou '.$trabalho->nome_trabalho.', por si feito, veja o seu saldo.',
+        ];
+        Notification::send($freelancer, new TrabalhoAprovado($detalhes));
         return redirect()->back();
 
     }
 
     public function cancelarTrabalhoEmExecucao (Trabalho $trabalho)
     {
-        $cancelarTrabalhoEmExecucao = DB::table('trabalhos')
-            ->where('id', $trabalho->id)
+        $cancelarTrabalhoEmExecucao = Trabalho::where('id', $trabalho->id)
             ->update(['status' => 'Cancelado-C']);
-        //dd($cancelarTrabalhoEmExecucao);
+
+        $freelancer = User::where('id', $trabalho->freelancer->id)->firstOrFail();
+        $detalhes = [
+            'simples' => $trabalho->user->name.' cancelou o trabalho '.$trabalho->nome_trabalho.'.',
+        ];
+        Notification::send($freelancer, new TrabalhoCanceladoCliente($detalhes));
         return redirect()->back();
     }
 
     public function rejeitarTrabalhoEmExecucao (Trabalho $trabalho)
     {
-        $cancelarTrabalhoEmExecucao = DB::table('trabalhos')
-            ->where('id', $trabalho->id)
+        $freelancer = User::where('id', $trabalho->freelancer->id)->firstOrFail();
+        $detalhes = [
+            'simples' => $trabalho->user->name.' rejeitou a aprovação o trabalho '.$trabalho->nome_trabalho.', faça as correções.',
+        ];
+        Notification::send($freelancer, new TrabalhoRejeitado($detalhes));
+
+        $cancelarTrabalhoEmExecucao = Trabalho::where('id', $trabalho->id)
             ->update(['status' => 'Recusado']);
-        //dd($cancelarTrabalhoEmExecucao);
         return redirect()->back();
     }
 

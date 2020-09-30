@@ -4,8 +4,11 @@ namespace App\Http\Controllers\CFreelancer;
 
 
 use App\MetodosDePagamento;
+use App\Notifications\PedidoDeSaque;
 use App\Transacao;
+use App\User;
 use Auth;
+use Illuminate\Support\Facades\Notification;
 use PDF;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -77,6 +80,15 @@ class FreelancerTransacaoController extends Controller
                 'destino' => $request->get('destino'),
                 'estado' => 'Pendente'
             ]);
+
+            $transacao_id = $transacao->id;
+
+            $admin = User::where('is_permission', 2)->firstOrFail();
+            $detalhes = [
+                'simples' => Auth::user()->name. ' fez o pedido de saque do valor de '.$request->get('montante').'MZN.',
+                'transacao_id' => $transacao_id,
+            ];
+            Notification::send($admin, new PedidoDeSaque($detalhes));
 
             return redirect()->route('dashboard.invoices.saque.step-2');
         }

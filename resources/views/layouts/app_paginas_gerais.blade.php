@@ -161,10 +161,28 @@
                                aria-haspopup="true" aria-expanded="false">
                                 <img src="{{ asset(Auth::user()->perfil->foto_perfil) }}" class="avatar-icon usuario-avatar-xs z-depth-0 mr-2" alt="avatar image" height="35"> {{ Auth::user()->name }}</a>
                             <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="navbarDropdownMenuLink-4">
-                                <a href="#" class="dropdown-item">
-                                    <i class="metismenu-icon pe-7s-rocket mr-2"></i>
-                                    Dashboard
-                                </a>
+                                @auth
+                                    @if(checkPermission(['freelancer']))
+                                        <a href="{{ route('dashboard') }}" class="dropdown-item">
+                                            <i class="metismenu-icon pe-7s-rocket mr-2"></i>
+                                            Dashboard
+                                        </a>
+                                    @endif
+
+                                    @if(checkPermission(['admin']))
+                                        <a href="{{ route('admin.dashboard.home') }}" class="dropdown-item">
+                                            <i class="metismenu-icon pe-7s-rocket mr-2"></i>
+                                            Dashboard
+                                        </a>
+                                    @endif
+
+                                    @if(checkPermission(['cliente']))
+                                        <a href="{{ route('cliente.dashboard') }}" class="dropdown-item">
+                                            <i class="metismenu-icon pe-7s-rocket mr-2"></i>
+                                            Dashboard
+                                        </a>
+                                    @endif
+                                @endauth
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                    document.getElementById('logout-form').submit();" class="dropdown-item">
                                     <i class="metismenu-icon ion-log-out ion mr-2"></i>

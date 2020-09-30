@@ -59,10 +59,10 @@
                         @switch($trabalho->status)
                             @case('Em Andamento')
                                 <a href="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" onclick="event.preventDefault();
-                                    document.getElementById('pedir-aprovacao-trabalho-form').submit();" class="btn btn-outline-secondary">
+                                    document.getElementById('pedir-aprovacao-trabalho-form-{{ $trabalho->id }}').submit();" class="btn btn-outline-secondary">
                                     <span>Solicitar Aprovação</span>
                                 </a>
-                                <form method="post" id="pedir-aprovacao-trabalho-form" action="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" style="display: none">
+                                <form method="post" id="pedir-aprovacao-trabalho-form-{{ $trabalho->id }}" action="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" style="display: none">
                                     @csrf
                                 </form>
                             <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalCancelarTrabalho{{ $trabalho->id}}">Cancelar Trabalho</button>
@@ -77,10 +77,13 @@
                             @break
 
                             @case('Recusado')
-                                <a href="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" onclick="event.preventDefault();
-                                    document.getElementById('pedir-aprovacao-trabalho-form').submit();" class="btn btn-outline-secondary">
-                                <span>Enviar Aprovação</span>
-                                </a>
+                            <a href="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" onclick="event.preventDefault();
+                                    document.getElementById('pedir-aprovacao-trabalho-form-{{ $trabalho->id }}-2').submit();" class="btn btn-outline-secondary">
+                                <span>Re-solicitar Aprovação</span>
+                            </a>
+                            <form method="post" id="pedir-aprovacao-trabalho-form-{{ $trabalho->id }}-2" action="{{ route('freelancer.trabalho.solicitar_aprovacao', ['trabalho' => $trabalho->id]) }}" style="display: none">
+                                @csrf
+                            </form>
                                 <button class="btn btn-outline-danger" data-toggle="modal" data-target="#modalCancelarTrabalho{{ $trabalho->id}}">Cancelar Trabalho</button>
                             @break
 

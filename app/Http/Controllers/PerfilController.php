@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
+use App\Notifications\NovoUsuarioCadastrado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Perfil;
@@ -88,6 +90,13 @@ class PerfilController extends Controller
         {
             Auth::user()->habilidades()->sync($request->get('habilidade_id'));
         }
+
+        $admin = User::where('is_permission', 2)->firstOrFail();
+        $detalhes = [
+            'simples' => 'O registro do perfil de '.Auth::user()->name.' foi terminado, veja os detalhes',
+            'user_id' => $user,
+        ];
+        Notification::send($admin, new NovoUsuarioCadastrado($detalhes));
 
         return redirect('/registo/terminado');
     }

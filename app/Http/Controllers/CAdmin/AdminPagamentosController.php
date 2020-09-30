@@ -5,10 +5,14 @@ namespace App\Http\Controllers\CAdmin;
 
 
 use App\MetodosDePagamento;
+use App\Notifications\PagamentoConfirmadoCliente;
+use App\Notifications\SaqueConfirmado;
 use App\Trabalho;
 use App\Transacao;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 class AdminPagamentosController
 {
@@ -34,8 +38,7 @@ class AdminPagamentosController
 
     public function confirmarPagamento (Transacao $transacao)
     {
-        $confirmarTransacao = DB::table('transacaos')
-            ->where('id', $transacao->id)
+        $confirmarTransacao = Transacao::where('id', $transacao->id)
             ->update(['estado' => 'Concluido',
                 'data_de_pagamento' => now(\DateTimeZone::AMERICA),]);
 
@@ -46,6 +49,16 @@ class AdminPagamentosController
             ['tipo', 'p2f'],
             ['trabalho_id', $transacao->trabalho_id]])->update(['estado' => 'Concluido',
             'data_de_pagamento' => now(\DateTimeZone::AMERICA),]);
+
+        $cliente = User::where('id', $transacao->user_id)->firstOrFail();
+        $detalhes = [
+            'saudacao' => 'Olá '.$cliente->name.'.',
+            'simples' => 'O pagamento para o trabalho "'.$transacao->trabalho->nome_trabalho. '" foi confirmado.' ,
+            'corpo-email' => 'O pagamento para o trabalho "'.$transacao->trabalho->nome_trabalho. '" foi confirmado com sucesso, para mais detalhes clique no link abaixo.' ,
+            'agradecimento' => 'Obrigado por usar Ntirus!',
+            'transacao_id' => $transacao->id
+        ];
+        Notification::send($cliente, new PagamentoConfirmadoCliente($detalhes));
 
         return back()->with('success', 'Transação confirmada!');
     }
@@ -58,14 +71,26 @@ class AdminPagamentosController
 
         $transacao_id =  $request->get('transacao_id');
 
-        $meu_pagamento = DB::table('transacaos')
-            ->where('id', $transacao_id)
+        $meu_pagamento = Transacao::where('id', $transacao_id)
             ->update
             ([
-                'titular' => 'NTIRUS',
                 'codigover' => $request->get('codigo_confirmacao'),
-                'estado' => 2
+                'estado' => 2,
+                'data_de_pagamento' => now(\DateTimeZone::AMERICA)
             ]);
+
+        $transacao = Transacao::where('id', $transacao_id)->firstOrFail();
+        $freelancer = User::where('id', $transacao->user_id)->firstOrFail();
+        $detalhes = [
+            'saudacao' => 'Olá '.$freelancer->name.'.',
+            'simples' => 'O seu saque do valor de '.$transacao->valor. 'MTs foi confirmado.' ,
+            'corpo-email' => 'O seu saque do valor de '.$transacao->valor. 'MTs foi confirmado para sua conta '.$transacao->metodo->nome.'.' ,
+            'agradecimento' => 'Obrigado por usar Ntirus!',
+            'transacao_id' => $transacao_id
+        ];
+
+        Notification::send($freelancer, new SaqueConfirmado($detalhes));
+
         return redirect()->route('admin.dashboard.transacoes.pagar.index-2', ['transacao' => $transacao_id]);
     }
 

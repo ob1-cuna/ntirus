@@ -31,6 +31,42 @@ class NotificacoesController extends Controller
                     case 'App\Notifications\AprovarProposta':
                         return redirect()->route('trabalho.show', ['trabalho' => $notificacao->data['url_id']]);
                         break;
+
+                    case 'App\Notifications\NovoUsuarioCadastrado':
+                        return redirect()->route('admin.dashboard.usuarios.show', ['user' => $notificacao->data['url_id']]);
+                        break;
+
+                    case 'App\Notifications\TrabalhoAprovado':
+                        return redirect()->route('dashboard.trabalhos.em_andamento');
+                        break;
+
+                    case 'App\Notifications\TrabalhoRejeitado':
+                        return redirect()->route('dashboard.trabalhos.em_andamento');
+                        break;
+
+                    case 'App\Notifications\PedidoDeAprovacaoDeTrabalho':
+                        return redirect()->route('cliente.trabalhos.em_andamento');
+                        break;
+
+                    case 'App\Notifications\TrabalhoCanceladoFreelancer':
+                        return redirect()->route('cliente.trabalhos.cancelados');
+                        break;
+
+                    case 'App\Notifications\TrabalhoCanceladoCliente':
+                        return redirect()->route('dashboard.trabalhos.cancelados');
+                        break;
+
+                    case 'App\Notifications\PedidoDeSaque':
+                        return redirect()->route('admin.dashboard.transacoes.pagar.index', ['transacao' => $notificacao->data['url_id']]);
+                        break;
+
+                    case 'App\Notifications\SaqueConfirmado':
+                        return redirect()->route('dashboard.invoices.show', ['transacao' => $notificacao->data['url_id']]);
+                        break;
+
+                    case 'App\Notifications\PagamentoCliente':
+                        return redirect()->route('admin.dashboard.transacoes.show', ['transacao' => $notificacao->data['url_id']]);
+                        break;
                 }
 
 

@@ -6,10 +6,13 @@ namespace App\Http\Controllers\CCliente;
 
 use App\Http\Controllers\Controller;
 use App\MetodosDePagamento;
+use App\Notifications\PagamentoCliente;
 use App\Trabalho;
+use App\User;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use PDF;
 
 use App\Transacao;
@@ -52,8 +55,7 @@ class ClientePagamentosController extends Controller
 
         $transacao_id =  $request->get('transacao_id');
 
-        $meu_pagamento = DB::table('transacaos')
-            ->where('id', $transacao_id)
+        $meu_pagamento = Transacao::where('id', $transacao_id)
             ->update
             ([
                 'metodo_id' => $request->get('metodo_id'),
@@ -61,6 +63,16 @@ class ClientePagamentosController extends Controller
                 'codigover' => $request->get('codigo_confirmacao'),
                 'estado' => 3
             ]);
+
+        $transacao = Transacao::where('id', $transacao_id)->firstOrFail();
+        $admin = User::where('is_permission', 2)->firstOrFail();
+        $detalhes = [
+            'simples' => $transacao->user->name.' fez o pagamento do trabalho '.$transacao->trabalho->nome_trabalho. '.' ,
+            'transacao_id' => $transacao_id
+        ];
+
+        Notification::send($admin, new PagamentoCliente($detalhes));
+
         return redirect()->route('cliente.invoices.pay-2', ['transacao' => $transacao_id]);
     }
 
