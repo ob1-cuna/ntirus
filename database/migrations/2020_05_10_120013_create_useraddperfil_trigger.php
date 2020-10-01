@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateUseraddperfilTrigger extends Migration
 {
-    
-    /*
-    
+
     public function up()
     {
         DB::unprepared('
@@ -24,5 +22,4 @@ class CreateUseraddperfilTrigger extends Migration
     {
         DB::unprepared('DROP TRIGGER `UserAddPerfilTrigger`');
     }
-    */
 }
