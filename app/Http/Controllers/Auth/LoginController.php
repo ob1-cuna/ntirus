@@ -28,7 +28,7 @@ class LoginController extends Controller
      * @var string
      */
     //protected $redirectTo = RouteServiceProvider::HOME;
-    
+
     public function redirectTo ()
     {
         $id = Auth::user()->is_permission;
