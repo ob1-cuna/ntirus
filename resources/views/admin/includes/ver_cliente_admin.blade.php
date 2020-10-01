@@ -15,10 +15,9 @@
             </div>
             <div class="mb-2 text-center">
                 <div class="">
-                    <i class="fab fa-github fa-1x"></i>
-                    <i class="fa fa-twitter fa-1x"></i>
-                    <i class="fab fa-pinterest fa-1x"></i>
-                    <i class="fab fa-google-plus fa-1x"></i>
+                    <a href="tel:+25882-------"> <i class="fab fa-whatsapp fa-lg"></i></a>
+                    <a href="https://twitter.com/"> <i class="fab fa-twitter fa-lg"></i></a>
+                    <a href="https://facebook.com/"> <i class="fab fa-facebook fa-lg"></i></a>
                 </div>
             </div>
             <ul class="list-group">
@@ -26,7 +25,7 @@
                 <li class="list-group-item"><span class="text-left"><strong>Trabalhos Pagos</strong></span> <o class="pull-right">{{$user->trabalhos_cliente->where('status', 'Finalizado')->count()}}</o></li>
                 <li class="list-group-item"><span class="text-left"><strong>Trabalhos Cancelados</strong></span> <o class="pull-right">{{$user->trabalhos_cliente->where('status', 'Cancelado-C')->count()}}</o></li>
                 <li class="list-group-item"><span class="text-left"><strong>Trabalhos Abertos</strong></span> <o class="pull-right">{{$user->trabalhos_cliente->where('status', 'Aberto')->count()}}</o></li>
-                <li class="list-group-item"><span class="text-left"><strong>Pagamentos Pendentes</strong></span> <o class="pull-right">N/A</o></li>
+                <li class="list-group-item"><span class="text-left"><strong>Pagamentos Pendentes</strong></span> <o class="pull-right">{{ getEstatisticaCliente($user->id, 'Pendente', 'transacaos') + getEstatisticaCliente($user->id, 'Por Confirmar', 'transacaos') }}</o></li>
             </ul>
         </div><!--/col-3-->
         <div class="col-sm-12 col-md-8 col-lg-9 col-lg-9">
@@ -60,7 +59,7 @@
                                     <label style="font-weight: 500">Nome</label>
                                 </div>
                                 <div class="col-md-9 col-sm-9">
-                                    <p>{{ $user->name }}</p>
+                                    <p><a href="{{ route ('cliente.show', ['user' => $user->id]) }}">{{ $user->name }}</a></p>
                                 </div>
                             </div>
                             <div class="row">

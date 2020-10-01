@@ -19,7 +19,6 @@ class FreelancerTransacaoController extends Controller
     public function invoicesPagos ()
     {
         $transacoes = Transacao::where([['user_id', Auth::user()->id], ['estado', 'Concluido']])->get();
-
         $tako_feito = Transacao::where([['user_id', Auth::user()->id], ['tipo', 'p2f']])->sum('valor');
         $tako_retirado = Transacao::where([['user_id', Auth::user()->id], ['tipo', 'saque']])->sum('valor');
 

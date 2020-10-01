@@ -5,11 +5,11 @@ use Illuminate\Support\Facades\Route;
 
 //Pagina Principal (com ou sem login).
 Route::get('/', function () {
-    return view('home');
+    return view('paginas_gerais/home_page');
 })->name('home');
 
 Route::get('/home', function () {
-    return view('home');
+    return view('paginas_gerais/home_page');
 });
 
 Route::get('/home-2', function () {

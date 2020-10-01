@@ -32,16 +32,13 @@
 
                                         <div class="list-inline">
                                             <div class="list-inline-item">
-                                                <i class="fab fa-lg fa-instagram"></i>
+                                                <a href="tel:+25882******6" onclick="return false;"> <i class="fa fa-phone fa-lg"></i></a>
                                             </div>
                                             <div class="list-inline-item">
-                                                <i class="fab fa-lg fa-facebook"></i>
+                                                <a href="https://twitter.com/"> <i class="fab fa-twitter fa-lg"></i></a>
                                             </div>
                                             <div class="list-inline-item">
-                                                <i class="fab fa-lg fa-twitter"></i>
-                                            </div>
-                                            <div class="list-inline-item">
-                                                <i class="fab fa-lg fa-whatsapp"></i>
+                                                <a href="https://facebook.com/"> <i class="fab fa-facebook fa-lg"></i></a>
                                             </div>
                                         </div>
                                     </div>

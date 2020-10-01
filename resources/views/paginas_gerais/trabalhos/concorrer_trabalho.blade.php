@@ -51,7 +51,7 @@
                                     <div class="position-relative form-group">
                                         <label for="preco_proposta" class="">Preco</label>
                                         <input type="hidden" name="trabalho_id" class="form-control" placeholder="" value="{{ $trabalho->id }}">
-                                        <input type="number" name="preco_proposta" id="preco_proposta" placeholder="Digite o preco da sua proposta" class="form-control" onkeyup="calculateTotal()">
+                                        <input type="number" name="preco_proposta" id="preco_proposta" value="{{ old('preco_proposta') }}" placeholder="Digite o preco da sua proposta" class="form-control" onkeyup="calculateTotal()">
                                     </div>
                                     <small class="form-text font-size-md">
                                         <table class="col-12">
@@ -73,7 +73,7 @@
                                 <div class="col-md-6">
                                     <div class="position-relative form-group">
                                         <label for="tempo_exec" class="">Data de Entrega</label>
-                                        <input name="tempo_exec" id="tempo_exec" placeholder="dd/mm/aaaa" type="datetime-local" class="form-control @error('tempo_exec') is-invalid @enderror"></div>
+                                        <input name="tempo_exec" id="tempo_exec" placeholder="dd/mm/aaaa" type="datetime-local" value="{{ old('tempo_exec') }}" class="form-control @error('tempo_exec') is-invalid @enderror"></div>
                                     @error('tempo_exec')
                                     <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="descricao" class="">Detalhes</label>
-                                <textarea name="descricao" id="descricao" class="form-control ck-editor__editable @error('descricao') is-invalid @enderror"></textarea>
+                                <textarea name="descricao" id="descricao" class="form-control ck-editor__editable @error('descricao') is-invalid @enderror">{{ old('descricao') }}</textarea>
                                 @error('descricao')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -92,7 +92,7 @@
                             </div>
                             <div class="position-relative form-group">
                                 <label for="file" class="">Anexos</label>
-                                <input type="file" name="file" id="file" class="form-control-file @error('file') is-invalid @enderror">
+                                <input type="file" name="file" id="file" value="{{ old('file') }}" class="form-control-file @error('file') is-invalid @enderror">
                                 @error('file')
                                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

@@ -5,6 +5,7 @@ use App\habilidade;
 use App\Perfil;
 use App\Proposta;
 use App\Trabalho;
+use App\Transacao;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,9 +44,15 @@ class HomeController extends Controller
     {
         $propostas = Proposta::where('user_id', Auth::user()->id)->get();
         $trabalhos = Trabalho::where('freelancer_id', Auth::user()->id)->get();
+
+        $tako_feito = Transacao::where([['user_id', Auth::user()->id], ['tipo', 'p2f']])->sum('valor');
+        $tako_retirado = Transacao::where([['user_id', Auth::user()->id], ['tipo', 'saque']])->sum('valor');
+
         return view ('freelancer/painel_freelancer_home', compact([
             'trabalhos',
             'propostas',
+            'tako_feito',
+            'tako_retirado',
         ]));
     }
 
@@ -58,7 +65,11 @@ class HomeController extends Controller
     public function cliente()
     {
         $trabalhos = Trabalho::where('user_id', Auth::user()->id)->get();
-        return view('cliente/painel_cliente_home', compact('trabalhos'));
+        $transacoes = Transacao::where
+        ('user_id', Auth::user()->id)
+            ->whereIn('estado', ['Pendente', 'Por Confirmar'])
+            ->get();
+        return view('cliente/painel_cliente_home', compact(['trabalhos', 'transacoes']));
     }
 
 
@@ -74,7 +85,7 @@ class HomeController extends Controller
         $users = User::with('habilidades')->whereIn('is_permission', [1, 0])->get();
         $trabalhos = Trabalho::with('habilidades')->get();
         $habilidades = Habilidade::with('users')->get();
-        $perfils_bloqueados = User::where('status', 1)->get();
+        $perfils_bloqueados = User::where('status', 2)->get();
 
         return view ('admin/painel_admin_home', compact([
             'users',
