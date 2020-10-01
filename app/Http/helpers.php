@@ -2,6 +2,8 @@
 
 
 use App\Transacao;
+use App\Trabalho;
+use App\Proposta;
 
 function checkPermission($permissions){
     $userAccess = getMyPermission(auth()->user()->is_permission);
@@ -19,13 +21,13 @@ function checkPermission($permissions){
     switch ($id) {
       case 1:
         return 'cliente';
-        break;
+      break;
       case 2:
         return 'admin';
-        break;
+      break;
       default:
         return 'freelancer';
-        break;
+      break;
     }
   }
 
@@ -53,12 +55,12 @@ function checkPermission($permissions){
   }
 
 
-      function tamanhoParaHumanos ($bytes){
-          $unidades = ['B', 'KB', 'MB', 'GB', 'TB'];
+  function tamanhoParaHumanos ($bytes){
+     $unidades = ['B', 'KB', 'MB', 'GB', 'TB'];
 
-          for ($i = 0; $bytes > 1024; $i++){
+        for ($i = 0; $bytes > 1024; $i++){
               $bytes /= 1024;
-          }
+        }
 
           return round($bytes, 2) . ' ' .$unidades[$i];
       }
@@ -97,4 +99,28 @@ function getTakoRetirado ($user) {
     $tako_retirado = Transacao::where([['user_id', $user], ['tipo', 'saque']])->sum('valor');
     return $tako_retirado;
 }
+
+    function getEstatisticaFreelancer ($id, $tipo){
+        $numero_total = Trabalho::where([['freelancer_id', $id], ['status', $tipo]])->count();
+        return $numero_total;
+    }
+
+    function getEstatisticaPropostas ($id, $tipo){
+    $numero_total = Proposta::where([['user_id', $id], ['status', $tipo]])->count();
+    return $numero_total;
+    }
+
+    function getEstatisticaCliente ($id, $tipo, $tabela){
+        switch ($tabela) {
+            case 'trabalhos':
+                $numero_total = Trabalho::where([['user_id', $id], ['status', $tipo]])->count();
+                return $numero_total;
+            break;
+
+            case 'transacaos':
+                $numero_total = Transacao::where([['user_id', $id], ['estado', $tipo], ['tipo', 'c2p']])->count();
+                return $numero_total;
+            break;
+        }
+    }
 ?>
