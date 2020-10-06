@@ -6,5 +6,5 @@
 <option value="Tete">Tete</option>
 <option value="Zambezia">Zambezia</option>
 <option value="Nampula">Nampula</option>
-<option value="Lichinga">Lichinga</option>
+<option value="Niassa">Niassa</option>
 <option value="Cabo Delgado">Cabo Delgado</option>
