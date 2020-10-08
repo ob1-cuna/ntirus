@@ -4,6 +4,7 @@
 use App\Transacao;
 use App\Trabalho;
 use App\Proposta;
+use App\Review_trab;
 
 function checkPermission($permissions){
     $userAccess = getMyPermission(auth()->user()->is_permission);
@@ -83,8 +84,8 @@ function getPercentagem ($valorMaior, $valorMenor){
 }
 
 function getSaldo ($user) {
-    $tako_feito = Transacao::where([['user_id', $user], ['tipo', 'p2f']])->sum('valor');
-    $tako_retirado = Transacao::where([['user_id', $user], ['tipo', 'saque']])->sum('valor');
+    $tako_feito = Transacao::where([['user_id', $user], ['tipo', 'p2f'], ['estado', 'Concluido']])->sum('valor');
+    $tako_retirado = Transacao::where([['user_id', $user], ['tipo', 'saque'], ['estado', 'Concluido']])->sum('valor');
 
     $saldo_disponivel = $tako_feito - $tako_retirado;
 
@@ -92,11 +93,11 @@ function getSaldo ($user) {
 }
 
 function getTotalFeito ($user) {
-    $tako_feito = Transacao::where([['user_id', $user], ['tipo', 'p2f']])->sum('valor');
+    $tako_feito = Transacao::where([['user_id', $user], ['tipo', 'p2f'], ['estado', 'Concluido']])->sum('valor');
     return $tako_feito;
 }
 function getTakoRetirado ($user) {
-    $tako_retirado = Transacao::where([['user_id', $user], ['tipo', 'saque']])->sum('valor');
+    $tako_retirado = Transacao::where([['user_id', $user], ['tipo', 'saque'], ['estado', 'Concluido']])->sum('valor');
     return $tako_retirado;
 }
 
@@ -120,6 +121,39 @@ function getEstatisticaCliente ($id, $tipo, $tabela){
         case 'transacaos':
             $numero_total = Transacao::where([['user_id', $id], ['estado', $tipo], ['tipo', 'c2p']])->count();
             return $numero_total;
+            break;
+    }
+}
+
+function getFotoDePerfil ($id){
+
+    $file = \App\perfil::where('user_id', $id)->firstOrFail();
+    $foto = $file->foto_perfil;
+
+    return $foto;
+}
+
+function getAvaliacao ($user_id, $trabalho_id, $operacao)
+{
+    switch ($operacao) {
+        case 'comentario':
+            $comentario = Review_trab::where([['avaliador_id', $user_id], ['id_trabalho', $trabalho_id]])->firstOrFail();
+            return $comentario->comentario;
+            break;
+
+        case 'nota':
+            $nota = Review_trab::where([['avaliador_id', $user_id], ['id_trabalho', $trabalho_id]])->firstOrFail();
+            return $nota->nota;
+            break;
+
+        case 'outra_avaliacao':
+            $nota = Review_trab::where([['avaliado_id', $user_id], ['id_trabalho', $trabalho_id]])->count();
+            return $nota;
+            break;
+
+        case 'minha_avaliacao':
+            $nota = Review_trab::where([['avaliador_id', $user_id], ['id_trabalho', $trabalho_id]])->count();
+            return $nota;
             break;
     }
 }
