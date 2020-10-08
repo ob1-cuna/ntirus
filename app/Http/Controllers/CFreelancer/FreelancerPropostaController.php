@@ -77,14 +77,14 @@ class FreelancerPropostaController extends Controller
                 $imagem->imagemable_id = $proposta->id;
                 $imagem->save();
             }
-            dd('Inserido');
+            return back()->with('success', 'Proposta para trabalho enviada com sucesso');
         }
 
         /*
          * Recusa o envio da proposta!
          */
         else {
-            dd('dado existe');
+            return back()->with('error', 'Já enviaste uma proposta para este trabalho');
         }
 
        // return redirect()->back();

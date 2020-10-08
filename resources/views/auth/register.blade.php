@@ -1,4 +1,5 @@
 @extends('layouts.app_paginas_gerais')
+@section('title', 'Registro')
 @section('meu_css')
 	<style>
 

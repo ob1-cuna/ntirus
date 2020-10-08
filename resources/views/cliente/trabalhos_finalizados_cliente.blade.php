@@ -9,7 +9,7 @@
             <div class="main-card card">
                 <div class="card-body"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}"><h5 class="card-title">{{ $trabalho->nome_trabalho }}</h5></a>
                     <h6 class="card-subtitle">
-                        Freelancer: <a href="/f/{{$trabalho->freelancer['id']}}">{{ $trabalho->freelancer['name']}}</a>
+                        Freelancer: <a href="/f/{{$trabalho->freelancer['username'] ?? $trabalho->freelancer['id']}}">{{ $trabalho->freelancer['name']}}</a>
                     </h6>
                     <div class="row">
                         <div class="col-sm-6 col-xl-3">
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <a href="#" class="btn btn-info">
-                        Ver Avaliacao
+                        Ver Comentário
                     </a>
                 </div>
 

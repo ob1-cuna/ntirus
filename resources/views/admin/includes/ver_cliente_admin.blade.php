@@ -43,6 +43,11 @@
                             </a>
                         </li>
                     </ul>
+                    @if(session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab-animated-0" role="tabpanel">
                             <hr>

@@ -1,5 +1,5 @@
 @extends('layouts.app_paginas_gerais')
-
+@section('title', 'Conta Apagada' )
 @section('content')
     <div class="haslayout innerbannerholder" >
         <div class="container" >

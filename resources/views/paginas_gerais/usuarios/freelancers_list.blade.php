@@ -56,12 +56,46 @@
                             <div class="scrollbar-container ps--active-y ps">
                                 <div class="position-relative form-group">
                                     <div>
-                                        @foreach($provincias->sortBy('provincia') as $provincia)
-                                            <div class="custom-checkbox custom-control">
-                                                <input type="checkbox" id="{{$provincia->provincia}}" name="prov[]" value="{{$provincia->provincia}}" class="custom-control-input">
-                                                <label class="custom-control-label" for="{{$provincia->provincia}}">{{$provincia->provincia}}</label>
-                                            </div>
-                                        @endforeach
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Maputo" name="prov[]" value="Maputo" class="custom-control-input">
+                                            <label class="custom-control-label" for="Maputo">Maputo</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Gaza" name="prov[]" value="Gaza" class="custom-control-input">
+                                            <label class="custom-control-label" for="Gaza">Gaza</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Inhambane" name="prov[]" value="Inhambane" class="custom-control-input">
+                                            <label class="custom-control-label" for="Inhambane">Inhambane</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Sofala" name="prov[]" value="Sofala" class="custom-control-input">
+                                            <label class="custom-control-label" for="Sofala">Sofala</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Manica" name="prov[]" value="Manica" class="custom-control-input">
+                                            <label class="custom-control-label" for="Manica">Manica</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Tete" name="prov[]" value="Tete" class="custom-control-input">
+                                            <label class="custom-control-label" for="Tete">Tete</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Zambezia" name="prov[]" value="Zambezia" class="custom-control-input">
+                                            <label class="custom-control-label" for="Zambezia">Zambezia</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Nampula" name="prov[]" value="Nampula" class="custom-control-input">
+                                            <label class="custom-control-label" for="Nampula">Nampula</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Cabo Delgado" name="prov[]" value="Cabo Delgado" class="custom-control-input">
+                                            <label class="custom-control-label" for="Cabo Delgado">Cabo Delgado</label>
+                                        </div>
+                                        <div class="custom-checkbox custom-control">
+                                            <input type="checkbox" id="Niassa" name="prov[]" value="Niassa" class="custom-control-input">
+                                            <label class="custom-control-label" for="Niassa">Niassa</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="ps__rail-x" style="left: 0px; bottom: 0px;">

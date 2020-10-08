@@ -1,6 +1,18 @@
 @extends('admin.layouts.app')
 @section('title', "Gerir Freelancer" )
 @section('descricao', "Perfil de $user->name!" )
+@section('meu_css')
+    <style>
+        .limite-abaixo {
+            border-style: solid;
+            border-width: 1px;
+            border-color: rgba(30, 30, 30, 0.06);
+            border-right: none;
+            border-left: none;
+            border-top: none;
+        }
+    </style>
+@endsection
 @section('content')
 
         <div class="row">
@@ -155,7 +167,7 @@
                                                 </div>
                                                 <ul style="padding-inline-start: 20px">
                                                     @forelse($user->experiencia->where('tipo', 'educacao') as $educacao)
-                                                    <li style="list-style: none">
+                                                    <li style="list-style: none" class="list-group">
                                                         <div class="row mt-2">
                                                             <h6 class="bold-medio">{{ $educacao->nome}} <i class="fa fa-edit"></i>  <i class="fa fa-trash"></i></h6>
                                                         </div>
@@ -169,6 +181,9 @@
                                                                 <i class="fa fa-calendar-alt mr-2"></i>{{ $educacao->data_inicio }} - @if($educacao->data_terminio == 'Nov -0001')  Até Hoje @else {{ ($educacao->data_terminio)}}@endif
                                                             </div>
                                                         </div>
+                                                        @if($loop->last != true)
+                                                        <div class="limite-abaixo"></div>
+                                                        @endif
                                                     </li>
                                                     @empty
                                                         <strong>SEM HISTORICO ACADEMICO REGISTRADO</strong>
@@ -204,6 +219,9 @@
                                                                     <i class="fa fa-calendar-alt mr-2"></i>{{ $exper_prof->data_inicio }} - @if($exper_prof->data_terminio == 'Nov -0001')  Até Hoje @else {{ ($exper_prof->data_terminio)}}@endif
                                                                 </div>
                                                             </div>
+                                                            @if($loop->last != true)
+                                                                <div class="limite-abaixo"></div>
+                                                            @endif
                                                         </li>
                                                     @empty
                                                         <strong>SEM EXPERINCIA PROFISSIONAL REGISTRADA</strong>

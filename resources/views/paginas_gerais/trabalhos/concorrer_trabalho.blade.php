@@ -40,6 +40,17 @@
         </div>
         <div class="mb-4">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
                 <h5>Detalhes da Proposta</h5>
                 <div class="main-card card">
                     <div class="card-body">
@@ -161,8 +172,6 @@
 
             document.getElementById('taxa_ntiru').innerHTML = tako_n;
             document.getElementById('valor_freelancer').innerHTML = tako_f;
-
-
         }
 
     </script>

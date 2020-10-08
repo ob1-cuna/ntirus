@@ -1,4 +1,5 @@
 @extends('layouts.app_paginas_gerais')
+@section('title', 'Registro | Localização & Habilidades')
 @section('meu_css')
 	<style>
 		.ck-editor__editable {

@@ -1,12 +1,12 @@
 @extends('layouts.app_paginas_gerais')
-@section('title', 'Freelancers')
+@section('title', 'Página Inicial')
 @section('content')
 
     <section class="nt-headline">
         <h1 class="nt-h1 text-left" style="font-family: 'Lato', 'Arial', sans-serif; margin-left: 100px;">Bem-vindo a Ntirus</h1>
         <p class="nt-p text-left" style="font-family: 'Lato', 'Arial', sans-serif; margin-left: 100px;">Conectando profissionais autonomos e clientes!</p>
         <div class="hero-btn-area">
-            @if(auth()!=true)
+            @if(auth()->user()!=true)
             <a class="btn btn-light btn-lg" href="{{ route('register') }}">Cadastre-se</a>
             <a class="btn btn-light btn-lg" href="{{ route('login') }}">Faca o Login</a>
             @endif

@@ -11,44 +11,52 @@
                 <div class="main-card card">
                     <div class="card-body"><h5 class="card-title"><a href="{{ route ('trabalho.show', ['trabalho' => $trabalho->slug]) }}" style="color: rgba(73,25,15,0.55);">{{ $trabalho->nome_trabalho }}</a></h5>
                     <h6 class="card-subtitle">
-                        @switch($trabalho->status)
-                            @case('Finalizado')
-                            <a href="#" class="badge badge-success badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="">
-                                Finalizado
-                            </a>
-                            @break
-                            @case('Pagamento Pendente')
-                            <a href="#" class="badge badge-warning badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="">
-                                Por Pagar
-                            </a>
-                            @break
-                            @default
-                            <a href="#" class="badge badge-danger" style="font-weight: 500;">
-                                Erro de Digitacao
-                            </a>
-                        @endswitch
+                        Cliente: <a href="{{ route ('cliente.show', ['user' => $trabalho->user->username ?? $trabalho->user->id]) }}">{{ $trabalho->user->name }}</a>
                     </h6>
 
                         <div class="row">
-                        <div class="col-sm-6 col-xl-4">
-                            <span>Data de Entrega: <b style="font-weight: 500">{{ Carbon::parse($trabalho->data_entrega)->format('d M Y') }}</b></span>
+                        <div class="col-sm-6 col-xl-3">
+                            <span>Entrega: <b style="font-weight: 500">{{ Carbon::parse($trabalho->data_entrega)->format('d M Y') }}</b></span>
                         </div>
-                        <div class="col-sm-6 col-xl-4">
+                        <div class="col-sm-6 col-xl-3">
                             <span>Preço: <b style="font-weight: 500" class="text-success">{{ number_format($trabalho->preco_final, 2 ) }} MTs</b></span>
                         </div>
-                        <div class="col-sm-6 col-xl-4">
-                            <p>Avaliação: <b style="font-weight: 500">xxxxx</b></p>
+                        <div class="col-sm-6 col-xl-3">
+                            <span>Estado:
+                                @switch($trabalho->status)
+                                    @case('Finalizado')
+                                    <a href="#" class="badge badge-success badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="">
+                                        Finalizado
+                                    </a>
+                                    @break
+                                    @case('Pagamento Pendente')
+                                    <a href="#" class="badge badge-warning badge-pill" style="font-weight: 500;" data-toggle="tooltip-light" data-placement="right" title="" data-original-title="">
+                                        Por Pagar
+                                    </a>
+                                    @break
+                                    @default
+                                    <a href="#" class="badge badge-danger" style="font-weight: 500;">
+                                        Erro de Digitacao
+                                    </a>
+                                @endswitch
+                            </span>
+                        </div>
+                        <div class="col-sm-6 col-xl-3">
+                            <p>Avaliação: <b style="font-weight: 500">@if(getAvaliacao(Auth::user()->id, $trabalho->id, 'minha_avaliacao') == 1) {{ getAvaliacao (Auth::user()->id, $trabalho->id, 'nota') }}.0/5.0 @else N/A/5.0 @endif </b></p>
                         </div>
                         </div>
-                        <a class="btn btn-warning" data-toggle="collapse" href="#">Ver Detalhes</a>
-
+                        @if(getAvaliacao(Auth::user()->id, $trabalho->id, 'minha_avaliacao') == 1)
+                        <a class="btn btn-warning" data-toggle="collapse" href="#tabAvaliado{{$trabalho->id}}">Ver Comentário</a>
+                        @else
+                        <a class="btn btn-warning disabled" data-toggle="collapse" href="#">Ver Comentário</a>
+                        @endif
                     </div>
 
                         @switch($trabalho->status)
 
                             @case('Finalizado')
-                            @if (count($avaliacoes) == 0 )
-                            <div class="d-block text-right card-footer">
+                        <div class="d-block text-right card-footer">
+                            @if (getAvaliacao(Auth::user()->id, $trabalho->id, 'minha_avaliacao') == 0 )
                                 <button class="btn btn-outline-secondary" data-toggle="collapse" href="#tabCliente{{$trabalho->id}}">Avaliar Cliente</button>
                                 <div class="collapse text-left" id="tabCliente{{$trabalho->id}}">
                                     <p></p>
@@ -77,8 +85,15 @@
                                         <input type="submit" class="btn btn-primary">
                                     </form>
                                 </div>
-                            </div>
                             @endif
+
+                            @if(getAvaliacao(Auth::user()->id, $trabalho->id, 'minha_avaliacao') == 1)
+                                <div class="collapse text-left" id="tabAvaliado{{$trabalho->id}}">
+                                    <p>"{{ getAvaliacao (Auth::user()->id, $trabalho->id, 'comentario') }}"</p>
+                                </div>
+                            @endif
+                        </div>
+
                             @break
 
                         @case('Finalizado')

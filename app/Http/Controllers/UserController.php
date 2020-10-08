@@ -20,10 +20,10 @@ class UserController extends Controller
     public function showFreelancer(User $user)
     {
         $exper_profs = ExperEduca::where([['user_id', $user->id],
-            ['tipo', 'exper_prof']])->get();
+            ['tipo', 'exper_prof']])->orderBy('data_inicio', 'DESC')->get();
 
         $educas = ExperEduca::where([['user_id', $user->id],
-            ['tipo', 'educacao']])->get();
+            ['tipo', 'educacao']])->orderBy('data_inicio', 'DESC')->get();
 
         $nota = Review_trab::where([['avaliado_id', $user->id]])->avg('nota');
         $total_avaliacoes = Review_trab::where([['avaliado_id', $user->id]])->count();
@@ -32,9 +32,6 @@ class UserController extends Controller
             $nota = round($round_num, 2);
 
         $trabalhos = Trabalho::where([['freelancer_id', $user->id], ['status', 'Finalizado']])->get();
-        $verificador_foto_perfil = $user->fotoPerfil->count();
-
-        $foto_perfil = $user->fotoPerfil;
         /*
          * Status do Trabalho colocados do ENUM da do Banco de Dados:
          *
@@ -74,6 +71,7 @@ class UserController extends Controller
         $trabalhos_cancelados = Trabalho::where([['user_id', $user->id],['status', 'Cancelado-C']])->count();
         $trabalhos_abertos = Trabalho::where([['user_id', $user->id],['status', 'Aberto']])->get();
         $trabalhos_abertos_total = Trabalho::where([['user_id', $user->id],['status', 'Aberto']])->count();
+        $total_avaliacoes = Review_trab::where([['avaliado_id', $user->id]])->count();
 
         return view('paginas_gerais.usuarios.cliente_show',
             compact([
@@ -83,7 +81,8 @@ class UserController extends Controller
                 'trabalhos_pagos',
                 'trabalhos_cancelados',
                 'trabalhos_abertos',
-                'trabalhos_abertos_total'
+                'trabalhos_abertos_total',
+                'total_avaliacoes'
             ]));
     }
 

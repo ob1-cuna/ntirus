@@ -10,8 +10,9 @@ class AdminTrabalhoController extends Controller
 {
     public  function index ()
     {
-        $trabalhos = Trabalho::all();
-        return view('admin.gerir_trabalhos_list_admin', compact('trabalhos'));
+        $trabalhos = Trabalho::paginate(5);
+        $trabalhos_estatisticas = Trabalho::all();
+        return view('admin.gerir_trabalhos_list_admin', compact(['trabalhos', 'trabalhos_estatisticas']));
     }
 
     protected function ocultar (Trabalho $trabalho)
@@ -37,8 +38,9 @@ class AdminTrabalhoController extends Controller
 
         $query = request()->input('query');
         $trabalhos_count = Trabalho::where('nome_trabalho', 'like', "%$query%")->count();
-        $trabalhos = Trabalho::where('nome_trabalho', 'like', "%$query%")->get();
+        $trabalhos = Trabalho::where('nome_trabalho', 'like', "%$query%")->paginate(5);
+        $trabalhos_estatisticas = Trabalho::where('nome_trabalho', 'like', "%$query%")->get();
 
-        return view('admin.gerir_trabalhos_list_admin', compact(['trabalhos', 'trabalhos_count']));
+        return view('admin.gerir_trabalhos_list_admin', compact(['trabalhos', 'trabalhos_count', 'trabalhos_estatisticas']));
     }
 }

@@ -15,7 +15,7 @@
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-primary">
-                                            {{number_format($tako_feito - $tako_retirado, 2)}} MTs
+                                            {{number_format(getSaldo (Auth::user()->id), 2)}} MTs
                                         </div>
                                     </div>
                                 </div>
@@ -23,7 +23,7 @@
                                     <div class="progress-bar-sm progress-bar-animated-alt progress">
                                         <div class="progress-bar bg-primary"
                                              role="progressbar"
-                                             aria-valuenow="{{number_format(getPercentagem($tako_feito, ($tako_feito - $tako_retirado)))}}"
+                                             aria-valuenow="{{number_format(getPercentagem(getTotalFeito (Auth::user()->id), (getSaldo (Auth::user()->id))))}}"
                                              aria-valuemin="0"
                                              aria-valuemax="100"
                                              style="width: {{number_format(getPercentagem($tako_feito, ($tako_feito - $tako_retirado)))}}%;"></div>
@@ -32,7 +32,7 @@
                                     <div class="progress-sub-label">
                                         <div class="sub-label-left">Percentagem
                                         </div>
-                                        <div class="sub-label-right">{{number_format(getPercentagem($tako_feito, ($tako_feito - $tako_retirado)), 2)}}%</div>
+                                        <div class="sub-label-right">{{number_format(getPercentagem(getTotalFeito (Auth::user()->id), (getSaldo (Auth::user()->id))), 2)}}%</div>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-danger">
-                                            {{number_format($tako_retirado, 2)}} MTs
+                                            {{number_format(getTakoRetirado (Auth::user()->id), 2)}} MTs
                                         </div>
                                     </div>
                                 </div>
@@ -64,7 +64,7 @@
                                     <div class="progress-bar-sm progress-bar-animated-alt progress">
                                         <div class="progress-bar bg-danger"
                                              role="progressbar"
-                                             aria-valuenow="{{number_format(getPercentagem($tako_feito, $tako_retirado))}}"
+                                             aria-valuenow="{{number_format(getPercentagem(getTotalFeito (Auth::user()->id), getTakoRetirado (Auth::user()->id)))}}"
                                              aria-valuemin="0"
                                              aria-valuemax="100"
                                              style="width: {{number_format(getPercentagem($tako_feito, $tako_retirado))}}%;"></div>
@@ -72,7 +72,7 @@
                                     <div class="progress-sub-label">
                                         <div class="sub-label-left">Percentagem
                                         </div>
-                                        <div class="sub-label-right">{{number_format(getPercentagem($tako_feito, $tako_retirado), 2)}}%</div>
+                                        <div class="sub-label-right">{{number_format(getPercentagem(getTotalFeito (Auth::user()->id), getTakoRetirado (Auth::user()->id)), 2)}}%</div>
                                     </div>
                                 </div>
                             </div>
@@ -91,13 +91,13 @@
                                     <div class="widget-content-left">
                                         <div class="widget-heading">Total Feito
                                         </div>
-                                        <div class="widget-subheading">desde 2015
+                                        <div class="widget-subheading">desde {{ Carbon::parse(Auth::user()->created_at)->format('m/y') }}
                                         </div>
 
                                     </div>
                                     <div class="widget-content-right">
                                         <div class="widget-numbers text-focus">
-                                            {{number_format($tako_feito, 2)}} Mts
+                                            {{number_format(getTotalFeito (Auth::user()->id), 2)}} Mts
                                         </div>
                                     </div>
                                 </div>

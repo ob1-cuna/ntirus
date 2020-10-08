@@ -102,7 +102,7 @@
                 Data Emissão
             </td>
             <td style="text-align: right">
-                {{ Carbon::parse($dados->trabalho->data_aceite)->format('d/m/Y') }}
+                {{ Carbon::parse($dados->created_at)->format('d/m/Y') }}
             </td>
         </tr>
         <tr>

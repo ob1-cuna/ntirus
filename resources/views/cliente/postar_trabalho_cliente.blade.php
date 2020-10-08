@@ -39,7 +39,7 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     <label for="tipo" class="">Tipo</label>
-                                    <select name="tipo" id="tipo" class="form-control @error('tipo') is-invalid @enderror">
+                                    <select name="tipo" id="tipo" class="form-control @error('tipo') is-invalid @enderror" required>
                                         <option value="1">Presencial</option>
                                         <option value="2">Remoto</option>
                                     </select>
@@ -53,7 +53,7 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     <label for="nivel" class="">Nivel</label>
-                                    <select name="nivel" id="nivel" class="form-control @error('nivel') is-invalid @enderror">
+                                    <select name="nivel" id="nivel" class="form-control @error('nivel') is-invalid @enderror" required>
                                         <option value="1">Iniciante</option>
                                         <option value="2">Intermedio</option>
                                         <option value="3">Avancado</option>
@@ -70,7 +70,7 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     <label for="provincia" class="">Provincia</label>
-                                    <select name="provincia" id="provincia" class="form-control @error('provincia') is-invalid @enderror">
+                                    <select name="provincia" id="provincia" class="form-control @error('provincia') is-invalid @enderror" required>
                                         @include('layouts.includes.select_provincias')
                                     </select>
                                     @error('provincia')
@@ -83,7 +83,7 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     <label for="distrito" class="">Cidade</label>
-                                    <input name="distrito" id="distrito" placeholder="Cidade" type="text" class="form-control @error('distrito') is-invalid @enderror">
+                                    <input name="distrito" id="distrito" placeholder="Cidade" type="text" class="form-control @error('distrito') is-invalid @enderror" required>
                                     @error('distrito')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -144,7 +144,7 @@
                     </form>
                 </div>
             </div>
-q        </div>
+       </div>
     </div>
 @endsection
 

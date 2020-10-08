@@ -3,6 +3,11 @@
 @section('descricao', 'Página dos detalhes da transação.' )
 @section('content')
     <div class="col-lg-9 col-xl-9 col-md-12 col-sm-12" style="padding: 0;">
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="main-card mb-3 card">
             <div class="card-body"><h5 class="card-title">Transacao</h5>
                 <div class="row">

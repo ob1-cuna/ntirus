@@ -6,6 +6,7 @@ namespace App\Http\Controllers\CAdmin;
 
 use App\MetodosDePagamento;
 use App\Notifications\PagamentoConfirmadoCliente;
+use App\Notifications\PagamentoConfirmadoFreelancer;
 use App\Notifications\SaqueConfirmado;
 use App\Trabalho;
 use App\Transacao;
@@ -51,6 +52,10 @@ class AdminPagamentosController
             'data_de_pagamento' => now(\DateTimeZone::AMERICA),]);
 
         $cliente = User::where('id', $transacao->user_id)->firstOrFail();
+
+        $transacao_freelancer = Transacao::where([['tipo', 'p2f'], ['trabalho_id', $transacao->trabalho_id]])->firstOrFail();
+        $freelancer = User::where('id', $transacao_freelancer->user_id)->firstOrFail();
+
         $detalhes = [
             'saudacao' => 'Olá '.$cliente->name.'.',
             'simples' => 'O pagamento para o trabalho "'.$transacao->trabalho->nome_trabalho. '" foi confirmado.' ,
@@ -59,6 +64,16 @@ class AdminPagamentosController
             'transacao_id' => $transacao->id
         ];
         Notification::send($cliente, new PagamentoConfirmadoCliente($detalhes));
+
+        $detalhes = [
+            'saudacao' => 'Olá '.$freelancer->name.'.',
+            'simples' => 'O pagamento para o trabalho "'.$transacao->trabalho->nome_trabalho. '" publicado por '.$cliente->name.' foi confirmado.' ,
+            'corpo-email' => 'O pagamento para o trabalho "'.$transacao->trabalho->nome_trabalho. '" foi confirmado com sucesso, para mais detalhes clique no link abaixo.' ,
+            'agradecimento' => 'Obrigado por usar Ntirus!',
+            'transacao_id' => $transacao->id
+        ];
+
+        Notification::send($freelancer, new PagamentoConfirmadoFreelancer($detalhes));
 
         return back()->with('success', 'Transação confirmada!');
     }

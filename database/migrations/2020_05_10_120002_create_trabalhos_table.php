@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreateTrabalhosTable extends Migration
 {
@@ -11,6 +12,7 @@ class CreateTrabalhosTable extends Migration
     {
         Schema::create('trabalhos', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->string('nome_trabalho');
             $table->text('descricao');
             $table->bigInteger('user_id')->unsigned();

@@ -125,7 +125,7 @@ class ClienteTrabalhoController extends Controller
     public function storeTrabalho (Request $request)
     {
         $request->validate([
-            'file' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'files' => 'mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $trabalho = Trabalho::create($this->validarDados());
@@ -143,11 +143,11 @@ class ClienteTrabalhoController extends Controller
         }
 
         $imagem = new Imagem;
-        if ($request->file('file'))
+        if ($request->file('files'))
         {
-            $imagemCaminho = $request->file('file');
+            $imagemCaminho = $request->file('files');
             $nomeImagem = $imagemCaminho->getClientOriginalName();
-            $path = $request->file('file')->storeAs('uploads', $nomeImagem);
+            $path = $request->file('files')->storeAs('uploads', $nomeImagem);
 
             $imagem->nome_imagem = $nomeImagem;
             $imagem->caminho = '/storage/'.$path;
@@ -166,10 +166,13 @@ class ClienteTrabalhoController extends Controller
                       'data_entrega' => now(\DateTimeZone::AMERICA),]);
         $freelancer = User::where('id', $trabalho->freelancer->id)->firstOrFail();
         $detalhes = [
-            'simples' => $trabalho->user->name.' aprovou '.$trabalho->nome_trabalho.', por si feito, veja o seu saldo.',
+            'simples' => $trabalho->user->name.' aprovou '.$trabalho->nome_trabalho.', por si feito.',
         ];
+
+        $transacao_id = Transacao::where([['user_id', Auth::user()->id], ['tipo', 'c2p'], ['trabalho_id', $trabalho->id]])->firstOrFail();
+
         Notification::send($freelancer, new TrabalhoAprovado($detalhes));
-        return redirect()->back();
+        return redirect()->route('cliente.invoices.pay', ['transacao' => $transacao_id->id]);
 
     }
 

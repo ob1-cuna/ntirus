@@ -25,6 +25,7 @@
                 @endif
 
                 <form class="" method="POST" action="{{ route('perfil.edit') }}">
+                    @method('patch')
                     @csrf
                     <div class="form-row">
                         <div class="col-md-6">

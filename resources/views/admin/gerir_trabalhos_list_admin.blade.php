@@ -34,12 +34,12 @@
             <div class="main-card card">
                 <ul class="list-group">
                     <li class="list-group-item text-muted">Estatisticas</li>
-                    <li class="list-group-item"><span class="text-left">Publicados</span> <o class="pull-right"><span class="badge badge-primary badge-pill">{{ $trabalhos->count() }}</span></o></li>
-                    <li class="list-group-item"><span class="text-left">Abertos</span> <o class="pull-right"><span class="badge badge-info badge-pill">{{ $trabalhos->where('status', 'Aberto')->count() }}</span></o></li>
-                    <li class="list-group-item"><span class="text-left">Ocultados</span> <o class="pull-right"><span class="badge badge-secondary badge-pill">{{ $trabalhos->where('status', 'Ocultado')->count() }}</span></o></li>
-                    <li class="list-group-item"><span class="text-left">Em Andamento</span> <o class="pull-right"><span class="badge badge-alternate badge-pill">{{ $trabalhos->where('status', 'Em Andamento')->count() }}</span></o></li>
-                    <li class="list-group-item"><span class="text-left">Cancelados</span> <o class="pull-right"><span class="badge badge-warning badge-pill mr-1">{{ $trabalhos->where('status', 'Cancelado-F')->count() }}</span><span class="badge badge-danger badge-pill">{{ $trabalhos->where('status', 'Cancelado-C')->count() }}</span></o></li>
-                    <li class="list-group-item"><span class="text-left">Finalizados</span> <o class="pull-right"><span class="badge badge-success badge-pill">{{ $trabalhos->where('status', 'Finalizado')->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Publicados</span> <o class="pull-right"><span class="badge badge-primary badge-pill">{{ $trabalhos_estatisticas->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Abertos</span> <o class="pull-right"><span class="badge badge-info badge-pill">{{ $trabalhos_estatisticas->where('status', 'Aberto')->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Ocultados</span> <o class="pull-right"><span class="badge badge-secondary badge-pill">{{ $trabalhos_estatisticas->where('status', 'Ocultado')->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Em Andamento</span> <o class="pull-right"><span class="badge badge-alternate badge-pill">{{ $trabalhos_estatisticas->where('status', 'Em Andamento')->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Cancelados</span> <o class="pull-right"><span class="badge badge-warning badge-pill mr-1">{{ $trabalhos_estatisticas->where('status', 'Cancelado-F')->count() }}</span><span class="badge badge-danger badge-pill">{{ $trabalhos->where('status', 'Cancelado-C')->count() }}</span></o></li>
+                    <li class="list-group-item"><span class="text-left">Finalizados</span> <o class="pull-right"><span class="badge badge-success badge-pill">{{ $trabalhos_estatisticas->where('status', 'Finalizado')->count() }}</span></o></li>
                 </ul>
             </div>
         </div>
@@ -186,6 +186,9 @@
     </div>
         <div class="divider" style="background: transparent"></div>
     @endforeach
+        <div class="paginacao-rounded" style="margin-top: 0">
+            {{ $trabalhos->links() }}
+        </div>
     </div>
     </div>
 @endsection()

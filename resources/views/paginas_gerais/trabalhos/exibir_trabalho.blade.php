@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-xs-4 col-sm-12 col-md-4 col-lg-4 col-xl-4 float-right">
                             <div class="btnarea">
-                                <a href="{{ route ('trabalho.concorrer', ['trabalho' => $trabalho->slug ]) }}" class="btn btn-success btn-block btn-wide btn-lg">Enviar Proposta</a>
+                                <a href="{{ route ('trabalho.concorrer', ['trabalho' => $trabalho->slug ]) }}" class="btn btn-success btn-block btn-wide btn-lg @if($trabalho->status != 'Aberto') disabled @endif">Enviar Proposta</a>
                             </div>
                         </div>
                     </div>
@@ -64,6 +64,7 @@
                     </div>
                 </div>
                 </div>
+                @if ($imagems->count() >= 1)
                 <div class="mb-4">
                     <h5>Anexos</h5>
                     <div class="main-card card px-3 py-3">
@@ -82,6 +83,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
             <div class="col-xs-10 col-sm-12 col-md-5 col-lg-5 col-xl-4 float-left mb-4">
                 <div class="mb-4">
@@ -147,14 +149,14 @@
                                             <option>4</option>
                                             <option>5</option>
                                         </select></div>
-                                    <div class="position-relative form-group"><label for="exampleText" class="">Text
-                                            Area</label><textarea name="text" id="exampleText" class="form-control"></textarea>
+                                    <div class="position-relative form-group"><label for="exampleText" class="">Descrição</label>
+                                        <textarea name="text" id="exampleText" class="form-control"></textarea>
                                     </div>
                                     <div class="position-relative form-group"><label for="exampleFile" class="">File</label><input name="file" id="exampleFile" type="file" class="form-control-file">
-                                        <small class="form-text text-muted">Podes anexar um ficheiro com possiveis provas de violacao dos termos de uso.
+                                        <small class="form-text text-muted">Podes anexar um ficheiro com possíveis provas de violação dos termos de uso.
                                         </small>
                                     </div>
-                                    <button class="mt-1 btn btn-primary">Submit</button>
+                                    <button class="mt-1 btn btn-primary">Enviar denúncia</button>
                                 </form>
                             </div>
                     </div>

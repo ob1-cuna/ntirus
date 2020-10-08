@@ -1,5 +1,5 @@
 @extends('layouts.app_paginas_gerais')
-
+@section('title', 'Registro | Verificação de Email')
 @section('content')
     <div class="conteudo">
         <div class="col-xl-4 col-lg-4 col-sm-5 col-md-5 centro-horizontal mb-2">

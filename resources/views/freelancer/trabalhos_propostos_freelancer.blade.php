@@ -67,7 +67,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($proposta->trabalho->imagems as $imagem)
+                                    @foreach($proposta->imagems as $imagem)
                                     <tr>
                                         <th scope="row">{{ $loop->index+1 }}</th>
                                         <td>{{ $imagem->nome_imagem }}</td>

@@ -13,6 +13,12 @@ class ExperEducaController extends Controller
     public function update(ExperEduca $Expereduca)
     {
         $Expereduca->update($this->validarDados());
+
+        if (request()->data_terminio == null)
+        {
+            Expereduca::where('id', $Expereduca->id)->update(['data_terminio'=> '1900-01-01']);
+        }
+
         return redirect()->back();
 
     }
@@ -33,14 +39,26 @@ class ExperEducaController extends Controller
 
     protected function validarDados()
     {
-        return $data = request()->validate( [
-            'user_id'  => ['required'],
-            'tipo' => ['required'],
-            'instituicao' => ['required', 'string', 'max:150'],
-            'nome' => ['required', 'string', 'max:150'],
-            'data_inicio' => ['required'],
-            'descricao' => ['string'],
+        if (request()->data_terminio == null)
+            return $data = request()->validate([
+                'user_id' => ['required'],
+                'tipo' => ['required'],
+                'instituicao' => ['required', 'string', 'max:150'],
+                'nome' => ['required', 'string', 'max:150'],
+                'data_inicio' => ['required'],
+                'descricao' => ['string'],
 
-        ]);
+            ]);
+
+        else
+            return $data = request()->validate([
+                'user_id' => ['required'],
+                'tipo' => ['required'],
+                'instituicao' => ['required', 'string', 'max:150'],
+                'nome' => ['required', 'string', 'max:150'],
+                'data_inicio' => ['required'],
+                'data_terminio' => ['string'],
+                'descricao' => ['string'],
+            ]);
     }
 }

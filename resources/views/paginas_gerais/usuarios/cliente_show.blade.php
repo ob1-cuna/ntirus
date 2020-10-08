@@ -1,5 +1,5 @@
 @extends('layouts.app_paginas_gerais')
-@section('title', "" )
+@section('title', "$user->name" )
 @section('content')
     <div class="clearfix"></div>
     <div class="conteudo" style="padding: auto">
@@ -136,6 +136,7 @@
                     </div>
                 </div>
                 <br>
+                @if($total_avaliacoes >= 1)
                 <h5>Avaliações</h5>
                 <div class="main-card card px-3">
                     <div class="card-body">
@@ -166,7 +167,7 @@
                                 <div class="row">
                                     <div class="list-inline">
                                         <div class="list-inline-item align-middle">
-                                            <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs" alt="">
+                                            <img src="{{ asset($trabalho->freelancer->perfil->foto_perfil) }}" class="avatar-icon usuario-avatar-xs" alt="">
                                         </div>
                                         <div class="list-inline-item bold-medio" style="font-size: medium">{{$trabalho->freelancer->name}}</div>
                                     </div>
@@ -181,6 +182,7 @@
                     </div>
                 </div>
                 <br>
+                @endif
             </div>
         </div>
         <div class="mb-4">
@@ -198,14 +200,14 @@
                                     <option>4</option>
                                     <option>5</option>
                                 </select></div>
-                            <div class="position-relative form-group"><label for="exampleText" class="">Text
-                                    Area</label><textarea name="text" id="exampleText" class="form-control"></textarea>
+                            <div class="position-relative form-group"><label for="exampleText" class="">Descrição</label>
+                                <textarea name="text" id="exampleText" class="form-control"></textarea>
                             </div>
                             <div class="position-relative form-group"><label for="exampleFile" class="">File</label><input name="file" id="exampleFile" type="file" class="form-control-file">
-                                <small class="form-text text-muted">Podes anexar um ficheiro com possiveis provas de violacao dos termos de uso.
+                                <small class="form-text text-muted">Podes anexar um ficheiro com possíveis provas de violação dos termos de uso.
                                 </small>
                             </div>
-                            <button class="mt-1 btn btn-primary">Submit</button>
+                            <button class="mt-1 btn btn-primary">Enviar denúncia</button>
                         </form>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 @extends('layouts.app_paginas_gerais')
-@section('title', "" )
+@section('title', "$user->name" )
 @section('content')
     <div class="clearfix"></div>
     <div class="conteudo" style="padding: auto">
@@ -73,8 +73,10 @@
                 <br>
             </div>
         </div>
+
         <div class="mb-4">
         <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left">
+            @if($total_avaliacoes >= 1)
             <h5>Avaliações</h5>
             <div class="main-card card px-3">
                 <div class="card-body">
@@ -94,7 +96,7 @@
                                 </div>
                                 <div class="limite-direita"></div>
                                 <div class="ml-3">
-                                    <i class="fa fa-calendar-alt mr-2"></i>{{ Carbon::parse($trabalho->data_aceite)->format('d M Y') }} - {{ Carbon::parse($trabalho->data_entrega)->format('d M Y') }}
+                                    <i class="fa fa-calendar-alt mr-2"></i>{{ Carbon::parse($trabalho->created_at)->format('d M Y') }} - {{ Carbon::parse($trabalho->data_entrega)->format('d M Y') }}
                                 </div>
                             </div>
                             <div class="row">
@@ -105,7 +107,7 @@
                             <div class="row">
                                 <div class="list-inline">
                                     <div class="list-inline-item align-middle">
-                                        <img src="{{ asset('images/profile/user.jpg') }}" class="avatar-icon usuario-avatar-xs" alt="">
+                                        <img src="{{ asset($trabalho->user->perfil->foto_perfil) }}" class="avatar-icon usuario-avatar-xs" alt="">
                                     </div>
                                 <div class="list-inline-item bold-medio" style="font-size: medium">{{$trabalho->user->name}}</div>
                             </div>
@@ -121,6 +123,7 @@
 
             </div>
             <br>
+            @endif
             <h5>Experiência Profissional</h5>
             <div class="main-card card px-3">
                 <div class="card-body">
@@ -154,7 +157,7 @@
                 </div>
             </div>
             <br>
-            <h5>Educacao</h5>
+            <h5>Educação</h5>
             <div class="main-card card px-3">
                 <div class="card-body">
                     @foreach($educas as $educa)
@@ -216,20 +219,20 @@
                         <div class="position-relative form-group"><label for="exampleSelectMulti" class="">
                                 Motivo
                             </label><select name="selectMulti" id="exampleSelectMulti" class="form-control">
-                                <option>Selecione um motivo</option>
+                                <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
                                 <option>4</option>
                                 <option>5</option>
                             </select></div>
-                        <div class="position-relative form-group"><label for="exampleText" class="">Text
-                                Area</label><textarea name="text" id="exampleText" class="form-control"></textarea>
+                        <div class="position-relative form-group"><label for="exampleText" class="">Descrição</label>
+                            <textarea name="text" id="exampleText" class="form-control"></textarea>
                         </div>
                         <div class="position-relative form-group"><label for="exampleFile" class="">File</label><input name="file" id="exampleFile" type="file" class="form-control-file">
-                            <small class="form-text text-muted">Podes anexar um ficheiro com possiveis provas de violacao dos termos de uso.
+                            <small class="form-text text-muted">Podes anexar um ficheiro com possíveis provas de violação dos termos de uso.
                             </small>
                         </div>
-                        <button class="mt-1 btn btn-primary">Submit</button>
+                        <button class="mt-1 btn btn-primary">Enviar denúncia</button>
                     </form>
                 </div>
             </div>

@@ -17,7 +17,7 @@ class CreateHabilidadeUserTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('habilidade_id')->constrained();
-            $table->Integer('classificacao');
+            $table->Integer('classificacao')->default(0);
             $table->timestamps();
         });
         

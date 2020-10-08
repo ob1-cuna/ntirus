@@ -30,13 +30,13 @@ class TrabalhoController extends Controller
             $trabalhos = Trabalho::where('status', 'Aberto')->whereHas('habilidades',
                 function ($query) {
                     $query->where('slug', request()->cat);
-                })->paginate(5);
+                })->orderBy('created_at', 'DESC')->paginate(5);
 
         }
 
         else
         {
-            $trabalhos = Trabalho::where('status', 'Aberto')->paginate(5);
+            $trabalhos = Trabalho::where('status', 'Aberto')->orderBy('created_at', 'DESC')->paginate(5);
         }
 
        return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades', 'provincias']));
@@ -57,16 +57,16 @@ class TrabalhoController extends Controller
             //apenas categoria & nome
             $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->whereHas('habilidades',
                 function ($query){
-                    $query->whereIn('slug', request()->get('cat'));})->paginate(5);}
+                    $query->whereIn('slug', request()->get('cat'));})->orderBy('created_at', 'DESC')->paginate(5);}
 
         elseif ($categoria_filter == null && $provincia_filter != null) {
             //apenas província e nome
-            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->whereIn('provincia', request()->get('prov'))->paginate(5);}
+            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->whereIn('provincia', request()->get('prov'))->orderBy('created_at', 'DESC')->paginate(5);}
 
 
         elseif ($categoria_filter == null && $provincia_filter == null) {
             //apenas nome
-            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->paginate(5);}
+            $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->orderBy('created_at', 'DESC')->paginate(5);}
 
         else {
 
@@ -74,7 +74,7 @@ class TrabalhoController extends Controller
             $trabalhos = Trabalho::where([['status', 'Aberto'], ['nome_trabalho', 'like', "%$pesquisa%"]])->whereHas('habilidades',
                 function ($query)
                 {$cat = request()->get('cat');
-                    $query->whereIn('slug', $cat);})->whereIn('provincia', request()->get('prov'))->paginate(5);}
+                    $query->whereIn('slug', $cat);})->whereIn('provincia', request()->get('prov'))->orderBy('created_at', 'DESC')->paginate(5);}
 
         return view('paginas_gerais.trabalhos.trabalhos_abertos_list', compact(['trabalhos', 'todas_habilidades', 'provincias', 'trabalhos_count']));
     }
