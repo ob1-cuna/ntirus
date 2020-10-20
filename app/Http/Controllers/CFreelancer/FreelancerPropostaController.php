@@ -97,7 +97,7 @@ class FreelancerPropostaController extends Controller
 
     public function ListarTrabalhosPropostos ()
     {
-        $propostas = Proposta::where('user_id', Auth::user()->id)->paginate(5);
+        $propostas = Proposta::where('user_id', Auth::user()->id)->orderBy('updated_at', 'DESC')->paginate(5);
 
         return view ('freelancer.trabalhos_propostos_freelancer', compact([
             'propostas',

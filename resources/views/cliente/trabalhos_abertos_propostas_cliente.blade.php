@@ -21,11 +21,11 @@
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left mr-3">
                                 <img width="42" class="avatar-icon usuario-avatar-xs"
-                                     src="{{ asset('images/profile/user.jpg') }}" height="42" alt=""
+                                     src="{{ asset($proposta->user->perfil->foto_perfil) }}" height="42" alt=""
                                      style="object-fit: cover;">
                             </div>
                             <div class="widget-content-left flex2">
-                                <div class="widget-heading">{{ $proposta->user->name }}</div>
+                                <div class="widget-heading"><a href="{{ route ('freelancers.show', ['user' => $proposta->user->username ?? $proposta->user->id]) }}">{{ $proposta->user->name }}</a></div>
                                 <div class="widget-subheading opacity-10">
 
 

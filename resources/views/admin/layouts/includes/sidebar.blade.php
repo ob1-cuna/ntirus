@@ -1,6 +1,6 @@
 <div class="app-sidebar sidebar-shadow">
     <div class="app-header__logo">
-        <a href="#" data-toggle="tooltip" data-placement="bottom" title="KeroUI Admin Template" class="logo-src"></a>
+        <a href="{{ route('home') }}" data-toggle="tooltip" data-placement="bottom" title="Ntirus" class="logo-src"></a>
         <button type="button" class="hamburger hamburger--elastic mobile-toggle-nav">
                                 <span class="hamburger-box">
                                     <span class="hamburger-inner"></span>
@@ -16,9 +16,6 @@
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Dashboard
                     </a>
-                </li>
-                <li>
-                    <a href="#"><i class="metismenu-icon pe-7s-browser"></i>Estado</a>
                 </li>
                 <li class="app-sidebar__heading">Aplicação</li>
                 <li class="{{ (request()->routeIs('admin.dashboard.usuarios.index')) ? 'mm-active' : '' }}">

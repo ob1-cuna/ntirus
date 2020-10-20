@@ -24,7 +24,7 @@
 
                 <div class="form-wizard-content sw-container tab-content" style="min-height: 356px;">
                     <div id="step-1" class="tab-pane step-content">
-                        <form id="metodoForm" class="col-md-10 mx-auto" method="post"
+                        <form id="metodoForm-01" class="col-md-10 mx-auto" method="post"
                               action="{{ route('cliente.invoices.pay.store', ['transacao' => $transacao->id]) }}">
                             @csrf
                             <div class="form-group">
@@ -36,6 +36,11 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <i class="pe pe-7s-info mt-3 mr-2 ml-2"></i>Para pagameto com <b style="font-weight: 500;">M-pesa</b>: 84<br>
+                                <i class="pe pe-7s-info mr-2 ml-2"></i>Para pagameto com <b style="font-weight: 500;">Mkesh</b>: 82<br>
+                                <i class="pe pe-7s-info mr-2 ml-2"></i>Para pagameto com <b style="font-weight: 500;">Millennium BIM</b>: 000000<br>
+                                <i class="pe pe-7s-info mr-2 ml-2"></i>Para pagameto com <b style="font-weight: 500;">Ponto 24</b>: 82<br>
+                                <i class="pe pe-7s-info mr-2 ml-2"></i>Para pagameto com <b style="font-weight: 500;">E-mola</b>: 86<br>
                             </div>
                             <div class="form-group">
                                 <label for="titular">Titular</label>

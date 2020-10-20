@@ -1,5 +1,5 @@
 @extends('cliente.layouts.app')
-@section('title', 'Definições da Conta' )
+@section('title', 'Meu painel' )
 @section('descricao', 'Página de operações relativas â conta do usuário da Ntirus.' )
 @section('content')
 

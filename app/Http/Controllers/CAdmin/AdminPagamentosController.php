@@ -70,7 +70,7 @@ class AdminPagamentosController
             'simples' => 'O pagamento para o trabalho "'.$transacao->trabalho->nome_trabalho. '" publicado por '.$cliente->name.' foi confirmado.' ,
             'corpo-email' => 'O pagamento para o trabalho "'.$transacao->trabalho->nome_trabalho. '" foi confirmado com sucesso, para mais detalhes clique no link abaixo.' ,
             'agradecimento' => 'Obrigado por usar Ntirus!',
-            'transacao_id' => $transacao->id
+            'transacao_id' => $transacao_freelancer->id
         ];
 
         Notification::send($freelancer, new PagamentoConfirmadoFreelancer($detalhes));

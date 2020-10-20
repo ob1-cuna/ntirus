@@ -124,7 +124,7 @@
 <header class="nt-sombras">
     <div class="nt-nav-wrapper">
         <nav class="navbar navbar-expand-lg navbar-light sticky-top">
-            <a class="navbar-brand" href="{{ route('home-2') }}">
+            <a class="navbar-brand" href="{{ route('home') }}">
                 <img src="{{ asset('images/brand_ntitus/logotype.svg') }}" width="auto" height="22" alt="" loading="lazy">
             </a>
             <button class="navbar-toggler mb-2" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -132,9 +132,9 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <form class="navbar-nav mr-auto">
+                <form method="GET" action="{{ route('trabalhos.filter') }}" class="navbar-nav mr-auto">
                     <div class="caixa-de-pesquisa-alt">
-                        <input type="search" name="query" id="query" value="{{request()->input('query')}}" placeholder="Pesquise..." class="form-control" autocomplete="off">
+                        <input type="search" name="p-trabalhos" id="p-trabalhos" value="{{request()->input('p-trabalhos')}}" placeholder="Pesquise..." class="form-control" autocomplete="off">
                         <i class="caixa-de-pesquisa-icon-wrapper-alt fa fa-search"></i>
                     </div>
                 </form>
@@ -147,7 +147,7 @@
                         <a class="nav-link" href="{{ route('trabalhos.list') }}">Trabalhos</a>
                     </li>
                     <li @guest class="nav-item" @endguest @auth class="nav-item mr-3" @endauth>
-                        <a class="nav-link" href="#">Como Funciona</a>
+
                     </li>
                     @guest
                     <li class="nav-item">
@@ -165,21 +165,21 @@
                                     @if(checkPermission(['freelancer']))
                                         <a href="{{ route('dashboard') }}" class="dropdown-item">
                                             <i class="metismenu-icon pe-7s-rocket mr-2"></i>
-                                            Dashboard
+                                            Painel
                                         </a>
                                     @endif
 
                                     @if(checkPermission(['admin']))
                                         <a href="{{ route('admin.dashboard.home') }}" class="dropdown-item">
                                             <i class="metismenu-icon pe-7s-rocket mr-2"></i>
-                                            Dashboard
+                                            Painel
                                         </a>
                                     @endif
 
                                     @if(checkPermission(['cliente']))
                                         <a href="{{ route('cliente.dashboard') }}" class="dropdown-item">
                                             <i class="metismenu-icon pe-7s-rocket mr-2"></i>
-                                            Dashboard
+                                            Painel
                                         </a>
                                     @endif
                                 @endauth
@@ -208,7 +208,19 @@
                                                 <div class="menu-header-image opacity-5" style="background-image: url('{{ asset('images/dropdown-header/city1.jpg') }}');"></div>
                                                 <div class="menu-header-content text-light">
                                                     <h5 class="menu-header-title">Notificações</h5>
-                                                    <h6 class="menu-header-subtitle">Tens <b>{{ Auth::user()->unreadNotifications->count() }}</b> notificações não lidas</h6>
+                                                    @if(Auth::user()->unreadNotifications->count() == 0)
+                                                        <h6 class="menu-header-subtitle">
+                                                            Sem notificações não lidas
+                                                        </h6>
+                                                    @elseif (Auth::user()->unreadNotifications->count() == 1)
+                                                    <h6 class="menu-header-subtitle">
+                                                        Tens <b>{{ Auth::user()->unreadNotifications->count() }}</b> notificação não lida
+                                                    </h6>
+                                                    @else
+                                                    <h6 class="menu-header-subtitle">
+                                                        Tens <b>{{ Auth::user()->unreadNotifications->count() }}</b> notificações não lidas
+                                                    </h6>
+                                                     @endif
                                                 </div>
                                             </div>
                                         </div>
